@@ -2267,36 +2267,20 @@ services:
     setTimeout(() => { drawConnectors(1); drawConnectors(2); }, 500);
     500);
 
-   // ===== 最終更新日の自動表示 =====
-   // GitHubリポジトリの index.html への最終コミット日時を取得して表示します。
-   // ファイルを更新してGitHubにpushするたびに、この日付は自動で更新されます。
-   (function () {
-     const updatedDateEl = document.getElementById('updated-date');
-     if (!updatedDateEl) return;
+   // ===== 最終更新日の自動表示（外部通信なし） =====
+    (function () {
+      const updatedDateEl = document.getElementById('updated-date');
+      if (!updatedDateEl) return;
 
-     fetch('https://api.github.com/repos/shuuut0F5/portfolio24010028/commits?path=index.html&per_page=1')
-       .then(res => {
-         if (!res.ok) throw new Error('GitHub API request failed');
-         return res.json();
-       })
-       .then(data => {
-         if (!Array.isArray(data) || data.length === 0) {
-           updatedDateEl.textContent = '';
-           return;
-         }
-         const commitDate = new Date(data[0].commit.committer.date);
-         const formatted = commitDate.toLocaleDateString('ja-JP', {
-           year: 'numeric',
-           month: 'long',
-           day: 'numeric'
-         });
-         updatedDateEl.textContent = `最終更新日：${formatted}`;
-       })
-       .catch(() => {
-         // API制限やネットワークエラー時は表示を空にする
-         updatedDateEl.textContent = '';
-       });
-   })();
+      const modifiedDate = new Date(document.lastModified);
+      const formatted = modifiedDate.toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      updatedDateEl.textContent = `最終更新日：${formatted}`;
+    })();
+
   </script>
 </body>
 </html>
