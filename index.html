@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -2265,22 +2266,22 @@ services:
     // Draw initial lines with incremental checks to handle render lag
     setTimeout(() => { drawConnectors(1); drawConnectors(2); }, 100);
     setTimeout(() => { drawConnectors(1); drawConnectors(2); }, 500);
-    500);
 
-   // ===== 最終更新日の自動表示（外部通信なし） =====
+    // ===== 最終更新日の自動表示（外部通信なし） =====
+    // ブラウザがページを読み込む際に受け取る Last-Modified 情報を使用します。
+    // GitHubにpushしてサイトが更新されるたびに、この日付も自動で変わります。
     (function () {
-      const updatedDateEl = document.getElementById('updated-date');
+      var updatedDateEl = document.getElementById('updated-date');
       if (!updatedDateEl) return;
 
-      const modifiedDate = new Date(document.lastModified);
-      const formatted = modifiedDate.toLocaleDateString('ja-JP', {
+      var modifiedDate = new Date(document.lastModified);
+      var formatted = modifiedDate.toLocaleDateString('ja-JP', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       });
-      updatedDateEl.textContent = `最終更新日：${formatted}`;
+      updatedDateEl.textContent = '最終更新日：' + formatted;
     })();
-
   </script>
 </body>
 </html>
