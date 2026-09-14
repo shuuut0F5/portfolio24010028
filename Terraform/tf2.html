@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terraform × LXD で完全無料 EC2 管理体験を構築した記録</title>
+  <style>
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      margin: 0;
+      background: #f7f9fc;
+      color: #333;
+      line-height: 1.8;
+    }
+    header {
+      background: #1f4b99;
+      color: white;
+      padding: 2.5rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+    }
+    header p {
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #1f4b99;
+      border-left: 6px solid #1f4b99;
+      padding-left: 10px;
+      margin-top: 2.5rem;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid #ddd;
+    }
+    .timeline {
+      border-left: 3px solid #1f4b99;
+      margin-left: 1rem;
+      padding-left: 1.5rem;
+    }
+    .event {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .event::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      background: #1f4b99;
+      border-radius: 50%;
+      position: absolute;
+      left: -29px;
+      top: 5px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-right: 6px;
+    }
+    .ok { background: #e3f6e9; color: #1b7a3c; }
+    .ng { background: #ffe5e5; color: #b00020; }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Terraform × LXD で「完全無料 EC2 管理体験」を構築した記録</h1>
+  <p>クラウドを使わずに、EC2 と同じインフラ管理体験を再現した技術プロジェクト</p>
+</header>
+
+<main>
+
+  <h2>プロジェクト概要</h2>
+  <p>
+    AWS EC2 を使わずに、<strong>完全無料で EC2 と同じ管理体験を再現する</strong>ことを目的に、
+    Terraform と LXD を組み合わせてインフラ構築を行った。
+    途中で複数のエラーに遭遇したが、それらを一つずつ解決しながら最終的に
+    <strong>Terraform でコンテナを作成・起動・削除できる環境</strong>を完成させた。
+  </p>
+
+  <h2>タイムライン（挑戦と解決の記録）</h2>
+  <div class="timeline">
+
+    <div class="event">
+      <span class="tag ok">成功</span>
+      <h3>Terraform の動作確認</h3>
+      <pre><code>terraform -version
+which terraform</code></pre>
+    </div>
+
+    <div class="event">
+      <span class="tag ng">つまずき</span>
+      <h3>VirtualBox プロバイダーが非公式で init が失敗</h3>
+      <p>公式プロバイダーが存在しないため、Terraform Registry から取得できず。</p>
+      <p><strong>→ LXD に切り替える方針へ変更</strong></p>
+    </div>
+
+    <div class="event">
+      <span class="tag ok">成功</span>
+      <h3>LXD のインストールと初期化</h3>
+      <pre><code>sudo apt install -y lxd
+sudo lxd init</code></pre>
+      <p>ストレージプール名が重複していたため、新しい名前 <code>default2</code> を設定。</p>
+    </div>
+
+    <div class="event">
+      <span class="tag ok">成功</span>
+      <h3>Terraform 設定ファイル vm.tf を作成</h3>
+      <pre><code>resource "lxd_container" "test" {
+  name  = "terraform-test"
+  image = "ubuntu:22.04"
+}</code></pre>
+    </div>
+
+    <div class="event">
+      <span class="tag ok">成功</span>
+      <h3>terraform init（プロバイダー取得）</h3>
+      <pre><code>terraform init</code></pre>
+    </div>
+
+    <div class="event">
+      <span class="tag ng">つまずき</span>
+      <h3>権限エラー：LXD ソケットにアクセスできない</h3>
+      <pre><code>permission denied: unix.socket</code></pre>
+      <h4>解決</h4>
+      <pre><code>sudo usermod -aG lxd siwuser
+sudo reboot</code></pre>
+    </div>
+
+    <div class="event">
+      <span class="tag ng">つまずき</span>
+      <h3>コンテナ名の重複エラー</h3>
+      <pre><code>This "instances" entry already exists</code></pre>
+      <h4>解決</h4>
+      <pre><code>lxc delete terraform-test --force</code></pre>
+    </div>
+
+    <div class="event">
+      <span class="tag ok">成功</span>
+      <h3>terraform apply（コンテナ作成成功）</h3>
+      <pre><code>Apply complete! Resources: 1 added</code></pre>
+    </div>
+
+  </div>
+
+  <h2>EC2 と同じ操作が可能になった</h2>
+  <h3>インスタンス一覧</h3>
+  <pre><code>lxc list</code></pre>
+
+  <h3>インスタンスへログイン（EC2 の SSH と同じ）</h3>
+  <pre><code>lxc exec terraform-test -- bash</code></pre>
+
+  <h3>インスタンス削除（EC2 terminate と同じ）</h3>
+  <pre><code>terraform destroy
+lxc delete terraform-test --force</code></pre>
+
+  <h2>最終成果</h2>
+  <p>
+    Terraform と LXD を組み合わせることで、クラウドを使わずに
+    <strong>EC2 と同じインフラ管理体験を完全無料で再現する環境</strong>を構築した。
+    これはクラウドインフラの学習や IaC の理解に大きく役立つ成果となった。
+  </p>
+
+</main>
+
+<footer>
+  © 2026 shuto — Terraform × LXD Infrastructure Project
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ngrok によるローカル Web インフラ公開手順</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f7f9fc; margin: 0; color: #222; line-height: 1.8; }
+    header { background: #1f4b99; color: #fff; padding: 2.5rem; text-align: center; }
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin-top: 0.5rem; opacity: 0.9; }
+    main { max-width: 900px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    h2 { color: #1f4b99; border-left: 6px solid #1f4b99; padding-left: 10px; margin-top: 2.5rem; }
+    h3 { margin-top: 1.5rem; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.4rem; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto; border: 1px solid #ddd; }
+    code { font-family: "SF Mono", Consolas, monospace; }
+    footer { text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ngrok によるローカル Web インフラ公開手順</h1>
+  <p>作成者：shuto — VPS 不要でローカル環境を安全に外部公開する方法</p>
+</header>
+
+<main>
+
+  <h2>概要</h2>
+  <p>
+    このページでは、ローカル環境で構築した Web サーバー（LXD / Docker / Nginx / PHP / MySQL など）を  
+    <strong>ngrok を使って外部公開する最短手順</strong>をまとめています。  
+    VPS やルーター設定が不要で、誰でも安全に公開できます。
+  </p>
+
+  <h2>ngrok を使えるようにする最短手順（3分）</h2>
+
+  <h3>1. 無料アカウントを作成</h3>
+  <p>以下の公式サイトでメール登録するだけで OK。</p>
+  <pre><code>https://dashboard.ngrok.com/signup</code></pre>
+
+  <h3>2. authtoken を取得</h3>
+  <p>ログイン後、以下のページに自分専用のトークンが表示されます。</p>
+  <pre><code>https://dashboard.ngrok.com/get-started/your-authtoken</code></pre>
+
+  <h3>3. Ubuntu に authtoken を登録</h3>
+  <p>コピーしたトークンを Ubuntu に登録します。</p>
+  <pre><code>ngrok config add-authtoken &lt;あなたのトークン&gt;</code></pre>
+
+  <h3>4. 公開したいポートをトンネルする</h3>
+  <p>例：LXD / HAProxy（3000）を公開する場合</p>
+  <pre><code>ngrok http 3000</code></pre>
+
+  <p>例：Docker / Nginx（3001）を公開する場合</p>
+  <pre><code>ngrok http 3001</code></pre>
+
+  <p>実行すると以下のような URL が発行されます。</p>
+  <pre><code>https://xxxxx.ngrok-free.dev/</code></pre>
+
+  <p>この URL をブラウザで開けば、ローカルの Web サイトが外部公開されます。</p>
+
+  <h2>公開できる構成例（shuto の環境）</h2>
+  <ul>
+    <li>LXD / HAProxy → <strong>3000</strong></li>
+    <li>Docker / Nginx → <strong>3001</strong></li>
+    <li>PHP-FPM → 9000（内部）</li>
+    <li>MySQL → 3306（内部）</li>
+    <li>Redis → 6379（内部）</li>
+  </ul>
+
+  <h2>ポイント</h2>
+  <ul>
+    <li>VPS 不要で外部公開できる</li>
+    <li>ルーターのポート開放も不要</li>
+    <li>安全にローカル環境を公開できる</li>
+    <li>複数ポートを同時に公開可能（3000 / 3001）</li>
+  </ul>
+
+</main>
+
+<footer>
+  © 2026 shuto — ngrok Local Web Infrastructure Publishing Guide
+</footer>
+
+</body>
+</html>

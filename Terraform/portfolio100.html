@@ -1,0 +1,3182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shuto Fukuda - Portfolio</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Design Tokens - Styled to match tan620804.studio.site template */
+    :root {
+      --bg: #f2f1f0; /* Studio site background tone */
+      --card-bg: #ffffff;
+      --border-color: rgba(17, 17, 17, 0.08);
+      --text-main: #111111; /* Studio site primary dark text */
+      --text-muted: #6b7280;
+      --primary: #2563eb;
+      --accent: #10b981;
+      --danger: #ef4444;
+      
+      --font-sans: 'Lato', 'Zen Kaku Gothic New', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Playfair Display', 'Georgia', serif;
+      --font-mono: 'Fira Code', monospace;
+      
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 5rem;
+    }
+
+    /* Layout Container */
+    .container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 4rem;
+      position: relative;
+    }
+
+    /* Sticky Header Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(242, 241, 240, 0.9);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+    .logo:hover {
+      opacity: 0.7;
+      transform: translateX(4px);
+    }
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-main);
+      position: relative;
+      padding: 0.25rem 0;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--text-main);
+      transition: var(--transition);
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+    }
+    .hero-content {
+      width: 100%;
+    }
+    .hero-title-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+    }
+    .hero-title-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1.5rem;
+      background: rgba(17, 17, 17, 0.05);
+      z-index: -1;
+    }
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* Section Grid - Split Columns Like Studio Template */
+    .section-grid {
+      display: flex;
+      gap: 4rem;
+      padding: 8rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+    .section-left {
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 6rem;
+      height: fit-content;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+    }
+    .section-right {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    /* About Section Content */
+    .about-content {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+    }
+    .profile-image {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2MzQ2fDB8MXxzZWFyY2h8MTMxfHxmYXNoaW9ufGVufDB8fHx8MTc2MTUyMzkzOHww&ixlib=rb-4.1.0&q=80&w=1080');
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .about-text {
+      flex-grow: 1;
+    }
+    .about-name-group {
+      margin-bottom: 1.5rem;
+    }
+    .about-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .about-name-eng {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+    .about-desc {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.8;
+    }
+
+    /* Works Section (Terraform x LXD Implementation) */
+    .works-header {
+      margin-bottom: 2.5rem;
+    }
+    .works-project-title {
+      font-size: 1.75rem;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+    .works-project-desc {
+      color: var(--text-muted-dark);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: var(--transition);
+    }
+    .stat-card:hover {
+      border-color: var(--primary);
+    }
+    .stat-card h3 {
+      font-size: 0.85rem;
+      color: var(--text-muted-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .stat-card .value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .stat-card .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .tech-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      color: var(--text-muted-dark);
+    }
+
+    /* Tabs Component */
+    .tabs-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.3rem;
+      margin-bottom: 2rem;
+    }
+    .tab-buttons {
+      display: flex;
+      gap: 0.2rem;
+    }
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted-dark);
+      padding: 0.75rem 1.25rem;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    .tab-btn:hover {
+      color: #000;
+      background: #f8fafc;
+    }
+    .tab-btn.active {
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Detail Card */
+    .detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .detail-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+    .detail-card p {
+      color: var(--text-muted-dark);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Graphical Network Diagram */
+    .diagram-container {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .diagram-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted-dark);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .network-vis {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .node {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      transition: var(--transition);
+    }
+    .node:hover {
+      border-color: var(--primary);
+    }
+    .node-client {
+      border-color: #cbd5e1;
+    }
+    .node-lb {
+      border-color: #93c5fd;
+      background: #f0f7ff;
+    }
+    .node-web {
+      border-color: #a7f3d0;
+      background: #f0fdf4;
+    }
+    .node .title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+    .node .desc {
+      font-size: 0.75rem;
+      color: var(--text-muted-dark);
+      margin-top: 0.2rem;
+    }
+    .web-group {
+      display: flex;
+      gap: 1.5rem;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+    .connector-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .connection-line {
+      stroke: #cbd5e1;
+      stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+    }
+    .pulse-line {
+      stroke: var(--primary);
+      stroke-width: 2;
+      stroke-dasharray: 8 100;
+      stroke-dashoffset: 108;
+      animation: pulseFlow 2.5s linear infinite;
+    }
+    @keyframes pulseFlow {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Timelines */
+    .timeline {
+      position: relative;
+      margin-left: 1rem;
+      border-left: 2px solid var(--border-color);
+      padding-left: 2rem;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-marker {
+      position: absolute;
+      left: calc(-2rem - 5px);
+      top: 0.25rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      border: 2px solid var(--bg);
+    }
+    .timeline-item.success .timeline-marker {
+      background: var(--primary);
+    }
+    .timeline-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+    .timeline-badge.ok {
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+    }
+    .timeline-item h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-item p {
+      color: var(--text-muted-dark);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Accordion (Troubleshooting) */
+    .accordion {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      background: #ffffff;
+      transition: var(--transition);
+    }
+    .accordion:hover {
+      border-color: #cbd5e1;
+    }
+    .accordion-header {
+      padding: 1rem 1.5rem;
+      background: #f8fafc;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .accordion-header .error-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+    .accordion-header .error-badge {
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .accordion-icon {
+      font-size: 1.2rem;
+      color: var(--text-muted-dark);
+      transition: var(--transition);
+    }
+    .accordion.open .accordion-icon {
+      transform: rotate(45deg);
+    }
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease-out;
+    }
+    .accordion-content {
+      padding: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.9rem;
+      background: #fff;
+    }
+    .accordion-content p {
+      margin-bottom: 1rem;
+    }
+
+    /* Code Blocks */
+    .code-container {
+      position: relative;
+      margin: 1rem 0;
+    }
+    pre {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      padding: 1.25rem;
+      overflow-x: auto;
+    }
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      white-space: pre;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #94a3b8;
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .copy-btn:hover {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    .inline-code {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #0f172a;
+    }
+
+    /* Check lists */
+    ul.check-list {
+      list-style: none;
+    }
+    ul.check-list li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-muted-dark);
+      font-size: 0.95rem;
+    }
+    ul.check-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0.25rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    ul.check-list li strong {
+      color: var(--text-main);
+    }
+
+    /* Project Cards Grid (clickable) */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .project-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+    }
+    .project-card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+    }
+    .project-card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .project-card-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .project-card-tech .tech-badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      color: var(--text-muted-dark);
+    }
+    .project-card::after {
+      content: '→';
+      display: inline-block;
+      margin-left: 0.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .project-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      animation: fadeInBg 0.3s ease-out forwards;
+    }
+    .modal.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes fadeInBg {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background-color: var(--bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      max-width: 90%;
+      width: 1000px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease-out forwards;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+    }
+    .modal-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0;
+    }
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: var(--transition);
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover {
+      color: var(--text-main);
+    }
+    .modal-body {
+      padding: 2rem;
+    }
+
+    /* Contact Section Content */
+    .contact-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted-dark);
+      margin-bottom: 2rem;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-label-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .form-badge {
+      background: var(--text-main);
+      color: var(--bg);
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-weight: 700;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--text-main);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--text-main);
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+    .form-textarea {
+      height: 150px;
+      resize: vertical;
+    }
+    .form-submit {
+      align-self: flex-start;
+      background: var(--text-main);
+      color: var(--bg);
+      border: 1px solid var(--text-main);
+      border-radius: 99px;
+      padding: 1rem 3rem;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .form-submit:hover {
+      background: transparent;
+      color: var(--text-main);
+    }
+
+    /* Footer */
+    footer {
+      padding: 8rem 0;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 5.5rem; /* Significantly enlarged to match photo */
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .footer-copy {
+      font-family: var(--font-serif); /* Serif font to match photo style */
+      font-size: 0.8rem;
+      color: var(--text-main);
+      font-weight: 400;
+    }
+
+    /* ========================================== */
+    /* RESPONSIVE LAYOUTS (Tablet & Mobile) */
+    /* ========================================== */
+
+    /* Tablet Screen View (Between 769px and 1024px) */
+    @media (max-width: 1024px) {
+      .container, .header-inner {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+      }
+      .hero-title {
+        font-size: 6rem;
+      }
+      .section-grid {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 5rem 0;
+      }
+      .section-left {
+        width: 100%;
+        position: static;
+      }
+      .section-title {
+        font-size: 3.5rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 0.5rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Mobile Screen View (Under 768px) */
+    @media (max-width: 768px) {
+      .container, .header-inner {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .header-inner {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      nav {
+        gap: 1.25rem;
+      }
+      .hero-title {
+        font-size: 4rem;
+      }
+      .section-title {
+        font-size: 2.8rem;
+      }
+      .about-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        text-align: center;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .tabs-wrapper {
+        padding: 0.2rem;
+      }
+      .tab-buttons {
+        flex-direction: column;
+      }
+      .tab-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.6rem;
+      }
+      .detail-card {
+        padding: 1.5rem 1rem;
+      }
+      .diagram-container {
+        padding: 1rem 0.5rem;
+      }
+      .web-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      .connector-svg {
+        display: none;
+      }
+      .timeline {
+        margin-left: 0.2rem;
+        padding-left: 1.2rem;
+      }
+      .timeline-marker {
+        left: calc(-1.2rem - 5px);
+      }
+      .form-submit {
+        width: 100%;
+      }
+      footer {
+        padding: 5rem 0;
+        gap: 0.5rem;
+      }
+      .footer-logo {
+        font-size: 3.2rem; /* Prevent overflow on small mobile screens */
+      }
+      .footer-copy {
+        font-size: 0.75rem;
+      }
+      .modal-content {
+        max-width: 95%;
+        max-height: 85vh;
+        border-radius: 12px;
+      }
+      .modal-header {
+        padding: 1.5rem;
+      }
+      .modal-title {
+        font-size: 1.4rem;
+      }
+      .modal-body {
+        padding: 1.5rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .project-card {
+        padding: 1.5rem;
+      }
+      .project-card-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header Navigation -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">Shuto Fukuda</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#works">works</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-title-wrapper">
+          <h1 class="hero-title">Portfolio</h1>
+          <div class="hero-title-bg"></div>
+        </div>
+        <p class="hero-subtitle">Saitama IT ＆ Web College / Student</p>
+      </div>
+    </section>
+
+    <!-- Green Dot Indicator from Photo -->
+    <div class="green-dot-wrapper">
+      <div class="green-dot"></div>
+    </div>
+
+    <!-- About Section -->
+    <section class="section-grid" id="about">
+      <div class="section-left">
+        <h2 class="section-title">About</h2>
+      </div>
+      <div class="section-right">
+        <div class="about-content">
+          <div class="about-text">
+            <div class="about-name-group">
+              <h3 class="about-name">福田　修斗</h3>
+              <p class="about-name-eng">Shuto Fukuda</p>
+            </div>
+            <p class="about-desc">
+              さいたまIT・WEB専門学校学生。2005年生まれ、 埼玉県出身、埼玉県在住。<br>
+              さいたまIT・WEB専門学校で Python、MySQL、Linux、そしてPMに必要な思考力を学んでいます。<br>
+              インフラ領域にも強い興味があります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Works Section -->
+    <section class="section-grid" id="works">
+      <div class="section-left">
+        <h2 class="section-title">Works</h2>
+      </div>
+      <div class="section-right">
+        
+        <!-- Project Cards Grid -->
+        <div class="projects-grid">
+          
+          <!-- Project 1 Card -->
+          <div class="project-card" onclick="openModal('modal-project1')">
+            <h3 class="project-card-title">Terraform × LXD</h3>
+            <p class="project-card-desc">完全無料のローカルコンテナ環境を用いた、複数Webサーバーとロードバランサーによる高可用性インフラ構築</p>
+            <div class="project-card-tech">
+              <span class="tech-badge">Terraform</span>
+              <span class="tech-badge">LXD</span>
+              <span class="tech-badge">HAProxy</span>
+              <span class="tech-badge">Nginx</span>
+            </div>
+          </div>
+
+          <!-- Project 2 Card -->
+          <div class="project-card" onclick="openModal('modal-project2')">
+            <h3 class="project-card-title">Docker × Ansible</h3>
+            <p class="project-card-desc">マルチコンテナアプリケーション（MySQL、PHP、Nginx）をDocker Composeで定義し、Ansibleによる自動デプロイを実装</p>
+            <div class="project-card-tech">
+              <span class="tech-badge">Docker</span>
+              <span class="tech-badge">Ansible</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">PHP</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Modal 1: Terraform × LXD Project -->
+    <div id="modal-project1" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Terraform × LXD Web Infrastructure</h2>
+          <button class="modal-close" onclick="closeModal('modal-project1')">&times;</button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="works-header">
+            <p class="works-project-desc">完全無料のローカルコンテナ環境を用いた、複数Webサーバーとロードバランサーによる高可用性インフラ構築プロジェクト</p>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>主要技術</h3>
+              <div class="value" style="color: var(--primary);">Terraform / LXD</div>
+            </div>
+            <div class="stat-card">
+              <h3>インフラ規模</h3>
+              <div class="value">3 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted-dark);">Web Nodes</span></div>
+            </div>
+            <div class="stat-card">
+              <h3>分散アルゴリズム</h3>
+              <div class="value" style="color: var(--accent);">Round Robin</div>
+            </div>
+            <div class="stat-card">
+              <h3>検証済みスタック</h3>
+              <div class="tech-list">
+                <span class="tech-badge">LXD</span>
+                <span class="tech-badge">Ubuntu</span>
+                <span class="tech-badge">Nginx</span>
+                <span class="tech-badge">HAProxy</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs-wrapper">
+            <div class="tab-buttons">
+              <button class="tab-btn active" onclick="switchTab(event, 'overview')">概要</button>
+              <button class="tab-btn" onclick="switchTab(event, 'timeline')">構築手順</button>
+              <button class="tab-btn" onclick="switchTab(event, 'trouble')">トラブルシューティング</button>
+              <button class="tab-btn" onclick="switchTab(event, 'results')">実績と学び</button>
+            </div>
+          </div>
+
+          <!-- Tab 1: Overview -->
+          <div id="overview" class="tab-content active">
+            <div class="detail-card">
+              <h3>プロジェクト概要</h3>
+              <p>
+                本プロジェクトは、インフラの構築手順をコードで定義する <strong>Infrastructure as Code (IaC)</strong> をローカルPC上で高速に、かつ完全に無料の枠組みで体験・実証するために構成されました。
+              </p>
+              <p>
+                一般的に検証コストが掛かりやすいパブリッククラウド（AWSなど）を用いることなく、Linux標準のシステムコンテナ管理システムである <strong>LXD</strong> をバックエンドに採用。Terraform経由で複数のUbuntu仮想インスタンスを秒単位で瞬時に構築・破壊できる再現性の高い実証基盤を作り上げ、さらにHAProxyによるWebトラフィックの動的ロードバランシングまでを検証しています。
+              </p>
+
+              <!-- Dynamic Visual Diagram -->
+              <div class="diagram-container">
+                <div class="diagram-title">システムネットワーク構成図</div>
+                
+                <div class="network-vis">
+                  <!-- Client -->
+                  <div class="node node-client" id="node-client">
+                    <div class="title">Client User</div>
+                    <div class="desc">HTTP: localhost:8080</div>
+                  </div>
+
+                  <!-- Load Balancer -->
+                  <div class="node node-lb" id="node-lb">
+                    <div class="title">HAProxy (Load Balancer)</div>
+                    <div class="desc">Port 8080 ➔ Round Robin</div>
+                  </div>
+
+                  <!-- Web Nodes Group -->
+                  <div class="web-group">
+                    <div class="node node-web" id="node-web1">
+                      <div class="title">web-1</div>
+                      <div class="desc">Ubuntu 22.04 | Nginx</div>
+                      <div class="desc" style="color: var(--primary);">Port 8081 (Proxy)</div>
+                    </div>
+                    <div class="node node-web" id="node-web2">
+                      <div class="title">web-2</div>
+                      <div class="desc">Ubuntu 22.04 | Nginx</div>
+                      <div class="desc" style="color: var(--primary);">Port 8082 (Proxy)</div>
+                    </div>
+                    <div class="node node-web" id="node-web3">
+                      <div class="title">web-3</div>
+                      <div class="desc">Ubuntu 22.04 | Nginx</div>
+                      <div class="desc" style="color: var(--primary);">Port 8083 (Proxy)</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SVG connectors with flow effect -->
+                <svg class="connector-svg" id="connector-svg">
+                  <path id="path-client-lb" class="connection-line" />
+                  <path id="path-client-lb-pulse" class="pulse-line" />
+
+                  <path id="path-lb-web1" class="connection-line" />
+                  <path id="path-lb-web1-pulse" class="pulse-line" />
+
+                  <path id="path-lb-web2" class="connection-line" />
+                  <path id="path-lb-web2-pulse" class="pulse-line" />
+
+                  <path id="path-lb-web3" class="connection-line" />
+                  <path id="path-lb-web3-pulse" class="pulse-line" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3>工夫と実装ポイント</h3>
+              <ul class="check-list">
+                <li><strong>完全無料でのクラウド検証環境実現</strong>：AWSなどの商用クラウドを使わず、LXDコンテナのみで複数VM構成を構築。秒単位の高速起動により、試行錯誤が容易</li>
+                <li><strong>Terraform による宣言的インフラ定義</strong>：count メタ引数を使い、3台のWebサーバーをパラメータ1つで制御。スケール変更がコード1行で実現可能</li>
+                <li><strong>ラウンドロビン分散の実装検証</strong>：HAProxyの設定により、クライアントリクエストが自動的に3台へと均等に分散される動作を実証</li>
+                <li><strong>エラードリフト管理とState管理の習得</strong>：Terraform State の重要性を実体験。リソースの競合解決とロールバック技術を確立</li>
+              </ul>
+            </div>
+
+            <div class="detail-card">
+              <h3>主要な構成ファイル</h3>
+              <p>インフラの「宣言的な定義」と「ロードバランサー」の設計構成コードです。</p>
+              
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">vm.tf (Terraform)</h4>
+              <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>terraform {
+  required_providers {
+    lxd = {
+      source  = "terraform-lxd/lxd"
+      version = "1.7.0"
+    }
+  }
+}
+
+provider "lxd" {}
+
+resource "lxd_container" "web" {
+  count = 3
+
+  name  = "web-${count.index + 1}"
+  image = "ubuntu:22.04"
+}</code></pre>
+              </div>
+
+              <h4 style="font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">haproxy.cfg (HAProxy configuration)</h4>
+              <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>frontend http_front
+    bind *:8080
+    mode http
+    default_backend http_back
+
+backend http_back
+    mode http
+    balance roundrobin
+    server web1 127.0.0.1:8081 check
+    server web2 127.0.0.1:8082 check
+    server web3 127.0.0.1:8083 check</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Timeline Steps -->
+          <div id="timeline" class="tab-content">
+            <div class="detail-card">
+              <h3>インフラ構築ステップ</h3>
+              <p>初期の基盤導入から、複数コンテナの自動作成、ロードバランサー連携までの構築手順です。</p>
+              
+              <div class="timeline">
+                <!-- Step 1 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>1. LXD インフラ環境のインストールと初期化</h3>
+                  <p>
+                    ホストマシンにLXDシステムを導入。コンテナ仮想化により、通常の重たい仮想マシンの起動を数秒の軽量コンテナ起動に代替し、完全無料・超高速な検証体制を構築。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>sudo apt update
+sudo apt install -y lxd
+sudo lxd init</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>2. Terraformによる複数コンテナ構成の適用</h3>
+                  <p>
+                    インフラ構成定義ファイル <span class="inline-code">vm.tf</span> を作成。複数インスタンス構成を <span class="inline-code">count = 3</span> パラメータで宣言的にコード定義し、一括で構築。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>terraform init
+terraform apply</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>3. nginx のインストール（コンテナ内部）</h3>
+                  <p>
+                    構築したコンテナにログインし、Webサーバー（Nginx）を個別にインストールします。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># 例：web-1 コンテナに入ってインストールする
+lxc exec web-1 -- bash
+
+# コンテナ内部で実行
+sudo apt update
+sudo apt install -y nginx</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>4. Web コンテンツの変更による動作確認</h3>
+                  <p>
+                    各コンテナで異なるメッセージを返すようにインデックスHTMLを書き換え、どのサーバーにアクセスしているか判別できるようにします。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># web-1 コンテナ内
+echo "This is web-1" | sudo tee /var/www/html/index.html
+
+# web-2 コンテナ内
+echo "This is web-2" | sudo tee /var/www/html/index.html
+
+# web-3 コンテナ内
+echo "This is web-3" | sudo tee /var/www/html/index.html</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>5. ホストから各コンテナへのポートフォワード設定</h3>
+                  <p>
+                    LXDの仮想ネットワーク上のコンテナとホスト側ネットワークを接続するため、プロキシポートマッピングを追加。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>lxc config device add web-1 http proxy listen=tcp:0.0.0.0:8081 connect=tcp:127.0.0.1:80
+lxc config device add web-2 http proxy listen=tcp:0.0.0.0:8082 connect=tcp:127.0.0.1:80
+lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0.0.1:80</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>6. HAProxyロードバランサーの統合・検証</h3>
+                  <p>
+                    ホスト側にHAProxyを起動し、ラウンドロビンで負荷を分散するよう設定。<span class="inline-code">curl</span> を使って交互に各コンテナへとアクセスが振り分けられることを確認。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>curl http://localhost:8080
+# ➔ Output 1: This is web-1
+# ➔ Output 2: This is web-2
+# ➔ Output 3: This is web-3</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Troubleshooting -->
+          <div id="trouble" class="tab-content">
+            <div class="detail-card">
+              <h3>直面した問題と解決（トラブルシューティング）</h3>
+              <p>構築の過程で発生した様々なエラーに対し、ログの解析や権限・状態管理（State）の修復を行った問題解決の記録です。クリックすると詳細が開きます。</p>
+
+              <!-- Issue 1 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">VirtualBox</span>
+                    <span>1. VirtualBoxプロバイダーの取得失敗 (未登録)</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      当初、仮想マシンの制御にVirtualBoxを使用しようと試み、Terraform設定に書き加えたが、<span class="inline-code">terraform init</span>時にプロバイダーが見つからないエラーとなった。
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      VirtualBox用のTerraformプロバイダー（<span class="inline-code">hashicorp/virtualbox</span>）は公式レジストリに存在しないため。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      インフラの検証を円滑に進めるため、VirtualBoxでの実行を中止し、**LXDによるシステムコンテナベースの検証へ方針変更**。LXDはTerraformの公式・コミュニティプロバイダーが安定して提供されており、動作も非常に高速であるため、よりモダンで再現性の高い構成へと昇華できた。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Issue 2 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">LXD UNIX Socket</span>
+                    <span>2. LXDソケットへの通信権限エラー (Permission Denied)</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      <span class="inline-code">terraform apply</span> 時に、LXDデーモンと通信するUNIXソケットに対し、接続拒否エラーが発生。<br>
+                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">dial unix /var/snap/lxd/common/lxd/unix.socket: connect: permission denied</code>
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      Terraformを実行している一般ユーザー（<span class="inline-code">siwuser</span>）が、LXDの操作に必要な <span class="inline-code">lxd</span> ユーザーグループに所属していなかったため。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      ユーザーをLXDグループに追加するコマンドを実行し、ホスト環境を再起動させてグループ設定を適用。<br>
+                      <pre><code style="color: var(--primary);">sudo usermod -aG lxd siwuser
+sudo reboot</code></pre>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Issue 3 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">Terraform State</span>
+                    <span>3. コンテナの重複作成・適用競合</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      構成適用中に、対象コンテナが既に存在しているとアラートが出現し、実行が停止。<br>
+                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">This "instances" entry already exists</code>
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      Terraformを介さずLXD側で直接コンテナを操作した、または前回の不完全な破壊処理などにより、LXDに実機が残っているにも関わらずTerraformの状態管理ファイル（State）には反映されていない「状態の乖離（ドリフト）」が起きていた。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      実機側に残っている競合コンテナを強制削除した上で、TerraformのStateから対象のリソース状態を完全にクリアすることで、次回適用時の競合を解消。<br>
+                      <pre><code style="color: var(--primary);">lxc delete terraform-test --force
+terraform state rm lxd_container.test</code></pre>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Issue 4 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">LXD Storage</span>
+                    <span>4. ストレージプールの作成競合</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      <span class="inline-code">lxd init</span> 実行時、ストレージプールが重複しているという警告が発生。<br>
+                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">The requested storage pool "default" already exists. Please choose another name.</code>
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      過去に初期化したLXD環境の残骸により、デフォルトのストレージプール名である <span class="inline-code">default</span> がシステム内で利用中だった。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      初期化プロンプトに従い、未使用の新しいプール名（例: <span class="inline-code">default2</span>）を入力して設定をバイパスし、無事に初期化を完了させた。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tab 4: Results & Learnings -->
+          <div id="results" class="tab-content">
+            <div class="detail-card">
+              <h3>得られた実績と学び</h3>
+              
+              <div style="margin-bottom: 2rem;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. 手作業インフラ構築から、再現性の高いIaCへ</h4>
+                <p>
+                  物理環境の構築・設定のすべてを手動で行っていた手法を脱却し、インフラを「コード（HCL）」で定義することで、誰が実行しても同じ環境を秒単位で再現できる強みを体験しました。これにより、開発環境のスクラップ＆ビルドが容易になりました。
+                </p>
+              </div>
+
+              <div style="margin-bottom: 2rem;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">2. スケールアウトの概念理解</h4>
+                <p>
+                  Terraformのメタ引数である <span class="inline-code">count</span> を変更するだけで、1台のWebサーバーから3台、あるいはそれ以上へと瞬時にスケールアウトできる設計方法を学びました。これはAWS等のAuto Scalingや冗長化の根本原理を掴むのに大きく貢献しました。
+                </p>
+              </div>
+
+              <div style="margin-bottom: 2rem;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">3. ネットワークトラフィック制御とポート設計</h4>
+                <p>
+                  LXDのプロキシ設定を通じ、仮想内部ネットワークと外部ホストの通信経路を設計しました。また、ロードバランサー（HAProxy）によるレイヤー4/7の中継処理と、クライアントからのリクエストが均等に分散されていくラウンドロビンの動向を検証レベルで実証しました。
+                </p>
+              </div>
+
+              <div>
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">4. プロジェクト達成による技術スキル成長</h4>
+                <ul class="check-list">
+                  <li><strong>インフラコード化能力</strong>: Terraformを用いた宣言的コード開発スキルの獲得</li>
+                  <li><strong>コンテナ仮想化スキル</strong>: LXD/LXCの制御、ネットワークおよびボリューム設計の知識</li>
+                  <li><strong>ロードバランシング設計</strong>: HAProxyを用いたリバースプロキシおよび負荷分散構成能力</li>
+                  <li><strong>トラブル解決能力</strong>: エラーログ（権限、重複、プール名）からの正確な原因特定と解決スキルの習得</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2: Docker Compose × Ansible Project -->
+    <div id="modal-project2" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Docker Compose × Ansible サーバー構成自動化</h2>
+          <button class="modal-close" onclick="closeModal('modal-project2')">&times;</button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="works-header">
+            <p class="works-project-desc">マルチコンテナアプリケーション（MySQL、PHP、Nginx）をDocker Composeで定義し、Ansibleによる自動デプロイと設定管理を実装したプロジェクト</p>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>主要技術</h3>
+              <div class="value" style="color: var(--primary);">Docker / Ansible</div>
+            </div>
+            <div class="stat-card">
+              <h3>構成ノード数</h3>
+              <div class="value">5 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted-dark);">Services</span></div>
+            </div>
+            <div class="stat-card">
+              <h3>構成管理</h3>
+              <div class="value" style="color: var(--accent);">IaC</div>
+            </div>
+            <div class="stat-card">
+              <h3>検証済みスタック</h3>
+              <div class="tech-list">
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">Ansible</span>
+                <span class="tech-badge">Nginx</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">PHP</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs-wrapper">
+            <div class="tab-buttons">
+              <button class="tab-btn active" onclick="switchTab(event, 'overview2')">概要</button>
+              <button class="tab-btn" onclick="switchTab(event, 'timeline2')">構築手順</button>
+              <button class="tab-btn" onclick="switchTab(event, 'trouble2')">トラブルシューティング</button>
+              <button class="tab-btn" onclick="switchTab(event, 'results2')">実績と学び</button>
+            </div>
+          </div>
+
+          <!-- Tab 1: Overview -->
+          <div id="overview2" class="tab-content active">
+            <div class="detail-card">
+              <h3>プロジェクト概要</h3>
+              <p>
+                本プロジェクトは、実運用環境でよく用いられる <strong>Docker Compose</strong> と <strong>Ansible</strong> を組み合わせ、マルチコンテナアプリケーションの統一的な構築・管理・運用方法を実証することを目標としています。
+              </p>
+              <p>
+                開発環境でのコンテナ化から、本番環境への自動デプロイまでのエンドツーエンドの構成管理フローを実装。Ansibleのプレイブックを活用して、複数のホスト間での一括設定適用、パッケージ更新、ヘルスチェックなどの運用タスク自動化を検証しました。
+              </p>
+
+              <!-- Dynamic Visual Diagram -->
+              <div class="diagram-container">
+                <div class="diagram-title">マルチコンテナアーキテクチャ構成図</div>
+                
+                <div class="network-vis">
+                  <!-- Client -->
+                  <div class="node node-client" id="node-client2">
+                    <div class="title">Client Browser</div>
+                    <div class="desc">HTTP: localhost:80</div>
+                  </div>
+
+                  <!-- Nginx Reverse Proxy -->
+                  <div class="node node-lb" id="node-nginx2">
+                    <div class="title">Nginx (Reverse Proxy)</div>
+                    <div class="desc">Port 80 ➔ Load Balancing</div>
+                  </div>
+
+                  <!-- Backend Services Group -->
+                  <div class="web-group">
+                    <div class="node node-web" id="node-php2">
+                      <div class="title">PHP-FPM</div>
+                      <div class="desc">Container | Port 9000</div>
+                      <div class="desc" style="color: var(--primary);">Application Server</div>
+                    </div>
+                    <div class="node node-web" id="node-mysql2">
+                      <div class="title">MySQL</div>
+                      <div class="desc">Container | Port 3306</div>
+                      <div class="desc" style="color: var(--primary);">Database</div>
+                    </div>
+                    <div class="node node-web" id="node-redis2">
+                      <div class="title">Redis</div>
+                      <div class="desc">Container | Port 6379</div>
+                      <div class="desc" style="color: var(--primary);">Cache Layer</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SVG connectors -->
+                <svg class="connector-svg" id="connector-svg2">
+                  <path id="path-client-nginx2" class="connection-line" />
+                  <path id="path-client-nginx2-pulse" class="pulse-line" />
+
+                  <path id="path-nginx-php2" class="connection-line" />
+                  <path id="path-nginx-php2-pulse" class="pulse-line" />
+
+                  <path id="path-nginx-mysql2" class="connection-line" />
+                  <path id="path-nginx-mysql2-pulse" class="pulse-line" />
+
+                  <path id="path-nginx-redis2" class="connection-line" />
+                  <path id="path-nginx-redis2-pulse" class="pulse-line" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3>工夫と実装ポイント</h3>
+              <ul class="check-list">
+                <li><strong>開発環境と本番環境の統一化</strong>：Docker Compose で定義した環境が開発・テスト・本番で完全に同一。環境差による問題を根絶</li>
+                <li><strong>マルチレイヤアーキテクチャの分離</strong>：Nginx（リバースプロキシ）、PHP-FPM（アプリケーション）、MySQL（データベース）、Redis（キャッシュ）を独立したコンテナに分離し、スケーラビリティを実現</li>
+                <li><strong>Ansible による構成管理の自動化</strong>：複数ホストへの統一的な設定適用を自動化。手作業でのセットアップを完全排除し、デプロイ時間を大幅削減</li>
+                <li><strong>サービス間依存関係の管理</strong>：wait-for-it スクリプトを用いて、MySQL 起動完了をPHPが待機する仕組みを実装。起動順序の問題を根本解決</li>
+              </ul>
+            </div>
+
+            <div class="detail-card">
+              <h3>主要な構成ファイル</h3>
+              <p>Docker Compose による宣言的なコンテナ定義と、Ansible による構成管理のメイン設定です。</p>
+              
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">docker-compose.yml</h4>
+              <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./app:/var/www/html:ro
+    depends_on:
+      - php-fpm
+    networks:
+      - app-network
+
+  php-fpm:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/www/html
+    environment:
+      - DB_HOST=mysql
+      - CACHE_HOST=redis
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: appdb
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge</code></pre>
+              </div>
+
+              <h4 style="font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">site.yml (Ansible Playbook)</h4>
+              <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>---
+- name: Deploy application stack
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install Docker and Docker Compose
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker.io
+        - docker-compose
+
+    - name: Copy docker-compose.yml
+      copy:
+        src: docker-compose.yml
+        dest: /opt/app/docker-compose.yml
+        owner: root
+        mode: '0644'
+
+    - name: Start services
+      shell: docker-compose -f /opt/app/docker-compose.yml up -d
+
+    - name: Wait for MySQL
+      wait_for:
+        port: 3306
+        delay: 5
+
+    - name: Check application health
+      uri:
+        url: http://localhost:80/health
+        status_code: 200
+      retries: 3
+      delay: 2</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Timeline Steps -->
+          <div id="timeline2" class="tab-content">
+            <div class="detail-card">
+              <h3>構築・デプロイメント手順</h3>
+              <p>ローカル環境での開発から、リモートホストへの自動デプロイまでのステップです。</p>
+              
+              <div class="timeline">
+                <!-- Step 1 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>1. Docker環境のセットアップと検証</h3>
+                  <p>
+                    開発マシンに Docker および Docker Compose をインストール。バージョン確認を行い、Dockerデーモンが正常に起動していることを検証します。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+docker version
+docker-compose version</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>2. アプリケーション構成ファイルの準備</h3>
+                  <p>
+                    PHP アプリケーション、Nginx 設定、初期化スクリプトなどを整理したファイルツリーを構築。Dockerコンテナ内でのマウント構造を考慮した構成を作成。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>project/
+├── docker-compose.yml
+├── nginx.conf
+├── app/
+│   ├── index.php
+│   └── health.php
+├── php/
+│   ├── Dockerfile
+│   └── php.ini
+└── mysql/
+    └── init.sql</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>3. ローカル環境でのコンテナ起動・テスト</h3>
+                  <p>
+                    <span class="inline-code">docker-compose up</span> でマルチコンテナスタックを一括起動。各サービスのヘルスチェック、ネットワーク疎通確認、データベース接続などを実施。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>docker-compose up -d
+docker-compose ps
+docker-compose logs -f nginx
+curl http://localhost:80</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>4. Ansible インベントリ・プレイブック作成</h3>
+                  <p>
+                    デプロイ対象のホスト情報をインベントリファイルに記載。docker-compose.ymlの配置、Docker サービスの起動、ヘルスチェック等を記述したプレイブックを作成。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># inventory.ini
+[webservers]
+deploy-host-1 ansible_host=192.168.1.100
+deploy-host-2 ansible_host=192.168.1.101
+
+# Execute playbook
+ansible-playbook -i inventory.ini site.yml</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>5. リモートホストへの自動デプロイ実行</h3>
+                  <p>
+                    Ansible の <span class="inline-code">ansible-playbook</span> コマンドでプレイブックを実行。リモートホストに対して一括でファイルコピー、パッケージインストール、サービス起動を自動実施。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>ansible-playbook -i inventory.ini site.yml -v
+# -v フラグで詳細な実行ログを表示
+# 複数ホストに対して統一的な構成適用が可能</code></pre>
+                  </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="timeline-item success">
+                  <div class="timeline-marker"></div>
+                  <span class="timeline-badge ok">Success</span>
+                  <h3>6. デプロイ後の検証と運用</h3>
+                  <p>
+                    各ホストのサービス状態を確認。アプリケーションヘルスエンドポイント、データベース接続状態、ログ出力を検査し、本番環境での稼働を確認。
+                  </p>
+                  <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>ansible webservers -i inventory.ini -m shell -a "docker-compose -f /opt/app/docker-compose.yml ps"
+# リモートホスト全体でのコンテナ状態確認
+curl http://deploy-host-1/health
+curl http://deploy-host-2/health</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Troubleshooting -->
+          <div id="trouble2" class="tab-content">
+            <div class="detail-card">
+              <h3>構築中に発生した問題と解決</h3>
+              <p>運用環境のデプロイメント検証における実際のトラブルと、その解決方法を記録しています。</p>
+
+              <!-- Issue 1 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">Docker Network</span>
+                    <span>1. コンテナ間通信の DNS 解決失敗</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      PHP コンテナから MySQL コンテナへの接続時、ホスト名（<span class="inline-code">mysql</span>）が解決されず、接続エラーが発生。
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      Docker Compose のデフォルトネットワークでは、サービス名による自動 DNS 解決が行われますが、<span class="inline-code">depends_on</span> は起動順序のみを制御し、サービスの「完全な起動」は保証しません。PHP が起動時に MySQL へ接続したが、MySQL がまだ初期化中の可能性がありました。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      PHP コンテナのエントリーポイントスクリプトに、<span class="inline-code">wait-for-it.sh</span> を用いた MySQL への接続待機ロジックを追加。これにより、MySQL が完全に起動してから PHP アプリケーションが初期化されるようになりました。<br>
+                      <pre><code style="color: var(--primary);">./wait-for-it.sh mysql:3306 -t 30 -- php-fpm</code></pre>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Issue 2 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">Ansible SSH</span>
+                    <span>2. Ansible から リモートホストへの SSH 接続失敗</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      Ansible プレイブック実行時、リモートホストへの SSH 接続がタイムアウト。<br>
+                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">fatal: [deploy-host-1]: UNREACHABLE! => {msg: 'Failed to connect to the host via ssh'}</code>
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      インベントリファイルで指定した IP アドレスが誤っていた、また SSH キー認証の設定が不完全だった。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      インベントリファイルの IP アドレスを再確認し、SSH 公開鍵をリモートホストに配置。また、<span class="inline-code">ansible.cfg</span> で SSH パラメータを明示的に設定しました。<br>
+                      <pre><code style="color: var(--primary);">[defaults]
+host_key_checking = False
+private_key_file = ~/.ssh/id_rsa
+
+ansible-playbook -i inventory.ini site.yml</code></pre>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Issue 3 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">Volume Mount</span>
+                    <span>3. コンテナ内の MySQL データベース永続化失敗</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      Docker Compose でコンテナを再起動すると、MySQL データベースのデータが初期化されてしまう。
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      <span class="inline-code">docker-compose.yml</span> で MySQL のボリュームマウントが未定義か、正しく設定されていなかった。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      Docker Compose の <span class="inline-code">volumes</span> セクションで Named Volume を定義し、MySQL コンテナをマウント。これにより、コンテナの再起動後もデータが保持されるようになりました。<br>
+                      <pre><code style="color: var(--primary);">volumes:
+  mysql_data:
+
+services:
+  mysql:
+    volumes:
+      - mysql_data:/var/lib/mysql</code></pre>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Issue 4 -->
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">File Permissions</span>
+                    <span>4. Ansible による ファイルコピー後のパーミッション不一致</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      Ansible で docker-compose.yml をリモートホストにコピー後、Docker Compose コマンド実行時にパーミッション拒除エラーが発生。
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      Ansible の <span class="inline-code">copy</span> モジュール実行時に、ファイルのパーミッション設定が明示的に指定されていなかった。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      Ansible プレイブックの <span class="inline-code">copy</span> タスクに、<span class="inline-code">mode</span> パラメータを追加してファイルパーミッションを明示的に設定。<br>
+                      <pre><code style="color: var(--primary);">- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /opt/app/docker-compose.yml
+    owner: root
+    group: root
+    mode: '0644'</code></pre>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tab 4: Results & Learnings -->
+          <div id="results2" class="tab-content">
+            <div class="detail-card">
+              <h3>得られた実績と学び</h3>
+              
+              <div style="margin-bottom: 2rem;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. コンテナ化によるデプロイメント効率化</h4>
+                <p>
+                  マルチコンテナアプリケーションを Docker Compose で定義することで、開発環境と本番環境の構成を統一。環境差による問題を排除し、「どこでも同じように動く」という強力な再現性を獲得しました。
+                </p>
+              </div>
+
+              <div style="margin-bottom: 2rem;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">2. 構成管理の自動化による運用負荷削減</h4>
+                <p>
+                  Ansible による宣言的な構成管理により、複数のリモートホストに対して統一的な設定を一括適用。手作業でのセットアップを完全に排除し、スケーラビリティと保守性を大幅に向上させました。
+                </p>
+              </div>
+
+              <div style="margin-bottom: 2rem;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">3. マルチレイヤアーキテクチャの理解深化</h4>
+                <p>
+                  Nginx（リバースプロキシ）、PHP-FPM（アプリケーションサーバー）、MySQL（データベース）、Redis（キャッシュレイヤー）という複数の機能レイヤを組み合わせた構成を設計・実装。各層の役割と連携方法を実践レベルで理解しました。
+                </p>
+              </div>
+
+              <div>
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">4. インフラ自動化スキルの習得</h4>
+                <ul class="check-list">
+                  <li><strong>Docker / Docker Compose</strong>: マルチコンテナアプリケーション定義と管理スキル</li>
+                  <li><strong>Ansible Playbook</strong>: 宣言的な構成管理とリモートホスト一括制御能力</li>
+                  <li><strong>ネットワーク設計</strong>: コンテナ間通信、DNS 解決、ボリュームマウント設計知識</li>
+                  <li><strong>デプロイメント パイプライン</strong>: 開発環境から本番環境への自動化フロー構築経験</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="section-grid" id="contact">
+      <div class="section-left">
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <div class="section-right">
+        <p class="contact-desc">下記の問い合わせフォームよりご連絡ください。</p>
+        
+        <form class="contact-form" name="contact form" method="post" action="#">
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="contact-name">お名前</label>
+              <span class="form-badge">必須</span>
+            </div>
+            <input class="form-input" id="contact-name" name="お名前" placeholder="お名前を入力してください" required type="text" />
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="contact-email">メールアドレス</label>
+              <span class="form-badge">必須</span>
+            </div>
+            <input class="form-input" id="contact-email" name="メールアドレス" placeholder="メールアドレスを入力してください" required type="email" />
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="contact-message">メッセージ</label>
+              <span class="form-badge">必須</span>
+            </div>
+            <textarea class="form-textarea" id="contact-message" name="メッセージ" placeholder="お問い合わせ内容を入力してください" required></textarea>
+          </div>
+
+          <button class="form-submit" type="submit">送信</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-logo">Shuto Fukuda</div>
+      <div class="footer-copy">©2026 Shuto Fukuda All rights reserved.</div>
+    </footer>
+
+  </div>
+
+  <!-- Scripting for Tabs, Accordion, and SVG Connector drawing -->
+  <script>
+          <div class="detail-card">
+            <h3>プロジェクト概要</h3>
+            <p>
+              本プロジェクトは、インフラの構築手順をコードで定義する <strong>Infrastructure as Code (IaC)</strong> をローカルPC上で高速に、かつ完全に無料の枠組みで体験・実証するために構成されました。
+            </p>
+            <p>
+              一般的に検証コストが掛かりやすいパブリッククラウド（AWSなど）を用いることなく、Linux標準のシステムコンテナ管理システムである <strong>LXD</strong> をバックエンドに採用。Terraform経由で複数のUbuntu仮想インスタンスを秒単位で瞬時に構築・破壊できる再現性の高い実証基盤を作り上げ、さらにHAProxyによるWebトラフィックの動的ロードバランシングまでを検証しています。
+            </p>
+
+            <!-- Dynamic Visual Diagram -->
+            <div class="diagram-container">
+              <div class="diagram-title">システムネットワーク構成図</div>
+              
+              <div class="network-vis">
+                <!-- Client -->
+                <div class="node node-client" id="node-client">
+                  <div class="title">Client User</div>
+                  <div class="desc">HTTP: localhost:8080</div>
+                </div>
+
+                <!-- Load Balancer -->
+                <div class="node node-lb" id="node-lb">
+                  <div class="title">HAProxy (Load Balancer)</div>
+                  <div class="desc">Port 8080 ➔ Round Robin</div>
+                </div>
+
+                <!-- Web Nodes Group -->
+                <div class="web-group">
+                  <div class="node node-web" id="node-web1">
+                    <div class="title">web-1</div>
+                    <div class="desc">Ubuntu 22.04 | Nginx</div>
+                    <div class="desc" style="color: var(--primary);">Port 8081 (Proxy)</div>
+                  </div>
+                  <div class="node node-web" id="node-web2">
+                    <div class="title">web-2</div>
+                    <div class="desc">Ubuntu 22.04 | Nginx</div>
+                    <div class="desc" style="color: var(--primary);">Port 8082 (Proxy)</div>
+                  </div>
+                  <div class="node node-web" id="node-web3">
+                    <div class="title">web-3</div>
+                    <div class="desc">Ubuntu 22.04 | Nginx</div>
+                    <div class="desc" style="color: var(--primary);">Port 8083 (Proxy)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SVG connectors with flow effect -->
+              <svg class="connector-svg" id="connector-svg">
+                <path id="path-client-lb" class="connection-line" />
+                <path id="path-client-lb-pulse" class="pulse-line" />
+
+                <path id="path-lb-web1" class="connection-line" />
+                <path id="path-lb-web1-pulse" class="pulse-line" />
+
+                <path id="path-lb-web2" class="connection-line" />
+                <path id="path-lb-web2-pulse" class="pulse-line" />
+
+                <path id="path-lb-web3" class="connection-line" />
+                <path id="path-lb-web3-pulse" class="pulse-line" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <h3>主要な構成ファイル</h3>
+            <p>インフラの「宣言的な定義」と「ロードバランサー」の設計構成コードです。</p>
+            
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">vm.tf (Terraform)</h4>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              <pre><code>terraform {
+  required_providers {
+    lxd = {
+      source  = "terraform-lxd/lxd"
+      version = "1.7.0"
+    }
+  }
+}
+
+provider "lxd" {}
+
+resource "lxd_container" "web" {
+  count = 3
+
+  name  = "web-${count.index + 1}"
+  image = "ubuntu:22.04"
+}</code></pre>
+            </div>
+
+            <h4 style="font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">haproxy.cfg (HAProxy configuration)</h4>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              <pre><code>frontend http_front
+    bind *:8080
+    mode http
+    default_backend http_back
+
+backend http_back
+    mode http
+    balance roundrobin
+    server web1 127.0.0.1:8081 check
+    server web2 127.0.0.1:8082 check
+    server web3 127.0.0.1:8083 check</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Timeline Steps -->
+        <div id="timeline" class="tab-content">
+          <div class="detail-card">
+            <h3>インフラ構築ステップ</h3>
+            <p>初期の基盤導入から、複数コンテナの自動作成、ロードバランサー連携までの構築手順です。</p>
+            
+            <div class="timeline">
+              <!-- Step 1 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>1. LXD インフラ環境のインストールと初期化</h3>
+                <p>
+                  ホストマシンにLXDシステムを導入。コンテナ仮想化により、通常の重たい仮想マシンの起動を数秒の軽量コンテナ起動に代替し、完全無料・超高速な検証体制を構築。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>sudo apt update
+sudo apt install -y lxd
+sudo lxd init</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>2. Terraformによる複数コンテナ構成の適用</h3>
+                <p>
+                  インフラ構成定義ファイル <span class="inline-code">vm.tf</span> を作成。複数インスタンス構成を <span class="inline-code">count = 3</span> パラメータで宣言的にコード定義し、一括で構築。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>terraform init
+terraform apply</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>3. nginx のインストール（コンテナ内部）</h3>
+                <p>
+                  構築したコンテナにログインし、Webサーバー（Nginx）を個別にインストールします。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code># 例：web-1 コンテナに入ってインストールする
+lxc exec web-1 -- bash
+
+# コンテナ内部で実行
+sudo apt update
+sudo apt install -y nginx</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>4. Web コンテンツの変更による動作確認</h3>
+                <p>
+                  各コンテナで異なるメッセージを返すようにインデックスHTMLを書き換え、どのサーバーにアクセスしているか判別できるようにします。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code># web-1 コンテナ内
+echo "This is web-1" | sudo tee /var/www/html/index.html
+
+# web-2 コンテナ内
+echo "This is web-2" | sudo tee /var/www/html/index.html
+
+# web-3 コンテナ内
+echo "This is web-3" | sudo tee /var/www/html/index.html</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 5 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>5. ホストから各コンテナへのポートフォワード設定</h3>
+                <p>
+                  LXDの仮想ネットワーク上のコンテナとホスト側ネットワークを接続するため、プロキシポートマッピングを追加。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>lxc config device add web-1 http proxy listen=tcp:0.0.0.0:8081 connect=tcp:127.0.0.1:80
+lxc config device add web-2 http proxy listen=tcp:0.0.0.0:8082 connect=tcp:127.0.0.1:80
+lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0.0.1:80</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 6 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>6. HAProxyロードバランサーの統合・検証</h3>
+                <p>
+                  ホスト側にHAProxyを起動し、ラウンドロビンで負荷を分散するよう設定。<span class="inline-code">curl</span> を使って交互に各コンテナへとアクセスが振り分けられることを確認。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>curl http://localhost:8080
+# ➔ Output 1: This is web-1
+# ➔ Output 2: This is web-2
+# ➔ Output 3: This is web-3</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Troubleshooting -->
+        <div id="trouble" class="tab-content">
+          <div class="detail-card">
+            <h3>直面した問題と解決（トラブルシューティング）</h3>
+            <p>構築の過程で発生した様々なエラーに対し、ログの解析や権限・状態管理（State）の修復を行った問題解決の記録です。クリックすると詳細が開きます。</p>
+
+            <!-- Issue 1 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">VirtualBox</span>
+                  <span>1. VirtualBoxプロバイダーの取得失敗 (未登録)</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    当初、仮想マシンの制御にVirtualBoxを使用しようと試み、Terraform設定に書き加えたが、<span class="inline-code">terraform init</span>時にプロバイダーが見つからないエラーとなった。
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    VirtualBox用のTerraformプロバイダー（<span class="inline-code">hashicorp/virtualbox</span>）は公式レジストリに存在しないため。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    インフラの検証を円滑に進めるため、VirtualBoxでの実行を中止し、**LXDによるシステムコンテナベースの検証へ方針変更**。LXDはTerraformの公式・コミュニティプロバイダーが安定して提供されており、動作も非常に高速であるため、よりモダンで再現性の高い構成へと昇華できた。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Issue 2 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">LXD UNIX Socket</span>
+                  <span>2. LXDソケットへの通信権限エラー (Permission Denied)</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    <span class="inline-code">terraform apply</span> 時に、LXDデーモンと通信するUNIXソケットに対し、接続拒否エラーが発生。<br>
+                    <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">dial unix /var/snap/lxd/common/lxd/unix.socket: connect: permission denied</code>
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    Terraformを実行している一般ユーザー（<span class="inline-code">siwuser</span>）が、LXDの操作に必要な <span class="inline-code">lxd</span> ユーザーグループに所属していなかったため。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    ユーザーをLXDグループに追加するコマンドを実行し、ホスト環境を再起動させてグループ設定を適用。<br>
+                    <pre><code style="color: var(--primary);">sudo usermod -aG lxd siwuser
+sudo reboot</code></pre>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Issue 3 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">Terraform State</span>
+                  <span>3. コンテナの重複作成・適用競合</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    構成適用中に、対象コンテナが既に存在しているとアラートが出現し、実行が停止。<br>
+                    <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">This "instances" entry already exists</code>
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    Terraformを介さずLXD側で直接コンテナを操作した、または前回の不完全な破壊処理などにより、LXDに実機が残っているにも関わらずTerraformの状態管理ファイル（State）には反映されていない「状態の乖離（ドリフト）」が起きていた。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    実機側に残っている競合コンテナを強制削除した上で、TerraformのStateから対象のリソース状態を完全にクリアすることで、次回適用時の競合を解消。<br>
+                    <pre><code style="color: var(--primary);">lxc delete terraform-test --force
+terraform state rm lxd_container.test</code></pre>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Issue 4 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">LXD Storage</span>
+                  <span>4. ストレージプールの作成競合</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    <span class="inline-code">lxd init</span> 実行時、ストレージプールが重複しているという警告が発生。<br>
+                    <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">The requested storage pool "default" already exists. Please choose another name.</code>
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    過去に初期化したLXD環境の残骸により、デフォルトのストレージプール名である <span class="inline-code">default</span> がシステム内で利用中だった。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    初期化プロンプトに従い、未使用の新しいプール名（例: <span class="inline-code">default2</span>）を入力して設定をバイパスし、無事に初期化を完了させた。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Tab 4: Results & Learnings -->
+        <div id="results" class="tab-content">
+          <div class="detail-card">
+            <h3>得られた実績と学び</h3>
+            
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. 手作業インフラ構築から、再現性の高いIaCへ</h4>
+              <p>
+                物理環境の構築・設定のすべてを手動で行っていた手法を脱却し、インフラを「コード（HCL）」で定義することで、誰が実行しても同じ環境を秒単位で再現できる強みを体験しました。これにより、開発環境のスクラップ＆ビルドが容易になりました。
+              </p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">2. スケールアウトの概念理解</h4>
+              <p>
+                Terraformのメタ引数である <span class="inline-code">count</span> を変更するだけで、1台のWebサーバーから3台、あるいはそれ以上へと瞬時にスケールアウトできる設計方法を学びました。これはAWS等のAuto Scalingや冗長化の根本原理を掴むのに大きく貢献しました。
+              </p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">3. ネットワークトラフィック制御とポート設計</h4>
+              <p>
+                LXDのプロキシ設定を通じ、仮想内部ネットワークと外部ホストの通信経路を設計しました。また、ロードバランサー（HAProxy）によるレイヤー4/7の中継処理と、クライアントからのリクエストが均等に分散されていくラウンドロビンの動向を検証レベルで実証しました。
+              </p>
+            </div>
+
+            <div>
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">4. プロジェクト達成による技術スキル成長</h4>
+              <ul class="check-list">
+                <li><strong>インフラコード化能力</strong>: Terraformを用いた宣言的コード開発スキルの獲得</li>
+                <li><strong>コンテナ仮想化スキル</strong>: LXD/LXCの制御、ネットワークおよびボリューム設計の知識</li>
+                <li><strong>ロードバランシング設計</strong>: HAProxyを用いたリバースプロキシおよび負荷分散構成能力</li>
+                <li><strong>トラブル解決能力</strong>: エラーログ（権限、重複、プール名）からの正確な原因特定と解決スキルの習得</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Works Section: Project 2 -->
+    <section class="section-grid" id="works2">
+      <div class="section-left">
+      </div>
+      <div class="section-right">
+        
+        <div class="works-header">
+          <h3 class="works-project-title">Docker Compose × Ansible サーバー構成自動化</h3>
+          <p class="works-project-desc">マルチコンテナアプリケーション（MySQL、PHP、Nginx）を Docker Compose で定義し、Ansible による自動デプロイと設定管理を実装したプロジェクト</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>主要技術</h3>
+            <div class="value" style="color: var(--primary);">Docker / Ansible</div>
+          </div>
+          <div class="stat-card">
+            <h3>構成ノード数</h3>
+            <div class="value">5 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted-dark);">Services</span></div>
+          </div>
+          <div class="stat-card">
+            <h3>構成管理</h3>
+            <div class="value" style="color: var(--accent);">IaC</div>
+          </div>
+          <div class="stat-card">
+            <h3>検証済みスタック</h3>
+            <div class="tech-list">
+              <span class="tech-badge">Docker</span>
+              <span class="tech-badge">Ansible</span>
+              <span class="tech-badge">Nginx</span>
+              <span class="tech-badge">MySQL</span>
+              <span class="tech-badge">PHP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Tabs -->
+        <div class="tabs-wrapper">
+          <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab(event, 'overview2')">概要</button>
+            <button class="tab-btn" onclick="switchTab(event, 'timeline2')">構築手順</button>
+            <button class="tab-btn" onclick="switchTab(event, 'trouble2')">トラブルシューティング</button>
+            <button class="tab-btn" onclick="switchTab(event, 'results2')">実績と学び</button>
+          </div>
+        </div>
+
+        <!-- Tab 1: Overview -->
+        <div id="overview2" class="tab-content active">
+          <div class="detail-card">
+            <h3>プロジェクト概要</h3>
+            <p>
+              本プロジェクトは、実運用環境でよく用いられる <strong>Docker Compose</strong> と <strong>Ansible</strong> を組み合わせ、マルチコンテナアプリケーションの統一的な構築・管理・運用方法を実証することを目標としています。
+            </p>
+            <p>
+              開発環境でのコンテナ化から、本番環境への自動デプロイまでのエンドツーエンドの構成管理フローを実装。Ansibleのプレイブックを活用して、複数のホスト間での一括設定適用、パッケージ更新、ヘルスチェックなどの運用タスク自動化を検証しました。
+            </p>
+
+            <!-- Dynamic Visual Diagram -->
+            <div class="diagram-container">
+              <div class="diagram-title">マルチコンテナアーキテクチャ構成図</div>
+              
+              <div class="network-vis">
+                <!-- Client -->
+                <div class="node node-client" id="node-client2">
+                  <div class="title">Client Browser</div>
+                  <div class="desc">HTTP: localhost:80</div>
+                </div>
+
+                <!-- Nginx Reverse Proxy -->
+                <div class="node node-lb" id="node-nginx2">
+                  <div class="title">Nginx (Reverse Proxy)</div>
+                  <div class="desc">Port 80 ➔ Load Balancing</div>
+                </div>
+
+                <!-- Backend Services Group -->
+                <div class="web-group">
+                  <div class="node node-web" id="node-php2">
+                    <div class="title">PHP-FPM</div>
+                    <div class="desc">Container | Port 9000</div>
+                    <div class="desc" style="color: var(--primary);">Application Server</div>
+                  </div>
+                  <div class="node node-web" id="node-mysql2">
+                    <div class="title">MySQL</div>
+                    <div class="desc">Container | Port 3306</div>
+                    <div class="desc" style="color: var(--primary);">Database</div>
+                  </div>
+                  <div class="node node-web" id="node-redis2">
+                    <div class="title">Redis</div>
+                    <div class="desc">Container | Port 6379</div>
+                    <div class="desc" style="color: var(--primary);">Cache Layer</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SVG connectors -->
+              <svg class="connector-svg" id="connector-svg2">
+                <path id="path-client-nginx2" class="connection-line" />
+                <path id="path-client-nginx2-pulse" class="pulse-line" />
+
+                <path id="path-nginx-php2" class="connection-line" />
+                <path id="path-nginx-php2-pulse" class="pulse-line" />
+
+                <path id="path-nginx-mysql2" class="connection-line" />
+                <path id="path-nginx-mysql2-pulse" class="pulse-line" />
+
+                <path id="path-nginx-redis2" class="connection-line" />
+                <path id="path-nginx-redis2-pulse" class="pulse-line" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <h3>主要な構成ファイル</h3>
+            <p>Docker Compose による宣言的なコンテナ定義と、Ansible による構成管理のメイン設定です。</p>
+            
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">docker-compose.yml</h4>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              <pre><code>version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./app:/var/www/html:ro
+    depends_on:
+      - php-fpm
+    networks:
+      - app-network
+
+  php-fpm:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/www/html
+    environment:
+      - DB_HOST=mysql
+      - CACHE_HOST=redis
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: appdb
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge</code></pre>
+            </div>
+
+            <h4 style="font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">site.yml (Ansible Playbook)</h4>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              <pre><code>---
+- name: Deploy application stack
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install Docker and Docker Compose
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker.io
+        - docker-compose
+
+    - name: Copy docker-compose.yml
+      copy:
+        src: docker-compose.yml
+        dest: /opt/app/docker-compose.yml
+        owner: root
+        mode: '0644'
+
+    - name: Start services
+      shell: docker-compose -f /opt/app/docker-compose.yml up -d
+
+    - name: Wait for MySQL
+      wait_for:
+        port: 3306
+        delay: 5
+
+    - name: Check application health
+      uri:
+        url: http://localhost:80/health
+        status_code: 200
+      retries: 3
+      delay: 2</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Timeline Steps -->
+        <div id="timeline2" class="tab-content">
+          <div class="detail-card">
+            <h3>構築・デプロイメント手順</h3>
+            <p>ローカル環境での開発から、リモートホストへの自動デプロイまでのステップです。</p>
+            
+            <div class="timeline">
+              <!-- Step 1 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>1. Docker環境のセットアップと検証</h3>
+                <p>
+                  開発マシンに Docker および Docker Compose をインストール。バージョン確認を行い、Dockerデーモンが正常に起動していることを検証します。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+docker version
+docker-compose version</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>2. アプリケーション構成ファイルの準備</h3>
+                <p>
+                  PHP アプリケーション、Nginx 設定、初期化スクリプトなどを整理したファイルツリーを構築。Dockerコンテナ内でのマウント構造を考慮した構成を作成。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>project/
+├── docker-compose.yml
+├── nginx.conf
+├── app/
+│   ├── index.php
+│   └── health.php
+├── php/
+│   ├── Dockerfile
+│   └── php.ini
+└── mysql/
+    └── init.sql</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>3. ローカル環境でのコンテナ起動・テスト</h3>
+                <p>
+                  <span class="inline-code">docker-compose up</span> でマルチコンテナスタックを一括起動。各サービスのヘルスチェック、ネットワーク疎通確認、データベース接続などを実施。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>docker-compose up -d
+docker-compose ps
+docker-compose logs -f nginx
+curl http://localhost:80</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>4. Ansible インベントリ・プレイブック作成</h3>
+                <p>
+                  デプロイ対象のホスト情報をインベントリファイルに記載。docker-compose.ymlの配置、Docker サービスの起動、ヘルスチェック等を記述したプレイブックを作成。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code># inventory.ini
+[webservers]
+deploy-host-1 ansible_host=192.168.1.100
+deploy-host-2 ansible_host=192.168.1.101
+
+# Execute playbook
+ansible-playbook -i inventory.ini site.yml</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 5 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>5. リモートホストへの自動デプロイ実行</h3>
+                <p>
+                  Ansible の <span class="inline-code">ansible-playbook</span> コマンドでプレイブックを実行。リモートホストに対して一括でファイルコピー、パッケージインストール、サービス起動を自動実施。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>ansible-playbook -i inventory.ini site.yml -v
+# -v フラグで詳細な実行ログを表示
+# 複数ホストに対して統一的な構成適用が可能</code></pre>
+                </div>
+              </div>
+
+              <!-- Step 6 -->
+              <div class="timeline-item success">
+                <div class="timeline-marker"></div>
+                <span class="timeline-badge ok">Success</span>
+                <h3>6. デプロイ後の検証と運用</h3>
+                <p>
+                  各ホストのサービス状態を確認。アプリケーションヘルスエンドポイント、データベース接続状態、ログ出力を検査し、本番環境での稼働を確認。
+                </p>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>ansible webservers -i inventory.ini -m shell -a "docker-compose -f /opt/app/docker-compose.yml ps"
+# リモートホスト全体でのコンテナ状態確認
+curl http://deploy-host-1/health
+curl http://deploy-host-2/health</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Troubleshooting -->
+        <div id="trouble2" class="tab-content">
+          <div class="detail-card">
+            <h3>構築中に発生した問題と解決</h3>
+            <p>運用環境のデプロイメント検証における実際のトラブルと、その解決方法を記録しています。</p>
+
+            <!-- Issue 1 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">Docker Network</span>
+                  <span>1. コンテナ間通信の DNS 解決失敗</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    PHP コンテナから MySQL コンテナへの接続時、ホスト名（<span class="inline-code">mysql</span>）が解決されず、接続エラーが発生。
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    Docker Compose のデフォルトネットワークでは、サービス名による自動 DNS 解決が行われますが、<span class="inline-code">depends_on</span> は起動順序のみを制御し、サービスの「完全な起動」は保証しません。PHP が起動時に MySQL へ接続したが、MySQL がまだ初期化中の可能性がありました。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    PHP コンテナのエントリーポイントスクリプトに、<span class="inline-code">wait-for-it.sh</span> を用いた MySQL への接続待機ロジックを追加。これにより、MySQL が完全に起動してから PHP アプリケーションが初期化されるようになりました。<br>
+                    <pre><code style="color: var(--primary);">./wait-for-it.sh mysql:3306 -t 30 -- php-fpm</code></pre>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Issue 2 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">Ansible SSH</span>
+                  <span>2. Ansible から リモートホストへの SSH 接続失敗</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    Ansible プレイブック実行時、リモートホストへの SSH 接続がタイムアウト。<br>
+                    <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">fatal: [deploy-host-1]: UNREACHABLE! => {msg: 'Failed to connect to the host via ssh'}</code>
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    インベントリファイルで指定した IP アドレスが誤っていた、また SSH キー認証の設定が不完全だった。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    インベントリファイルの IP アドレスを再確認し、SSH 公開鍵をリモートホストに配置。また、<span class="inline-code">ansible.cfg</span> で SSH パラメータを明示的に設定しました。<br>
+                    <pre><code style="color: var(--primary);">[defaults]
+host_key_checking = False
+private_key_file = ~/.ssh/id_rsa
+
+ansible-playbook -i inventory.ini site.yml</code></pre>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Issue 3 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">Volume Mount</span>
+                  <span>3. コンテナ内の MySQL データベース永続化失敗</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    Docker Compose でコンテナを再起動すると、MySQL データベースのデータが初期化されてしまう。
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    <span class="inline-code">docker-compose.yml</span> で MySQL のボリュームマウントが未定義か、正しく設定されていなかった。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    Docker Compose の <span class="inline-code">volumes</span> セクションで Named Volume を定義し、MySQL コンテナをマウント。これにより、コンテナの再起動後もデータが保持されるようになりました。<br>
+                    <pre><code style="color: var(--primary);">volumes:
+  mysql_data:
+
+services:
+  mysql:
+    volumes:
+      - mysql_data:/var/lib/mysql</code></pre>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Issue 4 -->
+            <div class="accordion">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="error-title">
+                  <span class="error-badge">File Permissions</span>
+                  <span>4. Ansible による ファイルコピー後のパーミッション不一致</span>
+                </div>
+                <span class="accordion-icon">+</span>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-content">
+                  <p><strong>【事象】</strong><br>
+                    Ansible で docker-compose.yml をリモートホストにコピー後、Docker Compose コマンド実行時にパーミッション拒否エラーが発生。
+                  </p>
+                  <p><strong>【原因】</strong><br>
+                    Ansible の <span class="inline-code">copy</span> モジュール実行時に、ファイルのパーミッション設定が明示的に指定されていなかった。
+                  </p>
+                  <p><strong>【解決策】</strong><br>
+                    Ansible プレイブックの <span class="inline-code">copy</span> タスクに、<span class="inline-code">mode</span> パラメータを追加してファイルパーミッションを明示的に設定。<br>
+                    <pre><code style="color: var(--primary);">- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /opt/app/docker-compose.yml
+    owner: root
+    group: root
+    mode: '0644'</code></pre>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Tab 4: Results & Learnings -->
+        <div id="results2" class="tab-content">
+          <div class="detail-card">
+            <h3>得られた実績と学び</h3>
+            
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. コンテナ化によるデプロイメント効率化</h4>
+              <p>
+                マルチコンテナアプリケーションを Docker Compose で定義することで、開発環境と本番環境の構成を統一。環境差による問題を排除し、「どこでも同じように動く」という強力な再現性を獲得しました。
+              </p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">2. 構成管理の自動化による運用負荷削減</h4>
+              <p>
+                Ansible による宣言的な構成管理により、複数のリモートホストに対して統一的な設定を一括適用。手作業でのセットアップを完全に排除し、スケーラビリティと保守性を大幅に向上させました。
+              </p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">3. マルチレイヤアーキテクチャの理解深化</h4>
+              <p>
+                Nginx（リバースプロキシ）、PHP-FPM（アプリケーションサーバー）、MySQL（データベース）、Redis（キャッシュレイヤー）という複数の機能レイヤを組み合わせた構成を設計・実装。各層の役割と連携方法を実践レベルで理解しました。
+              </p>
+            </div>
+
+            <div>
+              <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">4. インフラ自動化スキルの習得</h4>
+              <ul class="check-list">
+                <li><strong>Docker / Docker Compose</strong>: マルチコンテナアプリケーション定義と管理スキル</li>
+                <li><strong>Ansible Playbook</strong>: 宣言的な構成管理とリモートホスト一括制御能力</li>
+                <li><strong>ネットワーク設計</strong>: コンテナ間通信、DNS 解決、ボリュームマウント設計知識</li>
+                <li><strong>デプロイメント パイプライン</strong>: 開発環境から本番環境への自動化フロー構築経験</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section-grid" id="contact">
+      <div class="section-left">
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <div class="section-right">
+        <p class="contact-desc">下記の問い合わせフォームよりご連絡ください。</p>
+        
+        <form class="contact-form" name="contact form" method="post" action="#">
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="contact-name">お名前</label>
+              <span class="form-badge">必須</span>
+            </div>
+            <input class="form-input" id="contact-name" name="お名前" placeholder="お名前を入力してください" required type="text" />
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="contact-email">メールアドレス</label>
+              <span class="form-badge">必須</span>
+            </div>
+            <input class="form-input" id="contact-email" name="メールアドレス" placeholder="メールアドレスを入力してください" required type="email" />
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="contact-message">メッセージ</label>
+              <span class="form-badge">必須</span>
+            </div>
+            <textarea class="form-textarea" id="contact-message" name="メッセージ" placeholder="お問い合わせ内容を入力してください" required></textarea>
+          </div>
+
+          <button class="form-submit" type="submit">送信</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-logo">Shuto Fukuda</div>
+      <div class="footer-copy">©2026 Shuto Fukuda All rights reserved.</div>
+    </footer>
+
+  </div>
+
+  <!-- Scripting for Tabs, Accordion, and SVG Connector drawing -->
+  <script>
+    // Modal Functions
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Draw SVG connectors after modal is visible
+      setTimeout(() => {
+        if (modalId === 'modal-project1') {
+          drawConnectors(1);
+        } else if (modalId === 'modal-project2') {
+          drawConnectors(2);
+        }
+      }, 100);
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.remove('open');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside the modal-content
+    window.addEventListener('click', function(e) {
+      if (e.target.classList && e.target.classList.contains('modal')) {
+        e.target.classList.remove('open');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Tab switching logic
+    function switchTab(evt, tabName) {
+      // Find parent container (could be .section-right or .modal-body)
+      let parentContainer = evt.currentTarget.closest('.modal-body') || evt.currentTarget.closest('.section-right');
+      
+      if (!parentContainer) return;
+
+      const tabcontents = parentContainer.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].classList.remove("active");
+      }
+
+      const tablinks = parentContainer.getElementsByClassName("tab-btn");
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+      }
+
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+
+      // Draw SVG lines on switching back to 'overview' or 'overview2' (diagram tabs)
+      if (tabName === 'overview' || tabName === 'overview2') {
+        setTimeout(() => {
+          drawConnectors(tabName === 'overview2' ? 2 : 1);
+        }, 50);
+      }
+    }
+
+    // Accordion toggle
+    function toggleAccordion(header) {
+      const parent = header.parentElement;
+      const body = parent.querySelector(".accordion-body");
+      
+      parent.classList.toggle("open");
+      if (parent.classList.contains("open")) {
+        body.style.maxHeight = body.scrollHeight + "px";
+      } else {
+        body.style.maxHeight = 0;
+      }
+    }
+
+    // Code copy function
+    async function copyCode(button) {
+      const pre = button.nextElementSibling;
+      const code = pre.querySelector("code");
+      try {
+        await navigator.clipboard.writeText(code.innerText);
+        const originalText = button.innerText;
+        button.innerText = "Copied!";
+        button.style.background = "var(--accent)";
+        button.style.color = "#fff";
+        setTimeout(() => {
+          button.innerText = originalText;
+          button.style.background = "";
+          button.style.color = "";
+        }, 1500);
+      } catch (err) {
+        console.error("Failed to copy!", err);
+      }
+    }
+
+    // Dynamic SVG Connectors alignment based on DOM node coordinates
+    function drawConnectors(projectNum = 1) {
+      const suffix = projectNum === 2 ? '2' : '';
+      const svg = document.getElementById("connector-svg" + suffix);
+      
+      if (!svg) return;
+
+      let client, lb, nodes = [];
+      
+      if (projectNum === 1) {
+        // Project 1: LXD Architecture
+        client = document.getElementById("node-client");
+        lb = document.getElementById("node-lb");
+        nodes = [
+          { elem: document.getElementById("node-web1"), pathToLb: "path-lb-web1" },
+          { elem: document.getElementById("node-web2"), pathToLb: "path-lb-web2" },
+          { elem: document.getElementById("node-web3"), pathToLb: "path-lb-web3" }
+        ];
+        var pathClientLbId = "path-client-lb";
+      } else {
+        // Project 2: Docker Compose Architecture
+        client = document.getElementById("node-client2");
+        lb = document.getElementById("node-nginx2");
+        nodes = [
+          { elem: document.getElementById("node-php2"), pathToLb: "path-nginx-php2" },
+          { elem: document.getElementById("node-mysql2"), pathToLb: "path-nginx-mysql2" },
+          { elem: document.getElementById("node-redis2"), pathToLb: "path-nginx-redis2" }
+        ];
+        var pathClientLbId = "path-client-nginx2";
+      }
+
+      // Stop execution if elements are not rendered
+      if (!svg || !client || !lb) return;
+      if (window.getComputedStyle(svg).display === 'none') return;
+
+      const svgRect = svg.getBoundingClientRect();
+
+      function getCenterPos(el) {
+        const r = el.getBoundingClientRect();
+        return {
+          x: r.left - svgRect.left + r.width / 2,
+          y: r.top - svgRect.top + r.height / 2,
+          top: r.top - svgRect.top,
+          bottom: r.top - svgRect.top + r.height,
+          left: r.left - svgRect.left,
+          right: r.left - svgRect.left + r.width
+        };
+      }
+
+      const cPos = getCenterPos(client);
+      const lbPos = getCenterPos(lb);
+
+      // Client to LB (vertical line)
+      const pathClientLb = `M ${cPos.x} ${cPos.bottom} L ${lbPos.x} ${lbPos.top}`;
+      const clientLbPath = document.getElementById(pathClientLbId);
+      if (clientLbPath) clientLbPath.setAttribute("d", pathClientLb);
+      
+      // LB to each node
+      nodes.forEach((node, idx) => {
+        if (!node.elem) return;
+        const nodePos = getCenterPos(node.elem);
+        const pathData = `M ${lbPos.x} ${lbPos.bottom} L ${nodePos.x} ${nodePos.top}`;
+        
+        const pathElement = document.getElementById(node.pathToLb);
+        if (pathElement) pathElement.setAttribute("d", pathData);
+      });
+    }
+
+    // Redraw on load, resize and font loading
+    window.addEventListener("load", () => {
+      drawConnectors(1);
+      drawConnectors(2);
+    });
+    window.addEventListener("resize", () => {
+      drawConnectors(1);
+      drawConnectors(2);
+    });
+    document.fonts.ready.then(() => {
+      drawConnectors(1);
+      drawConnectors(2);
+    });
+    
+    // Draw initial lines with incremental checks to handle render lag
+    setTimeout(() => { drawConnectors(1); drawConnectors(2); }, 100);
+    setTimeout(() => { drawConnectors(1); drawConnectors(2); }, 500);
+  </script>
+</body>
+</html>

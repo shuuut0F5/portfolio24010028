@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terraform × LXD 複数コンテナ Web サーバー構築</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f7f9fc; margin: 0; color: #222; line-height: 1.8; }
+    header { background: #1f4b99; color: #fff; padding: 2.5rem; text-align: center; }
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin-top: 0.5rem; opacity: 0.9; }
+    main { max-width: 900px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    h2 { color: #1f4b99; border-left: 6px solid #1f4b99; padding-left: 10px; margin-top: 2.5rem; }
+    h3 { margin-top: 1.5rem; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto; border: 1px solid #ddd; }
+    code { font-family: "SF Mono", Consolas, monospace; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.4rem; }
+    footer { text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Terraform × LXD による複数コンテナ Web サーバー構築</h1>
+  <p>作成者：shuto — ローカル環境でクラウド構成を再現した技術プロジェクト</p>
+</header>
+
+<main>
+
+  <h2>概要</h2>
+  <p>
+    このプロジェクトでは、Terraform と LXD を組み合わせて、
+    <strong>複数の Ubuntu コンテナを Web サーバーとして構築し、ロードバランサーで束ねる環境</strong>
+    をローカルで再現しました。
+    AWS EC2 × Auto Scaling × ELB の基礎構成を、クラウドを使わずに自分の PC 上で構築しています。
+  </p>
+
+  <h2>使用技術</h2>
+  <ul>
+    <li>Terraform（Infrastructure as Code）</li>
+    <li>LXD（軽量コンテナ仮想化）</li>
+    <li>Ubuntu 22.04 コンテナ</li>
+    <li>nginx（Web サーバー）</li>
+    <li>HAProxy（ロードバランサー）</li>
+  </ul>
+
+  <h2>構成図</h2>
+  <pre><code>
+┌──────────────┐
+│   HAProxy LB   │  ← http://localhost:8080
+└──────┬─────────┘
+       │ round-robin
+ ┌─────┴─────┐
+ │           │
+▼           ▼
+web-1   web-2   web-3
+:8081   :8082   :8083
+(This is web-1 / 2 / 3)
+  </code></pre>
+
+  <h2>Terraform による複数コンテナ構築</h2>
+  <pre><code>resource "lxd_container" "web" {
+  count = 3
+  name  = "web-${count.index + 1}"
+  image = "ubuntu:22.04"
+}
+</code></pre>
+
+  <p>この設定により、<strong>web-1 / web-2 / web-3</strong> の 3 台が自動作成されます。</p>
+
+  <h2>nginx のインストール（各コンテナ）</h2>
+  <pre><code>sudo apt update
+sudo apt install -y nginx
+</code></pre>
+
+  <h2>Web ページの変更（動作確認用）</h2>
+  <pre><code># web-1
+echo "This is web-1" | sudo tee /var/www/html/index.html
+
+# web-2
+echo "This is web-2" | sudo tee /var/www/html/index.html
+
+# web-3
+echo "This is web-3" | sudo tee /var/www/html/index.html
+</code></pre>
+
+  <h2>ホスト側からのポートフォワード設定</h2>
+  <pre><code>lxc config device add web-1 http proxy listen=tcp:0.0.0.0:8081 connect=tcp:127.0.0.1:80
+lxc config device add web-2 http proxy listen=tcp:0.0.0.0:8082 connect=tcp:127.0.0.1:80
+lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0.0.1:80
+</code></pre>
+
+  <h2>HAProxy によるロードバランシング</h2>
+  <pre><code>frontend http_front
+    bind *:8080
+    mode http
+    default_backend http_back
+
+backend http_back
+    mode http
+    balance roundrobin
+    server web1 127.0.0.1:8081 check
+    server web2 127.0.0.1:8082 check
+    server web3 127.0.0.1:8083 check
+</code></pre>
+
+  <h3>動作確認</h3>
+  <pre><code>curl http://localhost:8080
+# → This is web-1
+# → This is web-2
+# → This is web-3（リロードで切り替わる）
+</code></pre>
+
+  <p>
+    リロードするたびに表示が切り替わることで、
+    <strong>ロードバランサーが 3 台の Web サーバーに正しく振り分けている</strong>
+    ことを確認しました。
+  </p>
+
+  <h2>成果</h2>
+  <ul>
+    <li>Terraform による複数コンテナの自動構築を実現</li>
+    <li>nginx を用いた Web サーバー群を構築</li>
+    <li>LXD のプロキシ機能でホストからアクセス可能に</li>
+    <li>HAProxy によるロードバランシングを実装</li>
+    <li>クラウド構成（EC2 × ELB）をローカルで再現</li>
+  </ul>
+
+  <p>
+    このプロジェクトを通じて、コンテナ仮想化・IaC・ロードバランシングなど、
+    インフラ構築の基礎を実践的に習得しました。
+  </p>
+
+</main>
+
+<footer>
+  © 2026 shuto — Terraform × LXD Multi-Container Web Server Project
+</footer>
+
+</body>
+</html>

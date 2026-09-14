@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terraform × LXD で複数コンテナ Web サーバー構築</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; background: #f7f9fc; color: #222; line-height: 1.8; }
+    header { background: #1f4b99; color: #fff; padding: 2.5rem; text-align: center; }
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin-top: 0.5rem; opacity: 0.9; }
+    main { max-width: 900px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    h2 { color: #1f4b99; border-left: 6px solid #1f4b99; padding-left: 10px; margin-top: 2.5rem; }
+    h3 { margin-top: 1.5rem; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto; border: 1px solid #ddd; }
+    code { font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.4rem; }
+    .tag { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.8rem; margin-right: 6px; }
+    .ok { background: #e3f6e9; color: #1b7a3c; }
+    .ng { background: #ffe5e5; color: #b00020; }
+    footer { text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Terraform × LXD で複数コンテナ Web サーバーを構築した記録</h1>
+  <p>ローカル環境で EC2 風インフラを再現し、3 台の Web サーバーを構築・管理したプロジェクト</p>
+</header>
+
+<main>
+
+  <h2>プロジェクト概要</h2>
+  <p>
+    このプロジェクトでは、クラウドを使わずに <strong>Terraform × LXD</strong> を組み合わせて、
+    <strong>複数の Ubuntu コンテナを Web サーバーとして構築・管理</strong>する環境を作成しました。
+    目的は、AWS EC2 や Auto Scaling の概念をローカル環境で再現し、
+    インフラ構成管理（IaC）の基礎を身につけることです。
+  </p>
+
+  <h2>使用技術</h2>
+  <ul>
+    <li>Terraform（LXD プロバイダー）</li>
+    <li>LXD（コンテナ仮想化）</li>
+    <li>Ubuntu 22.04 コンテナ</li>
+    <li>nginx（Web サーバー）</li>
+  </ul>
+
+  <h2>手順の流れ</h2>
+
+  <h3>1. LXD のインストールと初期化</h3>
+  <span class="tag ok">成功</span>
+  <pre><code>sudo apt install -y lxd
+sudo lxd init
+</code></pre>
+  <p>ストレージプール名の重複があったため、新しい名前（例：<code>default2</code>）を設定して初期化しました。</p>
+
+  <h3>2. Terraform 設定ファイル vm.tf の作成（複数コンテナ構成）</h3>
+  <span class="tag ok">成功</span>
+  <pre><code>terraform {
+  required_providers {
+    lxd = {
+      source  = "terraform-lxd/lxd"
+      version = "1.7.0"
+    }
+  }
+}
+
+provider "lxd" {}
+
+resource "lxd_container" "web" {
+  count = 3
+
+  name  = "web-${count.index + 1}"
+  image = "ubuntu:22.04"
+}
+</code></pre>
+  <p>
+    <code>count = 3</code> により <strong>web-1 / web-2 / web-3</strong> の 3 台のコンテナを自動作成する構成にしました。
+  </p>
+
+  <h3>3. 古い単一コンテナ構成からの移行</h3>
+  <span class="tag ok">成功</span>
+  <pre><code># 旧コンテナの削除
+lxc delete terraform-test --force
+
+# Terraform の状態から旧リソースを削除
+terraform state rm lxd_container.test
+</code></pre>
+  <p>単一コンテナ <code>terraform-test</code> を削除し、Terraform の状態もクリーンにしてから複数コンテナ構成へ移行しました。</p>
+
+  <h3>4. terraform apply による複数コンテナ作成</h3>
+  <span class="tag ok">成功</span>
+  <pre><code>terraform apply
+# → web-1, web-2, web-3 が作成される
+</code></pre>
+  <pre><code>lxc list
+# NAME   STATE   IPV4
+# web-1  RUNNING ...
+# web-2  RUNNING ...
+# web-3  RUNNING ...
+</code></pre>
+
+  <h3>5. 各コンテナにログイン</h3>
+  <span class="tag ok">成功</span>
+  <pre><code>lxc exec web-1 -- bash
+lxc exec web-2 -- bash
+lxc exec web-3 -- bash
+</code></pre>
+  <p>それぞれのコンテナ内で Ubuntu 22.04 が正常に動作していることを確認しました。</p>
+
+  <h3>6. nginx のインストール（コンテナ内部）</h3>
+  <span class="tag ok">成功</span>
+  <pre><code>sudo apt update
+sudo apt install -y nginx
+</code></pre>
+
+  <h3>7. ホストから各コンテナへのポートフォワード設定</h3>
+  <span class="tag ok">成功</span>
+  <pre><code>lxc config device add web-1 http proxy \
+  listen=tcp:0.0.0.0:8081 \
+  connect=tcp:127.0.0.1:80
+
+lxc config device add web-2 http proxy \
+  listen=tcp:0.0.0.0:8082 \
+  connect=tcp:127.0.0.1:80
+
+lxc config device add web-3 http proxy \
+  listen=tcp:0.0.0.0:8083 \
+  connect=tcp:127.0.0.1:80
+</code></pre>
+  <p>
+    これにより、ホスト側から <code>http://localhost:8081</code> / <code>8082</code> / <code>8083</code> 経由で
+    各コンテナの nginx にアクセスできるようになりました。
+  </p>
+
+  <h3>8. Web コンテンツの変更による動作確認</h3>
+  <span class="tag ok">成功</span>
+  <pre><code># web-1 内
+echo "This is web-1" | sudo tee /var/www/html/index.html
+
+# web-2 内
+echo "This is web-2" | sudo tee /var/www/html/index.html
+
+# web-3 内
+echo "This is web-3" | sudo tee /var/www/html/index.html
+</code></pre>
+
+  <pre><code># ホスト側から確認
+curl http://localhost:8081  # → This is web-1
+curl http://localhost:8082  # → This is web-2
+curl http://localhost:8083  # → This is web-3
+</code></pre>
+  <p>
+    それぞれ異なるメッセージが表示されることで、
+    <strong>3 台の Web サーバーが独立して動作していること</strong>を確認しました。
+  </p>
+
+  <h2>成果と学び</h2>
+  <ul>
+    <li>Terraform で LXD コンテナを複数管理する方法を習得</li>
+    <li>単一構成から複数構成への移行と、状態管理（<code>terraform state rm</code>）の重要性を理解</li>
+    <li>コンテナごとの Web サーバー構築と、ホストからのポートフォワード設定を実践</li>
+    <li>ローカル環境で EC2 風のインフラ構成（複数インスタンス＋Web サーバー）を再現</li>
+  </ul>
+  <p>
+    このプロジェクトを通じて、クラウドインフラの概念をローカル環境で具体的に体験し、
+    <strong>Infrastructure as Code（IaC）とコンテナ仮想化の基礎</strong>を実践的に身につけました。
+  </p>
+
+</main>
+
+<footer>
+  © 2026 shuto — Terraform × LXD Multi-Container Web Server Project
+</footer>
+
+</body>
+</html>

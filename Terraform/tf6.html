@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Docker Compose × Ansible マルチコンテナ Web インフラ構築実績</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f7f9fc; margin: 0; color: #222; line-height: 1.8; }
+    header { background: #1f4b99; color: #fff; padding: 2.5rem; text-align: center; }
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin-top: 0.5rem; opacity: 0.9; }
+    main { max-width: 900px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    h2 { color: #1f4b99; border-left: 6px solid #1f4b99; padding-left: 10px; margin-top: 2.5rem; }
+    h3 { margin-top: 1.5rem; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.4rem; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto; border: 1px solid #ddd; }
+    code { font-family: "SF Mono", Consolas, monospace; }
+    footer { text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Docker Compose × Ansible によるマルチコンテナ Web インフラ構築</h1>
+  <p>作成者：shuto — 実運用に近い構成管理フローをローカル環境で再現したプロジェクト</p>
+</header>
+
+<main>
+
+  <h2>プロジェクト概要</h2>
+  <p>
+    このプロジェクトでは、Docker Compose と Ansible を組み合わせて、
+    <strong>Web サーバー・アプリケーションサーバー・データベース・キャッシュサーバーからなるマルチコンテナ Web インフラ</strong>
+    を構築しました。  
+    開発環境から本番環境へのデプロイまでを自動化し、構成管理ツールによる統一的な運用フローを実証しています。
+  </p>
+
+  <h2>構成図（再現したインフラ）</h2>
+  <ul>
+    <li>Nginx（Reverse Proxy / Port 80）</li>
+    <li>PHP-FPM（Application Server / Port 9000）</li>
+    <li>MySQL（Database / Port 3306）</li>
+    <li>Redis（Cache Layer / Port 6379）</li>
+  </ul>
+
+  <h2>実現したこと</h2>
+
+  <h3>1. Docker Compose によるマルチコンテナ構成のコード化</h3>
+  <ul>
+    <li>Web・アプリ・DB・キャッシュの 4 コンテナを Compose で一括管理。</li>
+    <li>コンテナ間ネットワーク、ボリューム永続化、依存関係をコード化。</li>
+    <li><code>docker compose up -d</code> だけで本番に近い構成を自動構築。</li>
+  </ul>
+  <pre><code>services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./app:/var/www/html
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "9000"
+    volumes:
+      - ./app:/var/www/html
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: appdb
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+</code></pre>
+
+  <h3>2. Ansible による構成管理・自動デプロイ</h3>
+  <ul>
+    <li>Docker のインストール、Compose の配置、サービス起動を Ansible で自動化。</li>
+    <li>複数ホストへの横展開が可能な構成管理フローを実装。</li>
+    <li>本番運用で使われる「構成の再現性」「自動化」「一括適用」を体験。</li>
+  </ul>
+  <pre><code>- name: Deploy multi-container web infrastructure
+  hosts: web
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start Docker Compose
+      community.docker.docker_compose_v2:
+        project_src: /home/user/project
+        state: present
+</code></pre>
+
+  <h3>3. Nginx → PHP-FPM → MySQL → Redis の連携構築</h3>
+  <ul>
+    <li>Nginx の FastCGI 設定で PHP-FPM にリクエストをルーティング。</li>
+    <li>PHP から MySQL に PDO 接続し、DB 操作を確認。</li>
+    <li>PHP に Redis 拡張をビルドし、キャッシュサーバーとの連携を実装。</li>
+    <li>Web アプリケーションの基本構成をコンテナで完全再現。</li>
+  </ul>
+
+  <h3>4. Dockerfile による PHP 拡張のビルド</h3>
+  <ul>
+    <li>Redis 拡張を pecl でインストールし、PHP-FPM に組み込み。</li>
+    <li>本番環境で必要な拡張を Dockerfile で管理する方法を習得。</li>
+  </ul>
+  <pre><code>FROM php:8.2-fpm
+RUN apt-get update && apt-get install -y libssl-dev \
+    && pecl install redis \
+    && docker-php-ext-enable redis
+</code></pre>
+
+  <h3>5. 開発〜本番を意識した構成管理フローの実装</h3>
+  <ul>
+    <li>ローカルで構築 → Ansible でデプロイ → コンテナ起動まで自動化。</li>
+    <li>実運用に近い「構成の統一管理」「自動デプロイ」を体験。</li>
+    <li>クラウドインフラの基礎（IaC・構成管理・マルチコンテナ）を習得。</li>
+  </ul>
+
+  <h2>成長したポイント</h2>
+
+  <h3>1. 手作業から自動化された構成管理へ</h3>
+  <ul>
+    <li>環境構築の再現性が向上し、壊してもすぐ作り直せるようになった。</li>
+    <li>構成の変更をコード差分として管理できるようになった。</li>
+  </ul>
+
+  <h3>2. マルチコンテナ構成の理解と実装</h3>
+  <ul>
+    <li>Web・アプリ・DB・キャッシュの役割を理解し、連携を構築。</li>
+    <li>本番に近い構成をローカルで再現できるようになった。</li>
+  </ul>
+
+  <h3>3. Ansible による自動化の基礎を習得</h3>
+  <ul>
+    <li>複数ホストへの一括適用、パッケージ管理、サービス起動を自動化。</li>
+    <li>運用タスクの自動化を実際に体験し、構成管理の重要性を理解。</li>
+  </ul>
+
+  <h3>4. Web インフラの全体像を把握できるようになった</h3>
+  <ul>
+    <li>Reverse Proxy → Application → Database → Cache の流れを構築。</li>
+    <li>クラウドインフラの基礎をローカルで再現し、実践レベルの理解に到達。</li>
+  </ul>
+
+</main>
+
+<footer>
+  © 2026 shuto — Docker Compose × Ansible Multi-Container Web Infrastructure Project
+</footer>
+
+</body>
+</html>

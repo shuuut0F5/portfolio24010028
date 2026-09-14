@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terraform × LXD で完全無料 EC2 体験まとめ</title>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.7; margin: 2rem; color: #222; }
+    h1, h2, h3 { color: #1f4b99; }
+    code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+    .section { margin-bottom: 2rem; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.8rem; margin-right: 6px; }
+    .tag-ok { background: #e3f6e9; color: #1b7a3c; }
+    .tag-ng { background: #ffe5e5; color: #b00020; }
+  </style>
+</head>
+<body>
+
+  <h1>Terraform × LXD で「完全無料 EC2 管理体験」を作るまでのまとめ</h1>
+  <p>
+    このページは、Terraform と LXD を使って、<strong>完全無料で EC2 とほぼ同じ管理体験</strong>を構築した手順と、
+    途中でつまずいたポイント・解決方法をまとめたものです。
+  </p>
+
+  <div class="section">
+    <h2>1. Terraform の動作確認</h2>
+    <span class="tag tag-ok">成功</span>
+    <pre><code>terraform -version
+which terraform
+</code></pre>
+    <p>Terraform がインストールされていることを確認。最新版ではない警告は出たが、動作には問題なし。</p>
+  </div>
+
+  <div class="section">
+    <h2>2. VirtualBox プロバイダーでの失敗と方針転換</h2>
+    <span class="tag tag-ng">つまずき</span>
+    <p>
+      VirtualBox 用の Terraform プロバイダー <code>hashicorp/virtualbox</code> は
+      <strong>公式レジストリに存在しない</strong>ため、<code>terraform init</code> が失敗。
+    </p>
+    <p>
+      そこで、<strong>公式プロバイダーがある LXD を使う方針</strong>に切り替えた。
+      これにより、完全無料かつ安定した「EC2 風インスタンス管理」が可能になった。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>3. LXD のインストールと初期化</h2>
+    <span class="tag tag-ok">成功</span>
+    <pre><code>sudo apt install -y lxd
+sudo lxd init
+</code></pre>
+    <p>
+      初期化時にストレージプール名 <code>default</code> が既に存在していたため、
+      新しい名前（例：<code>default2</code>）を入力して設定を完了。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>4. Terraform 設定ファイル vm.tf の作成</h2>
+    <span class="tag tag-ok">成功</span>
+    <p>デスクトップに <code>vm.tf</code> を作成：</p>
+    <pre><code>terraform {
+  required_providers {
+    lxd = {
+      source  = "terraform-lxd/lxd"
+      version = "1.7.0"
+    }
+  }
+}
+
+provider "lxd" {}
+
+resource "lxd_container" "test" {
+  name  = "terraform-test"
+  image = "ubuntu:22.04"
+}
+</code></pre>
+    <p>これで Terraform が LXD コンテナ（EC2 風インスタンス）を管理できるようになる。</p>
+  </div>
+
+  <div class="section">
+    <h2>5. terraform init（プロバイダーの取得）</h2>
+    <span class="tag tag-ok">成功</span>
+    <pre><code>cd ~/デスクトップ
+terraform init
+</code></pre>
+    <p>LXD プロバイダー <code>terraform-lxd/lxd</code> が正常にインストールされ、初期化完了。</p>
+  </div>
+
+  <div class="section">
+    <h2>6. terraform apply でのエラーと解決</h2>
+
+    <h3>6-1. 権限エラー（permission denied）</h3>
+    <span class="tag tag-ng">つまずき</span>
+    <pre><code>dial unix /var/snap/lxd/common/lxd/unix.socket: connect: permission denied
+</code></pre>
+    <p>原因：<code>siwuser</code> ユーザーが LXD のソケットにアクセスする権限を持っていなかった。</p>
+    <h4>解決コマンド</h4>
+    <pre><code>sudo usermod -aG lxd siwuser
+sudo reboot
+</code></pre>
+
+    <h3>6-2. インスタンス名の重複エラー</h3>
+    <span class="tag tag-ng">つまずき</span>
+    <pre><code>This "instances" entry already exists
+</code></pre>
+    <p>原因：同じ名前のコンテナ <code>terraform-test</code> が既に LXD に存在していた。</p>
+    <h4>解決コマンド</h4>
+    <pre><code>lxc list
+lxc delete terraform-test --force
+</code></pre>
+
+    <h3>6-3. 再度 terraform apply（成功）</h3>
+    <span class="tag tag-ok">成功</span>
+    <pre><code>terraform apply
+# Enter a value: yes
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+</code></pre>
+    <p>これで <strong>terraform-test コンテナが正常に作成・起動</strong>し、EC2 インスタンスと同じ状態になった。</p>
+  </div>
+
+  <div class="section">
+    <h2>7. EC2 風の操作：一覧・ログイン・削除</h2>
+
+    <h3>7-1. インスタンス一覧（EC2 のインスタンス一覧と同じ）</h3>
+    <pre><code>lxc list
+</code></pre>
+
+    <h3>7-2. インスタンスへログイン（EC2 の SSH と同じ）</h3>
+    <pre><code>lxc exec terraform-test -- bash
+</code></pre>
+    <p>これでコンテナ内の Ubuntu に入って、通常の Linux 操作が可能。</p>
+
+    <h3>7-3. インスタンス削除（EC2 の terminate と同じ）</h3>
+    <p>Terraform で削除：</p>
+    <pre><code>terraform destroy
+# Enter a value: yes
+</code></pre>
+    <p>LXD で直接削除：</p>
+    <pre><code>lxc delete terraform-test --force
+</code></pre>
+  </div>
+
+  <div class="section">
+    <h2>8. つまずきポイントと解決コマンド一覧（総まとめ）</h2>
+
+    <h3>VirtualBox プロバイダーが取得できない</h3>
+    <span class="tag tag-ng">問題</span>
+    <p>公式に存在しないため、LXD に切り替え。</p>
+    <pre><code>sudo apt install -y lxd
+sudo lxd init
+</code></pre>
+
+    <h3>LXD ソケットへの権限不足</h3>
+    <span class="tag tag-ng">問題</span>
+    <pre><code>dial unix /var/snap/lxd/common/lxd/unix.socket: connect: permission denied
+</code></pre>
+    <h4>解決</h4>
+    <pre><code>sudo usermod -aG lxd siwuser
+sudo reboot
+</code></pre>
+
+    <h3>コンテナ名の重複</h3>
+    <span class="tag tag-ng">問題</span>
+    <pre><code>This "instances" entry already exists
+</code></pre>
+    <h4>解決</h4>
+    <pre><code>lxc list
+lxc delete terraform-test --force
+</code></pre>
+
+    <h3>ストレージプール名の重複</h3>
+    <span class="tag tag-ng">問題</span>
+    <pre><code>The requested storage pool "default" already exists. Please choose another name.
+</code></pre>
+    <h4>解決</h4>
+    <pre><code>default2  <!-- 新しい名前を入力 -->
+</code></pre>
+  </div>
+
+  <div class="section">
+    <h2>9. 最終的にできるようになったこと</h2>
+    <ul>
+      <li>Terraform の基本操作（<code>init</code> / <code>apply</code> / <code>destroy</code>）</li>
+      <li>LXD のインストール・初期化・権限設定</li>
+      <li>コンテナ（EC2 風インスタンス）の作成・起動・ログイン・削除</li>
+      <li>エラーの原因を読み取り、適切なコマンドで解決する力</li>
+    </ul>
+    <p>
+      これらはそのまま <strong>AWS 本番環境でも通用するインフラの基礎スキル</strong>になっている。
+    </p>
+  </div>
+
+</body>
+</html>
