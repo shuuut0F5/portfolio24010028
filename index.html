@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -832,6 +833,18 @@
       background: transparent;
       color: var(--text-main);
     }
+
+    /* Contact form: 送信状態表示 */
+    .form-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .form-status {
+      min-height: 1.6em;
+      font-size: 0.95rem;
+    }
+    .form-status.is-success { color: #1e7a3c; }
+    .form-status.is-error   { color: var(--danger); }
 
     /* Footer */
     footer {
@@ -2050,13 +2063,16 @@ services:
       <div class="section-right">
         <p class="contact-desc">下記の問い合わせフォームよりご連絡ください。</p>
         
-        <form class="contact-form" name="contact form" method="post" action="#">
+        <form class="contact-form" id="contact-form" method="POST" action="https://formspree.io/f/xyezbawv">
+          <input type="hidden" name="_subject" value="Portfolioお問い合わせ">
+          <input type="text" name="_gotcha" style="display:none !important;" tabindex="-1" autocomplete="off">
+
           <div class="form-group">
             <div class="form-label-row">
               <label class="form-label" for="contact-name">お名前</label>
               <span class="form-badge">必須</span>
             </div>
-            <input class="form-input" id="contact-name" name="お名前" placeholder="お名前を入力してください" required type="text" />
+            <input class="form-input" type="text" id="contact-name" name="name" placeholder="お名前を入力してください" autocomplete="name" required>
           </div>
 
           <div class="form-group">
@@ -2064,7 +2080,7 @@ services:
               <label class="form-label" for="contact-email">メールアドレス</label>
               <span class="form-badge">必須</span>
             </div>
-            <input class="form-input" id="contact-email" name="メールアドレス" placeholder="メールアドレスを入力してください" required type="email" />
+            <input class="form-input" type="email" id="contact-email" name="email" placeholder="メールアドレスを入力してください" autocomplete="email" required>
           </div>
 
           <div class="form-group">
@@ -2072,10 +2088,11 @@ services:
               <label class="form-label" for="contact-message">メッセージ</label>
               <span class="form-badge">必須</span>
             </div>
-            <textarea class="form-textarea" id="contact-message" name="メッセージ" placeholder="お問い合わせ内容を入力してください" required></textarea>
+            <textarea class="form-textarea" id="contact-message" name="message" placeholder="お問い合わせ内容を入力してください" required></textarea>
           </div>
 
           <button class="form-submit" type="submit">送信</button>
+          <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
@@ -2266,6 +2283,46 @@ services:
     // Draw initial lines with incremental checks to handle render lag
     setTimeout(() => { drawConnectors(1); drawConnectors(2); }, 100);
     setTimeout(() => { drawConnectors(1); drawConnectors(2); }, 500);
+
+    // ===== Contact フォーム送信（ページ遷移なし / Formspree） =====
+    (function () {
+      const form = document.getElementById('contact-form');
+      if (!form) return;
+      const status = document.getElementById('contact-status');
+      const button = form.querySelector('button[type="submit"]');
+
+      function setStatus(message, type) {
+        status.textContent = message;
+        status.className = 'form-status' + (type ? ' is-' + type : '');
+      }
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        button.disabled = true;
+        setStatus('送信中です...', '');
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' }
+          });
+          if (response.ok) {
+            form.reset();
+            setStatus('送信しました。お問い合わせありがとうございます。', 'success');
+          } else {
+            setStatus('送信に失敗しました。時間をおいて、もう一度お試しください。', 'error');
+          }
+        } catch (error) {
+          setStatus('通信エラーが発生しました。ネットワーク接続を確認してください。', 'error');
+        } finally {
+          button.disabled = false;
+        }
+      });
+    })();
 
     // ===== 最終更新日の自動表示（外部通信なし） =====
     // ブラウザがページを読み込む際に受け取る Last-Modified 情報を使用します。
