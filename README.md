@@ -54,5 +54,6 @@ HTML、CSS、JavaScriptはすべて`index.html`に含まれています。Google
 
 ## ファイル構成
 
+- **`Terraform/`** — TerraformとLXDによる複数Webサーバー構築・HAProxy負荷分散の記録や関連ページを格納
 - **`index.html`** — ポートフォリオサイト本体（ページ内容、スタイル、動作）
 - **`README.md`** — このページの概要と表示方法
