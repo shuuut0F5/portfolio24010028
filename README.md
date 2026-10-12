@@ -42,4 +42,4 @@ python -m http.server 8000
 ## ファイル
 
 - `index.html`: ポートフォリオサイト本体。スタイルと動作スクリプトもこのファイルに含みます。
-- `README.project.md`: Terraform × LXDのインフラ構築プロジェクトについての説明。
+
