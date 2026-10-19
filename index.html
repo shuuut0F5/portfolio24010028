@@ -2555,44 +2555,110 @@ services:
     });
 
     // ===== Contact フォーム送信（ページ遷移なし / Formspree） =====
-    (function () {
-      const form = document.getElementById('contact-form');
-      if (!form) return;
-      const status = document.getElementById('contact-status');
-      const button = form.querySelector('button[type="submit"]');
 
-      function setStatus(message, type) {
-        status.textContent = message;
-        status.className = 'form-status' + (type ? ' is-' + type : '');
-      }
+(function () {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
 
-      form.addEventListener('submit', async function (event) {
-        event.preventDefault();
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-        }
-        button.disabled = true;
-        setStatus('送信中です...', '');
-        try {
-          const response = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { Accept: 'application/json' }
-          });
-          if (response.ok) {
-            form.reset();
-            setStatus('送信しました。お問い合わせありがとうございます。', 'success');
-          } else {
-            setStatus('送信に失敗しました。時間をおいて、もう一度お試しください。', 'error');
-          }
-        } catch (error) {
-          setStatus('通信エラーが発生しました。ネットワーク接続を確認してください。', 'error');
-        } finally {
-          button.disabled = false;
+  const status = document.getElementById('contact-status');
+  const button = form.querySelector('button[type="submit"]');
+
+  const nameInput = form.elements.namedItem('name');
+  const emailInput = form.elements.namedItem('email');
+  const messageInput = form.elements.namedItem('message');
+
+  function setStatus(message, type = '') {
+    status.textContent = message;
+    status.className = 'form-status' + (type ? ' is-' + type : '');
+  }
+
+  // 入力値の基本検証
+  function validateForm() {
+    // 前後の空白を除去
+    nameInput.value = nameInput.value.trim();
+    emailInput.value = emailInput.value.trim();
+    messageInput.value = messageInput.value.trim();
+
+    // 前回の独自エラーをリセット
+    [nameInput, emailInput, messageInput].forEach(input => {
+      input.setCustomValidity('');
+    });
+
+    // 空白だけの入力を拒否
+    if (!nameInput.value) {
+      nameInput.setCustomValidity('お名前を入力してください。');
+    }
+
+    if (!emailInput.value) {
+      emailInput.setCustomValidity(
+        'メールアドレスを入力してください。'
+      );
+    }
+
+    if (!messageInput.value) {
+      messageInput.setCustomValidity(
+        'メッセージを入力してください。'
+      );
+    }
+
+    // メールアドレスの形式を検証
+    if (
+      emailInput.value &&
+      !emailInput.validity.valid
+    ) {
+      emailInput.setCustomValidity(
+        '正しいメールアドレスを入力してください。'
+      );
+    }
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+    }
+
+    return true;
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    if (!validateForm()) {
+      setStatus('入力内容を確認してください。', 'error');
+      return;
+    }
+
+    button.disabled = true;
+    setStatus('送信中です...');
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          Accept: 'application/json'
         }
       });
-    })();
+
+      if (!response.ok) {
+        throw new Error('送信に失敗しました。');
+      }
+
+      form.reset();
+      setStatus(
+        '送信しました。お問い合わせありがとうございます。',
+        'success'
+      );
+    } catch (error) {
+      setStatus(
+        '送信に失敗しました。時間をおいて、もう一度お試しください。',
+        'error'
+      );
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
+
 
     // ===== 最終更新日の自動表示（外部通信なし） =====
     // ブラウザがページを読み込む際に受け取る Last-Modified 情報を使用します。
