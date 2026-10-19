@@ -92,7 +92,7 @@ terraform-lxd-auto-env/
 
 ### 2. リポジトリのクローン
 ```bash
-git clone https://github.com/yourname/terraform-lxd-auto-env.git
+git clone https://github.com/shuuut0F5/terraform-lxd-auto-env.git
 cd terraform-lxd-auto-env
 ```
 
