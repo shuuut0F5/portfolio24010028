@@ -890,25 +890,116 @@
       color: var(--text-muted-dark);
       font-size: 0.95rem;
     }
-    .study-list {
-      list-style: none;
-      columns: 2;
-      column-gap: 3rem;
+    .study-summary {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border-color);
     }
-    .study-list li {
-      padding: 0.6rem 0;
-      border-bottom: 1px solid var(--border-color);
-      font-size: 0.95rem;
-      break-inside: avoid;
+    .study-summary h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      line-height: 1.2;
     }
-    .study-list .study-name {
+    .study-count {
+      font-size: 0.85rem;
       font-weight: 700;
-      color: var(--text-main);
-      margin-right: 0.5rem;
+      color: var(--text-muted-dark);
     }
-    .study-list .tech-badge {
-      display: inline-block;
-      margin: 0.15rem 0.25rem 0.15rem 0;
+    .study-legend {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted-dark);
+    }
+    .study-legend::before {
+      content: '';
+      width: 4px;
+      height: 1.1em;
+      border-radius: 2px;
+      background: var(--primary);
+    }
+    .study-group {
+      margin-bottom: 2rem;
+    }
+    .study-group:last-child {
+      margin-bottom: 0;
+    }
+    .study-group-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-main);
+    }
+    .study-group-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+    .study-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 0.75rem;
+    }
+    .study-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 0.9rem 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .study-item.infra {
+      border-left: 4px solid var(--primary);
+    }
+    .study-item .study-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--text-main);
+    }
+    .study-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    /* Terraform × LXD: サーバーの挨拶カード */
+    .server-messages {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .server-card {
+      background: #f0fdf4;
+      border: 1px solid #a7f3d0;
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+    }
+    .server-card h4 {
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-main);
+    }
+    .timeline-item .server-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-main);
     }
 
     /* ===== 作品カード: 成果・導線 ===== */
@@ -1473,11 +1564,11 @@
       .tab-buttons.study-tabs .tab-btn {
         flex: 1 1 40%;
       }
-      .study-list {
-        columns: 1;
-      }
       .study-card {
         padding: 1.5rem 1rem;
+      }
+      .server-messages {
+        grid-template-columns: 1fr;
       }
       footer {
         padding: 4rem 0;
@@ -1670,61 +1761,230 @@
         </div>
 
         <div id="study-y1" class="tab-content active">
-          <div class="study-card">
+          <div class="study-summary">
             <h3>1年次</h3>
-            <ul class="study-list">
-              <li><span class="study-name">ネットワーク</span><span class="tech-badge">OSI参照モデル</span><span class="tech-badge">機器</span><span class="tech-badge">プロトコル</span></li>
-              <li><span class="study-name">情報セキュリティ</span><span class="tech-badge">サイバー攻撃手法</span><span class="tech-badge">脆弱性</span></li>
-              <li><span class="study-name">Linux</span><span class="tech-badge">コマンド操作</span><span class="tech-badge">AWS</span><span class="tech-badge">サーバ構築</span></li>
-              <li><span class="study-name">Web技術</span><span class="tech-badge">HTML</span><span class="tech-badge">CSS</span><span class="tech-badge">JavaScript</span></li>
-              <li><span class="study-name">プログラミング基礎</span><span class="tech-badge">Python</span></li>
-              <li><span class="study-name">オブジェクト指向プログラミング</span><span class="tech-badge">Python</span></li>
-              <li><span class="study-name">データベース</span><span class="tech-badge">MySQL</span><span class="tech-badge">正規化</span></li>
-              <li><span class="study-name">アルゴリズムとデータ構造</span><span class="tech-badge">探索アルゴリズム</span></li>
-              <li><span class="study-name">システム開発概念</span><span class="tech-badge">要件定義</span><span class="tech-badge">設計</span><span class="tech-badge">開発</span></li>
-              <li><span class="study-name">IoT技術</span><span class="tech-badge">デバイス</span></li>
-              <li><span class="study-name">企業経営と情報システム戦略</span><span class="tech-badge">マネジメント</span></li>
-              <li><span class="study-name">インターネット関連法</span><span class="tech-badge">著作権</span><span class="tech-badge">個人情報</span><span class="tech-badge">憲法</span></li>
-              <li><span class="study-name">ビジネス統計</span><span class="tech-badge">データの可視化</span><span class="tech-badge">回帰分析</span></li>
-              <li><span class="study-name">Office</span><span class="tech-badge">Word</span><span class="tech-badge">Excel</span></li>
-            </ul>
+            <span class="study-count">14科目</span>
+          </div>
+          <p class="study-legend">青いラインは、インフラ志望に直結する科目です</p>
+          <div class="study-group">
+            <h4 class="study-group-title">インフラ・ネットワーク</h4>
+            <div class="study-items">
+              <div class="study-item infra">
+                <span class="study-name">ネットワーク</span>
+                <div class="study-tags"><span class="tech-badge">OSI参照モデル</span><span class="tech-badge">機器</span><span class="tech-badge">プロトコル</span></div>
+              </div>
+              <div class="study-item infra">
+                <span class="study-name">情報セキュリティ</span>
+                <div class="study-tags"><span class="tech-badge">サイバー攻撃手法</span><span class="tech-badge">脆弱性</span></div>
+              </div>
+              <div class="study-item infra">
+                <span class="study-name">Linux</span>
+                <div class="study-tags"><span class="tech-badge">コマンド操作</span><span class="tech-badge">AWS</span><span class="tech-badge">サーバ構築</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">プログラミング・Web</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">Web技術</span>
+                <div class="study-tags"><span class="tech-badge">HTML</span><span class="tech-badge">CSS</span><span class="tech-badge">JavaScript</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">プログラミング基礎</span>
+                <div class="study-tags"><span class="tech-badge">Python</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">オブジェクト指向プログラミング</span>
+                <div class="study-tags"><span class="tech-badge">Python</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">アルゴリズムとデータ構造</span>
+                <div class="study-tags"><span class="tech-badge">探索アルゴリズム</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">データ・データベース</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">データベース</span>
+                <div class="study-tags"><span class="tech-badge">MySQL</span><span class="tech-badge">正規化</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">ビジネス統計</span>
+                <div class="study-tags"><span class="tech-badge">データの可視化</span><span class="tech-badge">回帰分析</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">開発・IoT</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">システム開発概念</span>
+                <div class="study-tags"><span class="tech-badge">要件定義</span><span class="tech-badge">設計</span><span class="tech-badge">開発</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">IoT技術</span>
+                <div class="study-tags"><span class="tech-badge">デバイス</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">ビジネス・一般</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">企業経営と情報システム戦略</span>
+                <div class="study-tags"><span class="tech-badge">マネジメント</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">インターネット関連法</span>
+                <div class="study-tags"><span class="tech-badge">著作権</span><span class="tech-badge">個人情報</span><span class="tech-badge">憲法</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">Office</span>
+                <div class="study-tags"><span class="tech-badge">Word</span><span class="tech-badge">Excel</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div id="study-y2" class="tab-content">
-          <div class="study-card">
+          <div class="study-summary">
             <h3>2年次</h3>
-            <ul class="study-list">
-              <li><span class="study-name">クラウド開発</span><span class="tech-badge">AWS</span></li>
-              <li><span class="study-name">セキュア開発</span><span class="tech-badge">サイバー攻撃</span><span class="tech-badge">対策</span></li>
-              <li><span class="study-name">IoT開発</span><span class="tech-badge">Raspberry Pi</span></li>
-              <li><span class="study-name">Webアプリケーション</span><span class="tech-badge">Node.js</span></li>
-              <li><span class="study-name">WebAPI</span><span class="tech-badge">HTTP</span><span class="tech-badge">API</span></li>
-              <li><span class="study-name">モバイルアプリ開発</span><span class="tech-badge">iOSアプリ</span><span class="tech-badge">Swift</span></li>
-              <li><span class="study-name">ロボティクス</span><span class="tech-badge">ロボット</span><span class="tech-badge">電子回路</span></li>
-              <li><span class="study-name">UML</span><span class="tech-badge">ユースケース図</span><span class="tech-badge">クラス図</span><span class="tech-badge">シーケンス図</span></li>
-              <li><span class="study-name">テスト技法</span><span class="tech-badge">draw.io</span></li>
-              <li><span class="study-name">アジャイル開発</span><span class="tech-badge">アジャイル手法</span><span class="tech-badge">スクラム</span></li>
-              <li><span class="study-name">RPA</span><span class="tech-badge">Power Automate Desktop</span><span class="tech-badge">自動化</span></li>
-              <li><span class="study-name">コンセプチュアルスキル</span><span class="tech-badge">ロジカルシンキング</span></li>
-            </ul>
+            <span class="study-count">12科目</span>
+          </div>
+          <p class="study-legend">青いラインは、インフラ志望に直結する科目です</p>
+          <div class="study-group">
+            <h4 class="study-group-title">クラウド・セキュリティ</h4>
+            <div class="study-items">
+              <div class="study-item infra">
+                <span class="study-name">クラウド開発</span>
+                <div class="study-tags"><span class="tech-badge">AWS</span></div>
+              </div>
+              <div class="study-item infra">
+                <span class="study-name">セキュア開発</span>
+                <div class="study-tags"><span class="tech-badge">サイバー攻撃</span><span class="tech-badge">対策</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">アプリ・IoT開発</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">Webアプリケーション</span>
+                <div class="study-tags"><span class="tech-badge">Node.js</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">WebAPI</span>
+                <div class="study-tags"><span class="tech-badge">HTTP</span><span class="tech-badge">API</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">モバイルアプリ開発</span>
+                <div class="study-tags"><span class="tech-badge">iOSアプリ</span><span class="tech-badge">Swift</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">IoT開発</span>
+                <div class="study-tags"><span class="tech-badge">Raspberry Pi</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">ロボティクス</span>
+                <div class="study-tags"><span class="tech-badge">ロボット</span><span class="tech-badge">電子回路</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">設計・開発手法</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">UML</span>
+                <div class="study-tags"><span class="tech-badge">ユースケース図</span><span class="tech-badge">クラス図</span><span class="tech-badge">シーケンス図</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">テスト技法</span>
+                <div class="study-tags"><span class="tech-badge">draw.io</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">アジャイル開発</span>
+                <div class="study-tags"><span class="tech-badge">アジャイル手法</span><span class="tech-badge">スクラム</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">自動化・ビジネススキル</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">RPA</span>
+                <div class="study-tags"><span class="tech-badge">Power Automate Desktop</span><span class="tech-badge">自動化</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">コンセプチュアルスキル</span>
+                <div class="study-tags"><span class="tech-badge">ロジカルシンキング</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div id="study-y3" class="tab-content">
-          <div class="study-card">
+          <div class="study-summary">
             <h3>3年次</h3>
-            <ul class="study-list">
-              <li><span class="study-name">プロジェクト管理ツール実習</span><span class="tech-badge">WBS</span></li>
-              <li><span class="study-name">プロジェクトマネジメント概論・各論</span><span class="tech-badge">基礎知識</span><span class="tech-badge">PMBOK</span></li>
-              <li><span class="study-name">プロジェクトマネジメント実践演習</span><span class="tech-badge">ポートフォリオ</span></li>
-              <li><span class="study-name">データベース実習</span><span class="tech-badge">論理設計</span><span class="tech-badge">物理設計</span><span class="tech-badge">正規化</span></li>
-              <li><span class="study-name">機械学習と深層学習理論</span><span class="tech-badge">人工知能</span><span class="tech-badge">機械学習</span></li>
-              <li><span class="study-name">データ可視化</span><span class="tech-badge">Google Colab</span></li>
-              <li><span class="study-name">ビジネス創出応用</span><span class="tech-badge">KJ法</span><span class="tech-badge">ロジックツリー</span><span class="tech-badge">5WHYs</span></li>
-              <li><span class="study-name">開発プロジェクト実習</span><span class="tech-badge">チーム開発</span></li>
-              <li><span class="study-name">企業連携プロジェクト実習</span><span class="tech-badge">チーム開発</span></li>
-            </ul>
+            <span class="study-count">9科目</span>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">プロジェクトマネジメント</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">プロジェクト管理ツール実習</span>
+                <div class="study-tags"><span class="tech-badge">WBS</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">プロジェクトマネジメント概論・各論</span>
+                <div class="study-tags"><span class="tech-badge">基礎知識</span><span class="tech-badge">PMBOK</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">プロジェクトマネジメント実践演習</span>
+                <div class="study-tags"><span class="tech-badge">ポートフォリオ</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">データ・AI</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">データベース実習</span>
+                <div class="study-tags"><span class="tech-badge">論理設計</span><span class="tech-badge">物理設計</span><span class="tech-badge">正規化</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">機械学習と深層学習理論</span>
+                <div class="study-tags"><span class="tech-badge">人工知能</span><span class="tech-badge">機械学習</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">データ可視化</span>
+                <div class="study-tags"><span class="tech-badge">Google Colab</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">チーム開発・実践</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">開発プロジェクト実習</span>
+                <div class="study-tags"><span class="tech-badge">チーム開発</span></div>
+              </div>
+              <div class="study-item">
+                <span class="study-name">企業連携プロジェクト実習</span>
+                <div class="study-tags"><span class="tech-badge">チーム開発</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="study-group">
+            <h4 class="study-group-title">ビジネス創出</h4>
+            <div class="study-items">
+              <div class="study-item">
+                <span class="study-name">ビジネス創出応用</span>
+                <div class="study-tags"><span class="tech-badge">KJ法</span><span class="tech-badge">ロジックツリー</span><span class="tech-badge">5WHYs</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1756,8 +2016,8 @@
               <p class="outcomes-title">成果</p>
               <ul>
                 <li><span class="inline-code">terraform apply</span> で Ubuntu コンテナ3台を一括作成</li>
-                <li>HAProxy のラウンドロビンで web-1 → web-2 → web-3 に振り分けられることを curl で確認</li>
-                <li>4件のエラーを、原因の切り分けから解決まで記録</li>
+                <li>HAProxy のラウンドロビンで、アクセスごとに1番 → 2番 → 3番のサーバーへ切り替わることを確認</li>
+                <li>権限エラー・プール名の競合・ストレージロックなど、6件のトラブルを原因の切り分けから解消</li>
               </ul>
             </div>
             <div class="project-card-tech">
@@ -1808,13 +2068,13 @@
     <div id="modal-project1" class="modal">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="modal-title">Terraform × LXD Web Infrastructure</h2>
+          <h2 class="modal-title">Terraform × LXD による軽量コンテナ環境構築（3台構成 + 負荷分散）</h2>
           <button class="modal-close" onclick="closeModal('modal-project1')" aria-label="閉じて作品一覧に戻る"><span class="x">&times;</span>閉じる</button>
         </div>
         <div class="modal-body">
           
           <div class="works-header">
-            <p class="works-project-desc">Terraform でコンテナ3台を作り、HAProxy で負荷分散するところまでを、ローカル環境だけで構築・検証したプロジェクトです。</p>
+            <p class="works-project-desc">Terraform と LXD を組み合わせて、軽量コンテナ 3 台（1 / 2 / 3）を自動構築し、HAProxy によるラウンドロビン負荷分散を実装した環境を構築しました。ローカル環境でクラウドのような構成を再現し、IaC・コンテナ仮想化・ネットワーク構成・負荷分散の一連の流れを理解したことを示す作品です。</p>
             <div class="link-bar">
               <button type="button" class="link-btn primary" onclick="scrollToResult('result1')">↓ 動作結果を見る</button>
               <div class="link-buttons" data-project="project1"></div>
@@ -1836,12 +2096,13 @@
               <div class="value" style="color: var(--accent);">Round Robin</div>
             </div>
             <div class="stat-card">
-              <h3>検証済みスタック</h3>
+              <h3>環境</h3>
               <div class="tech-list">
+                <span class="tech-badge">Ubuntu（VirtualBox）</span>
                 <span class="tech-badge">LXD</span>
-                <span class="tech-badge">Ubuntu</span>
-                <span class="tech-badge">Nginx</span>
+                <span class="tech-badge">Terraform</span>
                 <span class="tech-badge">HAProxy</span>
+                <span class="tech-badge">Nginx</span>
               </div>
             </div>
           </div>
@@ -1852,19 +2113,22 @@
               <h3>動作結果</h3>
               <span class="result-badge">検証済み</span>
             </div>
-            <p class="result-lead">ロードバランサー（localhost:8080）に3回アクセスすると、3台のWebサーバーへ順番に振り分けられました。</p>
+            <p class="result-lead">ロードバランサー（localhost:8080）にアクセスするたびに、1番 → 2番 → 3番のサーバーへ切り替わります。</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">Copy</button>
               <pre><code>$ curl http://localhost:8080
-This is web-1
+おはようございます、1番のサーバーです。
+Good morning, this is server 1.
 $ curl http://localhost:8080
-This is web-2
+こんにちは、2番のサーバーです。
+Hello, this is server 2.
 $ curl http://localhost:8080
-This is web-3</code></pre>
+こんばんは、3番のサーバーです。
+Good evening, this is server 3.</code></pre>
             </div>
             <ul class="check-list result-list">
-              <li><strong>構築</strong>：<span class="inline-code">terraform apply</span> で web-1〜web-3 の3コンテナが作成された</li>
-              <li><strong>分散</strong>：<span class="inline-code">balance roundrobin</span> の設定どおり、web-1 → web-2 → web-3 の順に応答した</li>
+              <li><strong>構築</strong>：<span class="inline-code">terraform apply</span> で web-1〜web-3 の3コンテナが自動生成された</li>
+              <li><strong>分散</strong>：<span class="inline-code">balance roundrobin</span> の設定どおり、アクセスごとに 1 → 2 → 3 と切り替わった</li>
             </ul>
           </div>
 
@@ -1882,11 +2146,11 @@ This is web-3</code></pre>
           <div id="overview" class="tab-content active">
             <div class="detail-card">
               <h3>プロジェクト概要</h3>
-              <p class="lead">AWS などの有料クラウドを使わず、ローカルの LXD コンテナだけで「コードでインフラを作る」ことを体験・検証しました。</p>
+              <p class="lead">ローカル環境でクラウドのような構成を再現し、IaC・コンテナ仮想化・ネットワーク構成・負荷分散の一連の流れを理解しました。</p>
               <ul class="check-list">
-                <li><strong>目的</strong>：Infrastructure as Code (IaC) と負荷分散の仕組みを、無料で何度も作り直せる環境で理解する</li>
-                <li><strong>やったこと</strong>：Terraform で Ubuntu コンテナを3台作成 → Nginx を導入 → HAProxy で振り分け</li>
-                <li><strong>結果</strong>：curl で web-1 → web-2 → web-3 の順に応答することを確認</li>
+                <li><strong>目的</strong>：IaC、コンテナ仮想化、ネットワーク構成、負荷分散の流れを、自分の手で構築して理解する</li>
+                <li><strong>やったこと</strong>：Terraform で LXD コンテナ 3 台を自動構築 → Nginx を導入 → Proxy Device でポート公開 → HAProxy で振り分け</li>
+                <li><strong>結果</strong>：アクセスごとに 1 番 → 2 番 → 3 番のサーバーへ切り替わることを確認</li>
               </ul>
 
               <!-- Dynamic Visual Diagram -->
@@ -1944,19 +2208,36 @@ This is web-3</code></pre>
             </div>
 
             <div class="detail-card">
+              <h3>環境（Environment）</h3>
+              <div class="table-scroll">
+                <table class="trouble-table">
+                  <thead><tr><th>技術</th><th>役割</th></tr></thead>
+                  <tbody>
+                    <tr><td>Ubuntu（VirtualBox）</td><td>実行環境（ホスト OS）</td></tr>
+                    <tr><td>LXD</td><td>軽量コンテナ仮想化</td></tr>
+                    <tr><td>Terraform</td><td>IaC（コンテナの自動構築）</td></tr>
+                    <tr><td>HAProxy</td><td>負荷分散（Round Robin）</td></tr>
+                    <tr><td>Nginx</td><td>Web サーバー（各コンテナ内）</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="detail-card">
               <h3>工夫と実装ポイント</h3>
               <ul class="check-list">
-                <li><strong>無料・高速に作り直せる検証環境</strong>：AWS ではなく LXD コンテナを採用。起動が数秒なので、壊して作り直す試行錯誤を何度も繰り返せた</li>
+                <li><strong>無料・高速に作り直せる検証環境</strong>：クラウドではなく LXD の軽量コンテナを採用。起動が速いので、壊して作り直す試行錯誤を何度も繰り返せた</li>
                 <li><strong>台数の変更はコード1行</strong>：<span class="inline-code">count = 3</span> の数字を変えるだけで台数を増減できる設計にした<span class="code-ref">vm.tf</span></li>
-                <li><strong>振り分けを実際に確認</strong>：<span class="inline-code">balance roundrobin</span> とヘルスチェック（<span class="inline-code">check</span>）を設定し、curl で3台へ順番に届くことを検証<span class="code-ref">haproxy.cfg</span></li>
-                <li><strong>State のずれを自力で復旧</strong>：Terraform State と実機が食い違った時に <span class="inline-code">terraform state rm</span> で整合を戻した<span class="code-ref">トラブル #3</span></li>
+                <li><strong>作成後すぐ使える状態に</strong>：<span class="inline-code">start_container</span> と <span class="inline-code">wait_for_network</span> を指定し、起動とネットワークの準備まで Terraform に任せた<span class="code-ref">vm.tf</span></li>
+                <li><strong>振り分けを実際に確認</strong>：<span class="inline-code">balance roundrobin</span> とヘルスチェック（<span class="inline-code">check</span>）を設定し、番号ごとの挨拶で切り替わりを目で確認できるようにした<span class="code-ref">haproxy.cfg</span></li>
+                <li><strong>ロックや依存関係のエラーを解消</strong>：ストレージロック・プロファイル依存・作成中コンテナのロックを解消し、環境を作り直せる状態に戻した<span class="code-ref">トラブルシューティング</span></li>
               </ul>
             </div>
 
             <div class="detail-card">
               <h3>主要な構成ファイル</h3>
               <p>コードは折りたたんでいます。<span class="hl">ハイライト</span>の行が、上の「工夫と実装ポイント」に対応する部分です。</p>
-              
+
               <details class="code-details">
                 <summary>vm.tf (Terraform) のコードを表示</summary>
                 <div class="code-container">
@@ -1974,9 +2255,11 @@ provider "lxd" {}
 
 resource "lxd_container" "web" {
 <span class="hl">  count = 3</span>
-
   name  = "web-${count.index + 1}"
   image = "ubuntu:22.04"
+
+  start_container  = true
+  wait_for_network = true
 }</code></pre>
                 </div>
               </details>
@@ -1993,9 +2276,9 @@ resource "lxd_container" "web" {
 backend http_back
     mode http
 <span class="hl">    balance roundrobin</span>
-    server web1 127.0.0.1:8081 check
-    server web2 127.0.0.1:8082 check
-    server web3 127.0.0.1:8083 check</code></pre>
+    server s1 127.0.0.1:8081 check
+    server s2 127.0.0.1:8082 check
+    server s3 127.0.0.1:8083 check</code></pre>
                 </div>
               </details>
             </div>
@@ -2005,16 +2288,16 @@ backend http_back
           <div id="timeline" class="tab-content">
             <div class="detail-card">
               <h3>インフラ構築ステップ</h3>
-              <p>初期の基盤導入から、複数コンテナの自動作成、ロードバランサー連携までの構築手順です。</p>
+              <p>LXD の導入から、コンテナの自動作成、Nginx の設定、ポート公開、ロードバランサー連携までの手順です。</p>
               
               <div class="timeline">
                 <!-- Step 1 -->
                 <div class="timeline-item success">
                   <div class="timeline-marker"></div>
                   <span class="timeline-badge ok">Success</span>
-                  <h3>1. LXD インフラ環境のインストールと初期化</h3>
+                  <h3>1. LXD の導入と初期化（ネットワーク・ストレージ構成）</h3>
                   <p>
-                    ホストマシンにLXDシステムを導入。コンテナ仮想化により、通常の重たい仮想マシンの起動を数秒の軽量コンテナ起動に代替し、完全無料・超高速な検証体制を構築。
+                    ホストの Ubuntu（VirtualBox）に LXD を導入し、初期化しました。ネットワークとストレージは次の構成です。
                   </p>
                   <details class="code-details">
                     <summary>コマンドを表示</summary>
@@ -2025,15 +2308,20 @@ sudo apt install -y lxd
 sudo lxd init</code></pre>
                     </div>
                   </details>
+                  <ul class="check-list">
+                    <li><strong>ネットワーク</strong>：lxdbr0（bridge）＋ IPv4 NAT</li>
+                    <li><strong>ストレージ</strong>：default ストレージ（btrfs）</li>
+                    <li><strong>プロファイル</strong>：default プロファイルに root（disk）と eth0（nic）を設定</li>
+                  </ul>
                 </div>
 
                 <!-- Step 2 -->
                 <div class="timeline-item success">
                   <div class="timeline-marker"></div>
                   <span class="timeline-badge ok">Success</span>
-                  <h3>2. Terraformによる複数コンテナ構成の適用</h3>
+                  <h3>2. Terraform によるコンテナ自動構築</h3>
                   <p>
-                    インフラ構成定義ファイル <span class="inline-code">vm.tf</span> を作成。複数インスタンス構成を <span class="inline-code">count = 3</span> パラメータで宣言的にコード定義し、一括で構築。
+                    <span class="inline-code">vm.tf</span> に <span class="inline-code">count = 3</span> を指定し、<span class="inline-code">terraform apply</span> で web-1 / web-2 / web-3 の 3 台を自動生成しました。
                   </p>
                   <details class="code-details">
                     <summary>コマンドを表示</summary>
@@ -2049,9 +2337,9 @@ terraform apply</code></pre>
                 <div class="timeline-item success">
                   <div class="timeline-marker"></div>
                   <span class="timeline-badge ok">Success</span>
-                  <h3>3. nginx のインストール（コンテナ内部）</h3>
+                  <h3>3. Nginx のセットアップ（コンテナ内部）</h3>
                   <p>
-                    構築したコンテナにログインし、Webサーバー（Nginx）を個別にインストールします。
+                    各コンテナに入り、Web サーバー（Nginx）をインストールしました。
                   </p>
                   <details class="code-details">
                     <summary>コマンドを表示</summary>
@@ -2071,34 +2359,44 @@ sudo apt install -y nginx</code></pre>
                 <div class="timeline-item success">
                   <div class="timeline-marker"></div>
                   <span class="timeline-badge ok">Success</span>
-                  <h3>4. Web コンテンツの変更による動作確認</h3>
+                  <h3>4. 番号ごとに異なる挨拶を設定</h3>
                   <p>
-                    各コンテナで異なるメッセージを返すようにインデックスHTMLを書き換え、どのサーバーにアクセスしているか判別できるようにします。
+                    どのサーバーにつながったか見分けられるよう、番号ごとに異なる挨拶を表示するよう設定しました。
                   </p>
-                  <details class="code-details">
-                    <summary>コマンドを表示</summary>
-                    <div class="code-container">
-                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                      <pre><code># web-1 コンテナ内
-echo "This is web-1" | sudo tee /var/www/html/index.html
-
-# web-2 コンテナ内
-echo "This is web-2" | sudo tee /var/www/html/index.html
-
-# web-3 コンテナ内
-echo "This is web-3" | sudo tee /var/www/html/index.html</code></pre>
+                  <div class="server-messages">
+                    <div class="server-card">
+                      <h4>1番サーバー</h4>
+                      <p>おはようございます、1番のサーバーです。<br>Good morning, this is server 1.</p>
                     </div>
-                  </details>
+                    <div class="server-card">
+                      <h4>2番サーバー</h4>
+                      <p>こんにちは、2番のサーバーです。<br>Hello, this is server 2.</p>
+                    </div>
+                    <div class="server-card">
+                      <h4>3番サーバー</h4>
+                      <p>こんばんは、3番のサーバーです。<br>Good evening, this is server 3.</p>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Step 5 -->
                 <div class="timeline-item success">
                   <div class="timeline-marker"></div>
                   <span class="timeline-badge ok">Success</span>
-                  <h3>5. ホストから各コンテナへのポートフォワード設定</h3>
+                  <h3>5. LXD Proxy Device によるポート公開</h3>
                   <p>
-                    LXDの仮想ネットワーク上のコンテナとホスト側ネットワークを接続するため、プロキシポートマッピングを追加。
+                    LXD の Proxy Device で、各コンテナの 80 番ポートをホストの別ポートに公開しました。
                   </p>
+                  <div class="table-scroll">
+                    <table class="trouble-table">
+                      <thead><tr><th>コンテナ</th><th>ホスト側ポート</th></tr></thead>
+                      <tbody>
+                        <tr><td>1番（web-1）</td><td>8081</td></tr>
+                        <tr><td>2番（web-2）</td><td>8082</td></tr>
+                        <tr><td>3番（web-3）</td><td>8083</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
                   <details class="code-details">
                     <summary>コマンドを表示</summary>
                     <div class="code-container">
@@ -2114,21 +2412,22 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                 <div class="timeline-item success">
                   <div class="timeline-marker"></div>
                   <span class="timeline-badge ok">Success</span>
-                  <h3>6. HAProxyロードバランサーの統合・検証</h3>
+                  <h3>6. HAProxy による負荷分散（Round Robin）と動作確認</h3>
                   <p>
-                    ホスト側にHAProxyを起動し、ラウンドロビンで負荷を分散するよう設定。<span class="inline-code">curl</span> を使って交互に各コンテナへとアクセスが振り分けられることを確認。
+                    ホスト側で HAProxy を <span class="inline-code">balance roundrobin</span> で動かし、アクセスごとに 1 → 2 → 3 と切り替わることを確認しました。
                   </p>
                   <details class="code-details">
                     <summary>コマンドを表示</summary>
                     <div class="code-container">
                       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                       <pre><code>curl http://localhost:8080
-# ➔ Output 1: This is web-1
-# ➔ Output 2: This is web-2
-# ➔ Output 3: This is web-3</code></pre>
+# → 1番：おはようございます、1番のサーバーです。
+# → 2番：こんにちは、2番のサーバーです。
+# → 3番：こんばんは、3番のサーバーです。</code></pre>
                     </div>
                   </details>
                 </div>
+
               </div>
             </div>
           </div>
@@ -2137,13 +2436,13 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
           <div id="trouble" class="tab-content">
             <div class="detail-card">
               <h3>直面した問題と解決（トラブルシューティング）</h3>
-              <p>構築中に起きた4件の問題を、「事象 → 原因 → 解決 → 学び」の順に整理しています。クリックすると詳細が開きます。</p>
+              <p>構築中に起きた6件の問題を、「事象 → 原因 → 解決 → 学び」の順に整理しています。クリックすると詳細が開きます。</p>
 
               <div class="trouble-summary">
                 <p class="trouble-summary-title">問題解決の進め方（共通）</p>
                 <ol>
                   <li>エラーメッセージを読み、どの部分が何を拒否・失敗したのかを確認する</li>
-                  <li>ログや状態（グループ・State・既存リソース）を調べて、原因を1つに絞る</li>
+                  <li>ログや状態（権限・ストレージ・プロファイル・コンテナなど）を調べて、原因を1つに絞る</li>
                   <li>最小限の修正で解決し、再発を防ぐ手順を残す</li>
                 </ol>
                 <div class="table-scroll">
@@ -2152,14 +2451,15 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                     <tbody>
                       <tr><td>1</td><td>VirtualBox プロバイダーが見つからない</td><td>前提の確認不足</td><td>手段に固執せず、目的に合う方法へ切り替える判断力</td></tr>
                       <tr><td>2</td><td>LXD ソケットで Permission Denied</td><td>権限（グループ未所属）</td><td>エラー文から原因を特定する力</td></tr>
-                      <tr><td>3</td><td>コンテナの重複・適用競合</td><td>State と実機のずれ</td><td>Terraform State の理解と復旧手順</td></tr>
-                      <tr><td>4</td><td>ストレージプール名の競合</td><td>過去環境の残骸</td><td>既存リソースを先に確認する習慣</td></tr>
+                      <tr><td>3</td><td>ストレージプール名の競合</td><td>過去環境の残骸</td><td>既存リソースを先に確認する習慣</td></tr>
+                      <tr><td>4</td><td>ストレージのロック</td><td>ストレージが使用中・未解放</td><td>ロックの原因を絞り込む力</td></tr>
+                      <tr><td>5</td><td>プロファイルの依存関係</td><td>プロファイルを利用中のコンテナが存在</td><td>依存関係を踏まえた作業順の判断</td></tr>
+                      <tr><td>6</td><td>作成中コンテナのロック</td><td>作成処理の中断によるロックの残り</td><td>失敗後の状態確認と復旧</td></tr>
                     </tbody>
                   </table>
                 </div>
               </div>
 
-              <!-- Issue 1 -->
               <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                   <div class="error-title">
@@ -2186,7 +2486,6 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                 </div>
               </div>
 
-              <!-- Issue 2 -->
               <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                   <div class="error-title">
@@ -2216,42 +2515,11 @@ sudo reboot</code></pre>
                 </div>
               </div>
 
-              <!-- Issue 3 -->
-              <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                  <div class="error-title">
-                    <span class="error-badge">Terraform State</span>
-                    <span>3. コンテナの重複作成・適用競合</span>
-                  </div>
-                  <span class="accordion-icon">+</span>
-                </div>
-                <div class="accordion-body">
-                  <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      構成適用中に、対象コンテナが既に存在しているとアラートが出現し、実行が停止。<br>
-                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">This "instances" entry already exists</code>
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      Terraformを介さずLXD側で直接コンテナを操作した、または前回の不完全な破壊処理などにより、LXDに実機が残っているにも関わらずTerraformの状態管理ファイル（State）には反映されていない「状態の乖離（ドリフト）」が起きていた。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      実機側に残っている競合コンテナを強制削除した上で、TerraformのStateから対象のリソース状態を完全にクリアすることで、次回適用時の競合を解消。
-                    </p>
-                    <pre><code style="color: var(--primary);">lxc delete terraform-test --force
-terraform state rm lxd_container.test</code></pre>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      Terraform は State を正として動くため、Terraform の外でコンテナを操作すると実機と食い違う。以後は変更を Terraform 経由に統一し、ずれた時は <span class="inline-code">state rm</span> で整合を戻すと決めた。
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Issue 4 -->
               <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                   <div class="error-title">
                     <span class="error-badge">LXD Storage</span>
-                    <span>4. ストレージプールの作成競合</span>
+                    <span>3. ストレージプールの作成競合</span>
                   </div>
                   <span class="accordion-icon">+</span>
                 </div>
@@ -2274,6 +2542,84 @@ terraform state rm lxd_container.test</code></pre>
                 </div>
               </div>
 
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">LXD Storage</span>
+                    <span>4. ストレージのロック</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      LXD のストレージ（default / btrfs）が使用中・ロック状態になり、コンテナの作成や削除などの操作が進まなくなった。
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      ストレージを使っている処理やリソースが残っており、ストレージが解放されていなかった。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      ロックの原因になっている処理・リソースを確認して解消し、あらためて Terraform でコンテナを作成した。
+                    </p>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      LXD ではストレージ・プロファイル・コンテナが互いに関係している。操作の前に「何がそのストレージを使っているか」を確認すると、ロックの原因を絞り込める。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">LXD Profile</span>
+                    <span>5. プロファイルの依存関係</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      プロファイルを変更・削除しようとして、エラーで止まった。
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      default プロファイル（root の disk と eth0 の nic）は、コンテナから利用されている。利用中のコンテナがあると、プロファイルだけを単独では操作できない。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      プロファイルに依存しているコンテナを先に整理してから、プロファイルを操作した。
+                    </p>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      作るときは「プロファイル → コンテナ」、消すときはその逆の順になる。依存関係を意識して、作業の順番を決める習慣がついた。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="error-title">
+                    <span class="error-badge">LXD Instance</span>
+                    <span>6. 作成中コンテナのロック解除</span>
+                  </div>
+                  <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="accordion-content">
+                    <p><strong>【事象】</strong><br>
+                      コンテナが「作成中」の状態のまま、他の操作を受け付けなくなった。
+                    </p>
+                    <p><strong>【原因】</strong><br>
+                      作成処理が途中で止まり、ロックが残ってしまった。
+                    </p>
+                    <p><strong>【解決策】</strong><br>
+                      作成中のコンテナのロックを解除し、状態を整えてから Terraform で作り直した。
+                    </p>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      失敗した処理のあとは、コンテナの状態（<span class="inline-code">lxc list</span>）を確認してから次の操作に進む。中途半端な状態を残さないことが、再現できる環境づくりにつながる。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -2282,17 +2628,17 @@ terraform state rm lxd_container.test</code></pre>
             <div class="detail-card">
               <h3>成果サマリー</h3>
               <div class="metrics-grid">
-                <div class="metric"><div class="metric-num">3<small>台</small></div><div class="metric-label">Web コンテナを <span class="inline-code">count = 3</span> で一括作成</div></div>
-                <div class="metric"><div class="metric-num">3/3<small>台</small></div><div class="metric-label">curl で、3台すべてへの振り分けを確認</div></div>
+                <div class="metric"><div class="metric-num">3<small>台</small></div><div class="metric-label">Web コンテナを <span class="inline-code">count = 3</span> で自動生成</div></div>
+                <div class="metric"><div class="metric-num">1→2→3</div><div class="metric-label">アクセスごとにサーバーが切り替わることを確認</div></div>
                 <div class="metric"><div class="metric-num">1<small>コマンド</small></div><div class="metric-label"><span class="inline-code">terraform apply</span> で環境を再現</div></div>
-                <div class="metric"><div class="metric-num">4<small>件</small></div><div class="metric-label">トラブルを、原因の特定から解決まで完了</div></div>
+                <div class="metric"><div class="metric-num">6<small>件</small></div><div class="metric-label">トラブルを解消し、環境を作り直せる状態に戻した</div></div>
               </div>
               <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Before / After（手作業 → コード化）</h4>
               <div class="table-scroll">
                 <table class="trouble-table compare-table">
                   <thead><tr><th>項目</th><th>Before（手作業）</th><th>After（Terraform + LXD）</th></tr></thead>
                   <tbody>
-                    <tr><td>環境の作成</td><td>サーバーを手順書どおり1台ずつ作る</td><td>terraform apply で3台を一括作成</td></tr>
+                    <tr><td>環境の作成</td><td>サーバーを手順書どおり1台ずつ作る</td><td>terraform apply で3台を自動生成</td></tr>
                     <tr><td>台数の変更</td><td>作業を台数分くり返す</td><td>count の値を変えるだけ</td></tr>
                     <tr><td>作り直し</td><td>設定を思い出しながら再構築</td><td>コードから同じ環境を再現</td></tr>
                     <tr><td>変更内容の把握</td><td>作業者の記憶・メモに頼る</td><td>コードの差分で確認</td></tr>
@@ -2325,16 +2671,25 @@ terraform state rm lxd_container.test</code></pre>
                 </p>
               </div>
 
+              <div style="margin-bottom: 2rem;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">4. LXDの構成と依存関係の理解</h4>
+                <p>
+                  lxdbr0（bridge）＋ IPv4 NAT、default ストレージ（btrfs）、default プロファイルの root（disk）と eth0（nic）といった LXD の基本構成を理解しました。ストレージのロックやプロファイルの依存関係、作成中コンテナのロックなどのトラブルを通じて、リソース同士の依存関係を意識して操作する大切さを学びました。
+                </p>
+              </div>
+
               <div>
-                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">4. プロジェクト達成による技術スキル成長</h4>
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">5. プロジェクト達成による技術スキル成長</h4>
                 <ul class="check-list">
                   <li><strong>インフラコード化能力</strong>: Terraformを用いた宣言的コード開発スキルの獲得</li>
                   <li><strong>コンテナ仮想化スキル</strong>: LXD/LXCの制御、ネットワークおよびボリューム設計の知識</li>
                   <li><strong>ロードバランシング設計</strong>: HAProxyを用いたリバースプロキシおよび負荷分散構成能力</li>
-                  <li><strong>トラブル解決能力</strong>: エラーログ（権限、重複、プール名）からの正確な原因特定と解決スキルの習得</li>
+                  <li><strong>LXD構成の理解</strong>: ネットワーク（lxdbr0）・ストレージ（btrfs）・プロファイルの依存関係を踏まえた操作</li>
+                  <li><strong>トラブル解決能力</strong>: エラーログ（権限、プール名、ロック、依存関係）からの正確な原因特定と解決スキルの習得</li>
                 </ul>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -3038,7 +3393,7 @@ services:
     // GitHub のリポジトリ URL（あれば動画・デモの URL も）を下に入れてください。
     // 空のままのボタンは「準備中」と表示されます（デモは空なら非表示）。
     const PROJECT_LINKS = {
-      project1: { github: '', demo: '' },
+      project1: { github: 'https://github.com/shuuut0F5/portfolio24010028/tree/main/terraform-lxd-auto-env', demo: '' },
       project2: { github: '', demo: '' }
     };
 
