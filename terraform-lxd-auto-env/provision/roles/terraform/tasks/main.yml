@@ -1,0 +1,58 @@
+---
+- name: Install required tools (unzip, curl)
+  apt:
+    name:
+      - unzip
+      - curl
+    state: present
+    update_cache: yes
+
+- name: Download Terraform binary archive
+  get_url:
+    url: https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+    dest: /tmp/terraform.zip
+    mode: '0644'
+
+- name: Unzip Terraform to /usr/local/bin
+  unarchive:
+    src: /tmp/terraform.zip
+    dest: /usr/local/bin/
+    remote_src: yes
+    creates: /usr/local/bin/terraform
+
+- name: Ensure Terraform binary is executable
+  file:
+    path: /usr/local/bin/terraform
+    mode: '0755'
+
+- name: Create destination directory for Terraform configuration
+  file:
+    path: /home/vagrant/terraform
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: '0755'
+
+- name: Copy Terraform project files
+  copy:
+    src: "{{ playbook_dir }}/../terraform/"
+    dest: /home/vagrant/terraform/
+    owner: vagrant
+    group: vagrant
+    mode: '0644'
+
+- name: Run terraform init
+  command: terraform init
+  args:
+    chdir: /home/vagrant/terraform/
+  become_user: vagrant
+  environment:
+    HOME: /home/vagrant
+
+- name: Run terraform apply
+  command: terraform apply -auto-approve
+  args:
+    chdir: /home/vagrant/terraform/
+  become_user: vagrant
+  environment:
+    HOME: /home/vagrant

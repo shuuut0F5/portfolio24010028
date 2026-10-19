@@ -1,0 +1,38 @@
+---
+- name: Ensure snapd is installed
+  apt:
+    name: snapd
+    state: present
+    update_cache: yes
+
+- name: Install LXD via snap
+  snap:
+    name: lxd
+    state: present
+
+- name: Add vagrant user to lxd group
+  user:
+    name: vagrant
+    groups: lxd
+    append: yes
+
+- name: Wait for LXD daemon to become ready
+  command: lxd waitready --timeout=30
+  changed_when: false
+
+- name: Initialize LXD with default automatic configuration
+  command: lxd init --auto
+  args:
+    creates: /var/snap/lxd/common/lxd/storage-pools/default
+
+- name: Ensure root disk exists in default profile
+  command: lxc profile device add default root disk path=/ pool=default
+  register: profile_disk_result
+  failed_when: profile_disk_result.rc != 0 and 'already exists' not in profile_disk_result.stderr
+  changed_when: profile_disk_result.rc == 0
+
+- name: Ensure eth0 interface exists in default profile
+  command: lxc profile device add default eth0 nic nictype=bridged parent=lxdbr0
+  register: profile_nic_result
+  failed_when: profile_nic_result.rc != 0 and 'already exists' not in profile_nic_result.stderr
+  changed_when: profile_nic_result.rc == 0

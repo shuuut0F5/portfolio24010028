@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "terraform-lxd-host"
+    vb.memory = 4096
+    vb.cpus = 2
+  end
+
+  config.vm.network "private_network", ip: "192.168.56.10"
+
+  # ホストOS（Windows/macOS/Linux）環境を選ばず 1 コマンドで再現可能にするため、
+  # VMゲスト側でAnsibleを自動導入して実行する ansible_local を使用
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "provision/playbook.yml"
+    ansible.install = true
+  end
+end

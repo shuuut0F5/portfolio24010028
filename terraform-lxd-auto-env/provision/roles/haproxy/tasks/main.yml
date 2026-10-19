@@ -1,0 +1,45 @@
+---
+- name: Install HAProxy
+  apt:
+    name: haproxy
+    state: present
+    update_cache: yes
+
+- name: Configure HAProxy load balancing
+  copy:
+    dest: /etc/haproxy/haproxy.cfg
+    content: |
+      global
+          log /dev/log local0
+          log /dev/log local1 notice
+          chroot /var/lib/haproxy
+          user haproxy
+          group haproxy
+          daemon
+
+      defaults
+          log     global
+          mode    http
+          option  httplog
+          option  dontlognull
+          timeout connect 5000ms
+          timeout client  50000ms
+          timeout server  50000ms
+
+      frontend http_front
+          bind *:8080
+          mode http
+          default_backend http_back
+
+      backend http_back
+          mode http
+          balance roundrobin
+          server s1 127.0.0.1:8081 check
+          server s2 127.0.0.1:8082 check
+          server s3 127.0.0.1:8083 check
+
+- name: Enable and restart HAProxy service
+  service:
+    name: haproxy
+    state: restarted
+    enabled: yes
