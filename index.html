@@ -750,18 +750,6 @@
       border-radius: 4px;
       color: var(--text-muted-dark);
     }
-    .project-card::after {
-      content: '→';
-      display: inline-block;
-      margin-left: 0.5rem;
-      color: var(--primary);
-      font-weight: 700;
-      opacity: 0;
-      transition: var(--transition);
-    }
-    .project-card:hover::after {
-      opacity: 1;
-    }
 
     /* Modal Styles */
     .modal {
@@ -876,6 +864,351 @@
     }
     .modal-body {
       padding: 2rem;
+    }
+
+    /* Study Section (学習内容) */
+    .study-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .study-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+    .study-card.upcoming {
+      background: transparent;
+      border-style: dashed;
+      box-shadow: none;
+    }
+    .study-upcoming {
+      color: var(--text-muted-dark);
+      font-size: 0.95rem;
+    }
+    .study-list {
+      list-style: none;
+      columns: 2;
+      column-gap: 3rem;
+    }
+    .study-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      break-inside: avoid;
+    }
+    .study-list .study-name {
+      font-weight: 700;
+      color: var(--text-main);
+      margin-right: 0.5rem;
+    }
+    .study-list .tech-badge {
+      display: inline-block;
+      margin: 0.15rem 0.25rem 0.15rem 0;
+    }
+
+    /* ===== 作品カード: 成果・導線 ===== */
+    .project-card-outcomes {
+      margin: 0 0 1.5rem;
+      padding: 1rem 1.25rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+    .outcomes-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .project-card-outcomes ul {
+      list-style: none;
+    }
+    .project-card-outcomes li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+    .project-card-outcomes li:last-child {
+      margin-bottom: 0;
+    }
+    .project-card-outcomes li::before {
+      content: '✓';
+      position: absolute;
+      left: 0.2rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .project-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    /* ===== リンクボタン（GitHub・デモ・動作結果） ===== */
+    .link-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .link-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.5rem 1.1rem;
+      min-height: 40px;
+      border: 1px solid var(--text-main);
+      border-radius: 99px;
+      background: transparent;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .link-btn:hover {
+      background: var(--text-main);
+      color: var(--bg);
+    }
+    .link-btn.primary {
+      background: var(--text-main);
+      color: var(--bg);
+    }
+    .link-btn.primary:hover {
+      background: transparent;
+      color: var(--text-main);
+    }
+    .link-btn.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+    .link-btn.disabled:hover {
+      background: transparent;
+      color: var(--text-main);
+    }
+
+    /* ===== 動作結果ブロック ===== */
+    .result-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      scroll-margin-top: 6rem;
+    }
+    .result-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .result-head h3 {
+      font-size: 1.2rem;
+    }
+    .result-badge {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .result-lead {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .result-block .code-container {
+      margin: 0 0 1rem;
+    }
+    .result-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ===== コードの折りたたみ ===== */
+    .code-details {
+      margin: 1rem 0;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .code-details summary {
+      cursor: pointer;
+      padding: 0.75rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: #f8fafc;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      user-select: none;
+    }
+    .code-details summary::-webkit-details-marker {
+      display: none;
+    }
+    .code-details summary::before {
+      content: '▶';
+      font-size: 0.65rem;
+      color: var(--text-muted-dark);
+      transition: var(--transition);
+    }
+    .code-details[open] summary::before {
+      transform: rotate(90deg);
+    }
+    .code-details[open] summary {
+      border-bottom: 1px solid var(--border-color);
+    }
+    .code-details .code-container {
+      margin: 0;
+    }
+    .code-details pre {
+      border: none;
+      border-radius: 0;
+    }
+    .hl {
+      background: rgba(37, 99, 235, 0.28);
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      padding: 0 0.25rem;
+      margin: 0 -0.25rem;
+    }
+    .code-ref {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #0f172a;
+      color: #cbd5e1;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      vertical-align: middle;
+    }
+    .detail-card .lead {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* ===== 成果サマリー・表 ===== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .metric {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+    .metric-num {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--primary);
+    }
+    .metric-num small {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-left: 0.2rem;
+      color: var(--text-main);
+    }
+    .metric-label {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted-dark);
+      line-height: 1.5;
+    }
+    .table-scroll {
+      overflow-x: auto;
+    }
+    .trouble-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+    .trouble-table th,
+    .trouble-table td {
+      border: 1px solid var(--border-color);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .trouble-table th {
+      background: #f1f5f9;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+    .compare-table td:nth-child(3) {
+      background: #f0fdf4;
+      font-weight: 700;
+    }
+    .trouble-summary {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .detail-card .trouble-summary-title {
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+    .trouble-summary ol {
+      padding-left: 1.4rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      color: var(--text-muted-dark);
+    }
+    .trouble-summary ol li {
+      margin-bottom: 0.25rem;
+    }
+    .accordion-content .learn {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0;
+    }
+    .diagram-container .diagram-note {
+      position: relative;
+      z-index: 2;
+      margin: 2rem 0 0;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-muted-dark);
+      text-align: left;
     }
 
     /* Contact Section Content */
@@ -1045,6 +1378,9 @@
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     /* Mobile Screen View (Under 768px) */
@@ -1112,6 +1448,36 @@
       }
       .form-submit {
         width: 100%;
+      }
+      .result-block {
+        padding: 1.25rem 1rem;
+      }
+      .metric-num {
+        font-size: 2rem;
+      }
+      .code-details summary {
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+      }
+      .trouble-summary {
+        padding: 1rem;
+      }
+      .link-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.9rem;
+      }
+      .tab-buttons.study-tabs {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .tab-buttons.study-tabs .tab-btn {
+        flex: 1 1 40%;
+      }
+      .study-list {
+        columns: 1;
+      }
+      .study-card {
+        padding: 1.5rem 1rem;
       }
       footer {
         padding: 4rem 0;
@@ -1218,6 +1584,7 @@
       <a href="#home" class="logo">Shuto Fukuda</a>
       <nav>
         <a href="#about">About</a>
+        <a href="#study">Study</a>
         <a href="#works">works</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -1285,6 +1652,92 @@
       </div>
     </section>
 
+    <!-- Study Section -->
+    <section class="section-grid" id="study">
+      <div class="section-left">
+        <h2 class="section-title">Study</h2>
+      </div>
+      <div class="section-right">
+
+        <!-- 学年切り替えボタン -->
+        <div class="tabs-wrapper">
+          <div class="tab-buttons study-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'study-y1')">1年次</button>
+            <button class="tab-btn" onclick="switchTab(event, 'study-y2')">2年次</button>
+            <button class="tab-btn" onclick="switchTab(event, 'study-y3')">3年次</button>
+            <button class="tab-btn" onclick="switchTab(event, 'study-y4')">4年次</button>
+          </div>
+        </div>
+
+        <div id="study-y1" class="tab-content active">
+          <div class="study-card">
+            <h3>1年次</h3>
+            <ul class="study-list">
+              <li><span class="study-name">ネットワーク</span><span class="tech-badge">OSI参照モデル</span><span class="tech-badge">機器</span><span class="tech-badge">プロトコル</span></li>
+              <li><span class="study-name">情報セキュリティ</span><span class="tech-badge">サイバー攻撃手法</span><span class="tech-badge">脆弱性</span></li>
+              <li><span class="study-name">Linux</span><span class="tech-badge">コマンド操作</span><span class="tech-badge">AWS</span><span class="tech-badge">サーバ構築</span></li>
+              <li><span class="study-name">Web技術</span><span class="tech-badge">HTML</span><span class="tech-badge">CSS</span><span class="tech-badge">JavaScript</span></li>
+              <li><span class="study-name">プログラミング基礎</span><span class="tech-badge">Python</span></li>
+              <li><span class="study-name">オブジェクト指向プログラミング</span><span class="tech-badge">Python</span></li>
+              <li><span class="study-name">データベース</span><span class="tech-badge">MySQL</span><span class="tech-badge">正規化</span></li>
+              <li><span class="study-name">アルゴリズムとデータ構造</span><span class="tech-badge">探索アルゴリズム</span></li>
+              <li><span class="study-name">システム開発概念</span><span class="tech-badge">要件定義</span><span class="tech-badge">設計</span><span class="tech-badge">開発</span></li>
+              <li><span class="study-name">IoT技術</span><span class="tech-badge">デバイス</span></li>
+              <li><span class="study-name">企業経営と情報システム戦略</span><span class="tech-badge">マネジメント</span></li>
+              <li><span class="study-name">インターネット関連法</span><span class="tech-badge">著作権</span><span class="tech-badge">個人情報</span><span class="tech-badge">憲法</span></li>
+              <li><span class="study-name">ビジネス統計</span><span class="tech-badge">データの可視化</span><span class="tech-badge">回帰分析</span></li>
+              <li><span class="study-name">Office</span><span class="tech-badge">Word</span><span class="tech-badge">Excel</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="study-y2" class="tab-content">
+          <div class="study-card">
+            <h3>2年次</h3>
+            <ul class="study-list">
+              <li><span class="study-name">クラウド開発</span><span class="tech-badge">AWS</span></li>
+              <li><span class="study-name">セキュア開発</span><span class="tech-badge">サイバー攻撃</span><span class="tech-badge">対策</span></li>
+              <li><span class="study-name">IoT開発</span><span class="tech-badge">Raspberry Pi</span></li>
+              <li><span class="study-name">Webアプリケーション</span><span class="tech-badge">Node.js</span></li>
+              <li><span class="study-name">WebAPI</span><span class="tech-badge">HTTP</span><span class="tech-badge">API</span></li>
+              <li><span class="study-name">モバイルアプリ開発</span><span class="tech-badge">iOSアプリ</span><span class="tech-badge">Swift</span></li>
+              <li><span class="study-name">ロボティクス</span><span class="tech-badge">ロボット</span><span class="tech-badge">電子回路</span></li>
+              <li><span class="study-name">UML</span><span class="tech-badge">ユースケース図</span><span class="tech-badge">クラス図</span><span class="tech-badge">シーケンス図</span></li>
+              <li><span class="study-name">テスト技法</span><span class="tech-badge">draw.io</span></li>
+              <li><span class="study-name">アジャイル開発</span><span class="tech-badge">アジャイル手法</span><span class="tech-badge">スクラム</span></li>
+              <li><span class="study-name">RPA</span><span class="tech-badge">Power Automate Desktop</span><span class="tech-badge">自動化</span></li>
+              <li><span class="study-name">コンセプチュアルスキル</span><span class="tech-badge">ロジカルシンキング</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="study-y3" class="tab-content">
+          <div class="study-card">
+            <h3>3年次</h3>
+            <ul class="study-list">
+              <li><span class="study-name">プロジェクト管理ツール実習</span><span class="tech-badge">WBS</span></li>
+              <li><span class="study-name">プロジェクトマネジメント概論・各論</span><span class="tech-badge">基礎知識</span><span class="tech-badge">PMBOK</span></li>
+              <li><span class="study-name">プロジェクトマネジメント実践演習</span><span class="tech-badge">ポートフォリオ</span></li>
+              <li><span class="study-name">データベース実習</span><span class="tech-badge">論理設計</span><span class="tech-badge">物理設計</span><span class="tech-badge">正規化</span></li>
+              <li><span class="study-name">機械学習と深層学習理論</span><span class="tech-badge">人工知能</span><span class="tech-badge">機械学習</span></li>
+              <li><span class="study-name">データ可視化</span><span class="tech-badge">Google Colab</span></li>
+              <li><span class="study-name">ビジネス創出応用</span><span class="tech-badge">KJ法</span><span class="tech-badge">ロジックツリー</span><span class="tech-badge">5WHYs</span></li>
+              <li><span class="study-name">開発プロジェクト実習</span><span class="tech-badge">チーム開発</span></li>
+              <li><span class="study-name">企業連携プロジェクト実習</span><span class="tech-badge">チーム開発</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="study-y4" class="tab-content">
+          <div class="study-card upcoming">
+            <h3>4年次</h3>
+            <p class="study-upcoming">これから学習予定です。学習が進み次第、随時追加します。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- Works Section -->
     <section class="section-grid" id="works">
       <div class="section-left">
@@ -1298,25 +1751,51 @@
           <!-- Project 1 Card -->
           <div class="project-card" onclick="openModal('modal-project1')">
             <h3 class="project-card-title">Terraform × LXD</h3>
-            <p class="project-card-desc">完全無料のローカルコンテナ環境を用いた、複数Webサーバーとロードバランサーによる高可用性インフラ構築</p>
+            <p class="project-card-desc">コードだけでWebサーバー3台とロードバランサーを構築し、負荷分散の動作まで確認した検証プロジェクト</p>
+            <div class="project-card-outcomes">
+              <p class="outcomes-title">成果</p>
+              <ul>
+                <li><span class="inline-code">terraform apply</span> で Ubuntu コンテナ3台を一括作成</li>
+                <li>HAProxy のラウンドロビンで web-1 → web-2 → web-3 に振り分けられることを curl で確認</li>
+                <li>4件のエラーを、原因の切り分けから解決まで記録</li>
+              </ul>
+            </div>
             <div class="project-card-tech">
               <span class="tech-badge">Terraform</span>
               <span class="tech-badge">LXD</span>
               <span class="tech-badge">HAProxy</span>
               <span class="tech-badge">Nginx</span>
             </div>
+            <div class="project-card-actions">
+              <button type="button" class="link-btn primary" onclick="event.stopPropagation(); openModal('modal-project1')">詳細を見る →</button>
+              <button type="button" class="link-btn" onclick="event.stopPropagation(); openModal('modal-project1', 'result1')">動作結果を見る</button>
+              <div class="link-buttons" data-project="project1"></div>
+            </div>
           </div>
 
           <!-- Project 2 Card -->
           <div class="project-card" onclick="openModal('modal-project2')">
             <h3 class="project-card-title">Docker × Ansible</h3>
-            <p class="project-card-desc">Nginx・PHP-FPM・MySQL・Redisからなるマルチコンテナ Web インフラを Docker Compose で定義し、Ansible による自動デプロイを実装</p>
+            <p class="project-card-desc">Nginx・PHP-FPM・MySQL・Redis の4層構成を Docker Compose で定義し、Ansible で自動デプロイしたプロジェクト</p>
+            <div class="project-card-outcomes">
+              <p class="outcomes-title">成果</p>
+              <ul>
+                <li><span class="inline-code">docker compose up -d</span> 1コマンドで4コンテナを起動</li>
+                <li>Ansible Playbook で、複数ホストへ同じ構成を一括デプロイ</li>
+                <li>4件のトラブルを解決し、再発を防ぐ設定（Named Volume・待機処理など）を反映</li>
+              </ul>
+            </div>
             <div class="project-card-tech">
               <span class="tech-badge">Docker</span>
               <span class="tech-badge">Ansible</span>
               <span class="tech-badge">MySQL</span>
               <span class="tech-badge">PHP</span>
               <span class="tech-badge">Redis</span>
+            </div>
+            <div class="project-card-actions">
+              <button type="button" class="link-btn primary" onclick="event.stopPropagation(); openModal('modal-project2')">詳細を見る →</button>
+              <button type="button" class="link-btn" onclick="event.stopPropagation(); openModal('modal-project2', 'result2')">動作結果を見る</button>
+              <div class="link-buttons" data-project="project2"></div>
             </div>
           </div>
 
@@ -1335,7 +1814,11 @@
         <div class="modal-body">
           
           <div class="works-header">
-            <p class="works-project-desc">完全無料のローカルコンテナ環境を用いた、複数Webサーバーとロードバランサーによる高可用性インフラ構築プロジェクト</p>
+            <p class="works-project-desc">Terraform でコンテナ3台を作り、HAProxy で負荷分散するところまでを、ローカル環境だけで構築・検証したプロジェクトです。</p>
+            <div class="link-bar">
+              <button type="button" class="link-btn primary" onclick="scrollToResult('result1')">↓ 動作結果を見る</button>
+              <div class="link-buttons" data-project="project1"></div>
+            </div>
           </div>
 
           <!-- Stats Grid -->
@@ -1363,6 +1846,28 @@
             </div>
           </div>
 
+          <!-- 動作結果 -->
+          <div class="result-block" id="result1">
+            <div class="result-head">
+              <h3>動作結果</h3>
+              <span class="result-badge">検証済み</span>
+            </div>
+            <p class="result-lead">ロードバランサー（localhost:8080）に3回アクセスすると、3台のWebサーバーへ順番に振り分けられました。</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              <pre><code>$ curl http://localhost:8080
+This is web-1
+$ curl http://localhost:8080
+This is web-2
+$ curl http://localhost:8080
+This is web-3</code></pre>
+            </div>
+            <ul class="check-list result-list">
+              <li><strong>構築</strong>：<span class="inline-code">terraform apply</span> で web-1〜web-3 の3コンテナが作成された</li>
+              <li><strong>分散</strong>：<span class="inline-code">balance roundrobin</span> の設定どおり、web-1 → web-2 → web-3 の順に応答した</li>
+            </ul>
+          </div>
+
           <!-- Tabs -->
           <div class="tabs-wrapper">
             <div class="tab-buttons">
@@ -1377,12 +1882,12 @@
           <div id="overview" class="tab-content active">
             <div class="detail-card">
               <h3>プロジェクト概要</h3>
-              <p>
-                本プロジェクトは、インフラの構築手順をコードで定義する <strong>Infrastructure as Code (IaC)</strong> をローカルPC上で高速に、かつ完全に無料の枠組みで体験・実証するために構成されました。
-              </p>
-              <p>
-                一般的に検証コストが掛かりやすいパブリッククラウド（AWSなど）を用いることなく、Linux標準のシステムコンテナ管理システムである <strong>LXD</strong> をバックエンドに採用。Terraform経由で複数のUbuntu仮想インスタンスを秒単位で瞬時に構築・破壊できる再現性の高い実証基盤を作り上げ、さらにHAProxyによるWebトラフィックの動的ロードバランシングまでを検証しています。
-              </p>
+              <p class="lead">AWS などの有料クラウドを使わず、ローカルの LXD コンテナだけで「コードでインフラを作る」ことを体験・検証しました。</p>
+              <ul class="check-list">
+                <li><strong>目的</strong>：Infrastructure as Code (IaC) と負荷分散の仕組みを、無料で何度も作り直せる環境で理解する</li>
+                <li><strong>やったこと</strong>：Terraform で Ubuntu コンテナを3台作成 → Nginx を導入 → HAProxy で振り分け</li>
+                <li><strong>結果</strong>：curl で web-1 → web-2 → web-3 の順に応答することを確認</li>
+              </ul>
 
               <!-- Dynamic Visual Diagram -->
               <div class="diagram-container">
@@ -1441,21 +1946,22 @@
             <div class="detail-card">
               <h3>工夫と実装ポイント</h3>
               <ul class="check-list">
-                <li><strong>完全無料でのクラウド検証環境実現</strong>：AWSなどの商用クラウドを使わず、LXDコンテナのみで複数VM構成を構築。秒単位の高速起動により、試行錯誤が容易</li>
-                <li><strong>Terraform による宣言的インフラ定義</strong>：count メタ引数を使い、3台のWebサーバーをパラメータ1つで制御。スケール変更がコード1行で実現可能</li>
-                <li><strong>ラウンドロビン分散の実装検証</strong>：HAProxyの設定により、クライアントリクエストが自動的に3台へと均等に分散される動作を実証</li>
-                <li><strong>エラードリフト管理とState管理の習得</strong>：Terraform State の重要性を実体験。リソースの競合解決とロールバック技術を確立</li>
+                <li><strong>無料・高速に作り直せる検証環境</strong>：AWS ではなく LXD コンテナを採用。起動が数秒なので、壊して作り直す試行錯誤を何度も繰り返せた</li>
+                <li><strong>台数の変更はコード1行</strong>：<span class="inline-code">count = 3</span> の数字を変えるだけで台数を増減できる設計にした<span class="code-ref">vm.tf</span></li>
+                <li><strong>振り分けを実際に確認</strong>：<span class="inline-code">balance roundrobin</span> とヘルスチェック（<span class="inline-code">check</span>）を設定し、curl で3台へ順番に届くことを検証<span class="code-ref">haproxy.cfg</span></li>
+                <li><strong>State のずれを自力で復旧</strong>：Terraform State と実機が食い違った時に <span class="inline-code">terraform state rm</span> で整合を戻した<span class="code-ref">トラブル #3</span></li>
               </ul>
             </div>
 
             <div class="detail-card">
               <h3>主要な構成ファイル</h3>
-              <p>インフラの「宣言的な定義」と「ロードバランサー」の設計構成コードです。</p>
+              <p>コードは折りたたんでいます。<span class="hl">ハイライト</span>の行が、上の「工夫と実装ポイント」に対応する部分です。</p>
               
-              <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">vm.tf (Terraform)</h4>
-              <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>terraform {
+              <details class="code-details">
+                <summary>vm.tf (Terraform) のコードを表示</summary>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>terraform {
   required_providers {
     lxd = {
       source  = "terraform-lxd/lxd"
@@ -1467,28 +1973,31 @@
 provider "lxd" {}
 
 resource "lxd_container" "web" {
-  count = 3
+<span class="hl">  count = 3</span>
 
   name  = "web-${count.index + 1}"
   image = "ubuntu:22.04"
 }</code></pre>
-              </div>
+                </div>
+              </details>
 
-              <h4 style="font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">haproxy.cfg (HAProxy configuration)</h4>
-              <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>frontend http_front
+              <details class="code-details">
+                <summary>haproxy.cfg (HAProxy configuration) のコードを表示</summary>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>frontend http_front
     bind *:8080
     mode http
     default_backend http_back
 
 backend http_back
     mode http
-    balance roundrobin
+<span class="hl">    balance roundrobin</span>
     server web1 127.0.0.1:8081 check
     server web2 127.0.0.1:8082 check
     server web3 127.0.0.1:8083 check</code></pre>
-              </div>
+                </div>
+              </details>
             </div>
           </div>
 
@@ -1507,12 +2016,15 @@ backend http_back
                   <p>
                     ホストマシンにLXDシステムを導入。コンテナ仮想化により、通常の重たい仮想マシンの起動を数秒の軽量コンテナ起動に代替し、完全無料・超高速な検証体制を構築。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>sudo apt update
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>sudo apt update
 sudo apt install -y lxd
 sudo lxd init</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 2 -->
@@ -1523,11 +2035,14 @@ sudo lxd init</code></pre>
                   <p>
                     インフラ構成定義ファイル <span class="inline-code">vm.tf</span> を作成。複数インスタンス構成を <span class="inline-code">count = 3</span> パラメータで宣言的にコード定義し、一括で構築。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>terraform init
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>terraform init
 terraform apply</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 3 -->
@@ -1538,15 +2053,18 @@ terraform apply</code></pre>
                   <p>
                     構築したコンテナにログインし、Webサーバー（Nginx）を個別にインストールします。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code># 例：web-1 コンテナに入ってインストールする
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code># 例：web-1 コンテナに入ってインストールする
 lxc exec web-1 -- bash
 
 # コンテナ内部で実行
 sudo apt update
 sudo apt install -y nginx</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 4 -->
@@ -1557,9 +2075,11 @@ sudo apt install -y nginx</code></pre>
                   <p>
                     各コンテナで異なるメッセージを返すようにインデックスHTMLを書き換え、どのサーバーにアクセスしているか判別できるようにします。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code># web-1 コンテナ内
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code># web-1 コンテナ内
 echo "This is web-1" | sudo tee /var/www/html/index.html
 
 # web-2 コンテナ内
@@ -1567,7 +2087,8 @@ echo "This is web-2" | sudo tee /var/www/html/index.html
 
 # web-3 コンテナ内
 echo "This is web-3" | sudo tee /var/www/html/index.html</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 5 -->
@@ -1578,12 +2099,15 @@ echo "This is web-3" | sudo tee /var/www/html/index.html</code></pre>
                   <p>
                     LXDの仮想ネットワーク上のコンテナとホスト側ネットワークを接続するため、プロキシポートマッピングを追加。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>lxc config device add web-1 http proxy listen=tcp:0.0.0.0:8081 connect=tcp:127.0.0.1:80
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>lxc config device add web-1 http proxy listen=tcp:0.0.0.0:8081 connect=tcp:127.0.0.1:80
 lxc config device add web-2 http proxy listen=tcp:0.0.0.0:8082 connect=tcp:127.0.0.1:80
 lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0.0.1:80</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 6 -->
@@ -1594,13 +2118,16 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                   <p>
                     ホスト側にHAProxyを起動し、ラウンドロビンで負荷を分散するよう設定。<span class="inline-code">curl</span> を使って交互に各コンテナへとアクセスが振り分けられることを確認。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>curl http://localhost:8080
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>curl http://localhost:8080
 # ➔ Output 1: This is web-1
 # ➔ Output 2: This is web-2
 # ➔ Output 3: This is web-3</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
               </div>
             </div>
@@ -1610,7 +2137,27 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
           <div id="trouble" class="tab-content">
             <div class="detail-card">
               <h3>直面した問題と解決（トラブルシューティング）</h3>
-              <p>構築の過程で発生した様々なエラーに対し、ログの解析や権限・状態管理（State）の修復を行った問題解決の記録です。クリックすると詳細が開きます。</p>
+              <p>構築中に起きた4件の問題を、「事象 → 原因 → 解決 → 学び」の順に整理しています。クリックすると詳細が開きます。</p>
+
+              <div class="trouble-summary">
+                <p class="trouble-summary-title">問題解決の進め方（共通）</p>
+                <ol>
+                  <li>エラーメッセージを読み、どの部分が何を拒否・失敗したのかを確認する</li>
+                  <li>ログや状態（グループ・State・既存リソース）を調べて、原因を1つに絞る</li>
+                  <li>最小限の修正で解決し、再発を防ぐ手順を残す</li>
+                </ol>
+                <div class="table-scroll">
+                  <table class="trouble-table">
+                    <thead><tr><th>#</th><th>問題</th><th>原因の種類</th><th>身についた力</th></tr></thead>
+                    <tbody>
+                      <tr><td>1</td><td>VirtualBox プロバイダーが見つからない</td><td>前提の確認不足</td><td>手段に固執せず、目的に合う方法へ切り替える判断力</td></tr>
+                      <tr><td>2</td><td>LXD ソケットで Permission Denied</td><td>権限（グループ未所属）</td><td>エラー文から原因を特定する力</td></tr>
+                      <tr><td>3</td><td>コンテナの重複・適用競合</td><td>State と実機のずれ</td><td>Terraform State の理解と復旧手順</td></tr>
+                      <tr><td>4</td><td>ストレージプール名の競合</td><td>過去環境の残骸</td><td>既存リソースを先に確認する習慣</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
               <!-- Issue 1 -->
               <div class="accordion">
@@ -1631,6 +2178,9 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                     </p>
                     <p><strong>【解決策】</strong><br>
                       インフラの検証を円滑に進めるため、VirtualBoxでの実行を中止し、<strong>LXDによるシステムコンテナベースの検証へ方針変更</strong>。LXDはTerraformの公式・コミュニティプロバイダーが安定して提供されており、動作も非常に高速であるため、よりモダンで再現性の高い構成へと昇華できた。
+                    </p>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      使うツールを決める前に、公式レジストリにプロバイダーがあるかを確認する。行き詰まったら手段に固執せず、「IaC を検証する」という目的に合う別の方法へ切り替える判断が大事だと学んだ。
                     </p>
                   </div>
                 </div>
@@ -1659,6 +2209,9 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                     </p>
                     <pre><code style="color: var(--primary);">sudo usermod -aG lxd siwuser
 sudo reboot</code></pre>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      エラー文の <span class="inline-code">permission denied</span> とソケットのパスから、「デーモンへの権限不足」だと切り分けられた。操作系ツールでは、実行ユーザーが必要なグループに入っているかの確認が基本。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1686,6 +2239,9 @@ sudo reboot</code></pre>
                     </p>
                     <pre><code style="color: var(--primary);">lxc delete terraform-test --force
 terraform state rm lxd_container.test</code></pre>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      Terraform は State を正として動くため、Terraform の外でコンテナを操作すると実機と食い違う。以後は変更を Terraform 経由に統一し、ずれた時は <span class="inline-code">state rm</span> で整合を戻すと決めた。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1711,6 +2267,9 @@ terraform state rm lxd_container.test</code></pre>
                     <p><strong>【解決策】</strong><br>
                       初期化プロンプトに従い、未使用の新しいプール名（例: <span class="inline-code">default2</span>）を入力して設定をバイパスし、無事に初期化を完了させた。
                     </p>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      「過去の環境の残骸が残っていないか」を最初に確認する習慣がついた。既存のプール名を確認してから初期化すれば、同じ警告は防げる。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1721,7 +2280,29 @@ terraform state rm lxd_container.test</code></pre>
           <!-- Tab 4: Results & Learnings -->
           <div id="results" class="tab-content">
             <div class="detail-card">
-              <h3>得られた実績と学び</h3>
+              <h3>成果サマリー</h3>
+              <div class="metrics-grid">
+                <div class="metric"><div class="metric-num">3<small>台</small></div><div class="metric-label">Web コンテナを <span class="inline-code">count = 3</span> で一括作成</div></div>
+                <div class="metric"><div class="metric-num">3/3<small>台</small></div><div class="metric-label">curl で、3台すべてへの振り分けを確認</div></div>
+                <div class="metric"><div class="metric-num">1<small>コマンド</small></div><div class="metric-label"><span class="inline-code">terraform apply</span> で環境を再現</div></div>
+                <div class="metric"><div class="metric-num">4<small>件</small></div><div class="metric-label">トラブルを、原因の特定から解決まで完了</div></div>
+              </div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Before / After（手作業 → コード化）</h4>
+              <div class="table-scroll">
+                <table class="trouble-table compare-table">
+                  <thead><tr><th>項目</th><th>Before（手作業）</th><th>After（Terraform + LXD）</th></tr></thead>
+                  <tbody>
+                    <tr><td>環境の作成</td><td>サーバーを手順書どおり1台ずつ作る</td><td>terraform apply で3台を一括作成</td></tr>
+                    <tr><td>台数の変更</td><td>作業を台数分くり返す</td><td>count の値を変えるだけ</td></tr>
+                    <tr><td>作り直し</td><td>設定を思い出しながら再構築</td><td>コードから同じ環境を再現</td></tr>
+                    <tr><td>変更内容の把握</td><td>作業者の記憶・メモに頼る</td><td>コードの差分で確認</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3>学び</h3>
               
               <div style="margin-bottom: 2rem;">
                 <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. 手作業インフラ構築から、再現性の高いIaCへ</h4>
@@ -1770,7 +2351,11 @@ terraform state rm lxd_container.test</code></pre>
         <div class="modal-body">
           
           <div class="works-header">
-            <p class="works-project-desc">Docker Compose と Ansible を組み合わせ、Web・アプリケーション・データベース・キャッシュの4層からなるマルチコンテナ Web インフラを構築し、実運用に近い構成管理フローをローカル環境で再現したプロジェクト</p>
+            <p class="works-project-desc">Nginx・PHP-FPM・MySQL・Redis の4層構成を Docker Compose で定義し、Ansible で自動デプロイしたプロジェクトです。</p>
+            <div class="link-bar">
+              <button type="button" class="link-btn primary" onclick="scrollToResult('result2')">↓ 動作結果を見る</button>
+              <div class="link-buttons" data-project="project2"></div>
+            </div>
           </div>
 
           <!-- Stats Grid -->
@@ -1800,6 +2385,28 @@ terraform state rm lxd_container.test</code></pre>
             </div>
           </div>
 
+          <!-- 動作結果 -->
+          <div class="result-block" id="result2">
+            <div class="result-head">
+              <h3>動作結果</h3>
+              <span class="result-badge">検証済み</span>
+            </div>
+            <p class="result-lead">コンテナの起動から、Ansible による複数ホストへの自動デプロイ、<span class="inline-code">/health</span> の自動チェックまでを確認しました。</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              <pre><code># 確認に使ったコマンド
+docker-compose up -d                          # 4コンテナを起動
+docker-compose ps                             # 各サービスの状態を確認
+curl http://localhost:80                      # Nginx → PHP-FPM の応答を確認
+ansible-playbook -i inventory.ini site.yml    # 複数ホストへ一括デプロイ</code></pre>
+            </div>
+            <ul class="check-list result-list">
+              <li><strong>起動</strong>：Nginx・PHP-FPM・MySQL・Redis の4サービスが Compose で起動した</li>
+              <li><strong>自動チェック</strong>：Playbook の <span class="inline-code">uri</span> モジュールで、<span class="inline-code">/health</span> が HTTP 200 を返すことを検証した</li>
+              <li><strong>永続化</strong>：コンテナを再起動しても、MySQL のデータが保持されることを確認した</li>
+            </ul>
+          </div>
+
           <!-- Tabs -->
           <div class="tabs-wrapper">
             <div class="tab-buttons">
@@ -1814,12 +2421,13 @@ terraform state rm lxd_container.test</code></pre>
           <div id="overview2" class="tab-content active">
             <div class="detail-card">
               <h3>プロジェクト概要</h3>
-              <p>
-                本プロジェクトでは、<strong>Docker Compose</strong> と <strong>Ansible</strong> を組み合わせて、Web サーバー・アプリケーションサーバー・データベース・キャッシュサーバーからなる<strong>マルチコンテナ Web インフラ</strong>を構築しました。開発環境から本番環境へのデプロイまでを自動化し、構成管理ツールによる統一的な運用フローを実証しています。
-              </p>
-              <p>
-                Ansible のプレイブックを用いて、Docker のインストール・Compose の配置・サービス起動までを自動化。複数ホストへの横展開が可能な構成管理フローを実装し、本番運用で使われる「構成の再現性」「自動化」「一括適用」を体験しました。
-              </p>
+              <p class="lead">Docker Compose で Web・アプリ・DB・キャッシュの4層を定義し、Ansible で複数ホストへ自動デプロイするところまでを、ローカルで再現しました。</p>
+              <ul class="check-list">
+                <li><strong>目的</strong>：本番に近い構成を、誰がやっても同じ手順で再現できる形にする</li>
+                <li><strong>やったこと</strong>：Compose で4コンテナを定義 → Ansible の Playbook で Docker の導入・ファイル配置・起動・ヘルスチェックまで自動化</li>
+                <li><strong>結果</strong>：<span class="inline-code">docker compose up -d</span> と <span class="inline-code">ansible-playbook</span> の2つのコマンドで構成を再現</li>
+                <li><strong>補足</strong>：この作品は負荷分散ではなく、役割ごとにコンテナを分ける「多層構成」とデプロイ自動化が主題です（負荷分散は Terraform × LXD の作品で実装）</li>
+              </ul>
 
               <!-- Dynamic Visual Diagram -->
               <div class="diagram-container">
@@ -1835,16 +2443,18 @@ terraform state rm lxd_container.test</code></pre>
                   <!-- Nginx Reverse Proxy -->
                   <div class="node node-lb" id="node-nginx2">
                     <div class="title">Nginx (Reverse Proxy)</div>
-                    <div class="desc">Port 80 ➔ Load Balancing</div>
+                    <div class="desc">Port 80 ➔ FastCGI で PHP-FPM へ中継</div>
                   </div>
 
-                  <!-- Backend Services Group -->
+                  <!-- Application Server -->
+                  <div class="node node-web" id="node-php2">
+                    <div class="title">PHP-FPM</div>
+                    <div class="desc">Container | Port 9000</div>
+                    <div class="desc" style="color: var(--primary);">Application Server</div>
+                  </div>
+
+                  <!-- Data Services Group -->
                   <div class="web-group">
-                    <div class="node node-web" id="node-php2">
-                      <div class="title">PHP-FPM</div>
-                      <div class="desc">Container | Port 9000</div>
-                      <div class="desc" style="color: var(--primary);">Application Server</div>
-                    </div>
                     <div class="node node-web" id="node-mysql2">
                       <div class="title">MySQL</div>
                       <div class="desc">Container | Port 3306</div>
@@ -1866,33 +2476,37 @@ terraform state rm lxd_container.test</code></pre>
                   <path id="path-nginx-php2" class="connection-line" />
                   <path id="path-nginx-php2-pulse" class="pulse-line" />
 
-                  <path id="path-nginx-mysql2" class="connection-line" />
-                  <path id="path-nginx-mysql2-pulse" class="pulse-line" />
+                  <path id="path-php-mysql2" class="connection-line" />
+                  <path id="path-php-mysql2-pulse" class="pulse-line" />
 
-                  <path id="path-nginx-redis2" class="connection-line" />
-                  <path id="path-nginx-redis2-pulse" class="pulse-line" />
+                  <path id="path-php-redis2" class="connection-line" />
+                  <path id="path-php-redis2-pulse" class="pulse-line" />
                 </svg>
+
+                <p class="diagram-note">※ この構成は負荷分散ではなく、役割ごとにコンテナを分けた多層構成です。Nginx はリクエストを PHP-FPM へ中継（リバースプロキシ）し、PHP が MySQL（データ）と Redis（キャッシュ）にアクセスします。ラウンドロビンによる負荷分散は、Terraform × LXD の作品で実装しています。</p>
               </div>
             </div>
 
             <div class="detail-card">
               <h3>工夫と実装ポイント</h3>
               <ul class="check-list">
-                <li><strong>Docker Compose によるマルチコンテナ構成のコード化</strong>：Web・アプリ・DB・キャッシュの4コンテナをComposeで一括管理。コンテナ間ネットワーク、ボリューム永続化、依存関係をコード化し、<span class="inline-code">docker compose up -d</span> だけで本番に近い構成を自動構築</li>
-                <li><strong>Ansible による構成管理・自動デプロイ</strong>：Docker のインストール、Compose の配置、サービス起動をAnsibleで自動化。複数ホストへの横展開が可能な構成管理フローを実装</li>
-                <li><strong>Nginx → PHP-FPM → MySQL → Redis の連携構築</strong>：NginxのFastCGI設定でPHP-FPMにリクエストをルーティングし、PHPからMySQLへPDO接続、RedisキャッシュサーバーとPHPの連携までWebアプリケーションの基本構成をコンテナで完全再現</li>
-                <li><strong>Dockerfile による PHP 拡張のビルド</strong>：Redis拡張をpeclでインストールしPHP-FPMに組み込み。本番環境で必要な拡張をDockerfileで管理する方法を習得</li>
+                <li><strong>4層を1ファイルで定義</strong>：ネットワーク・ボリューム・依存関係をコード化し、<span class="inline-code">docker compose up -d</span> だけで本番に近い構成を起動<span class="code-ref">docker-compose.yml</span></li>
+                <li><strong>パスワードをコードから分離</strong>：DB のパスワードを <span class="inline-code">.env</span> に置き、Git の管理対象外にした<span class="code-ref">docker-compose.yml</span></li>
+                <li><strong>起動から確認まで自動化</strong>：Docker の導入・Compose の配置・起動・<span class="inline-code">/health</span> の確認までを Playbook にまとめ、複数ホストへ一括適用<span class="code-ref">site.yml</span></li>
+                <li><strong>リクエストの流れを実装</strong>：Nginx の FastCGI 設定で PHP-FPM へ中継し、PHP から MySQL（PDO）と Redis に接続</li>
+                <li><strong>PHP 拡張を Dockerfile で管理</strong>：pecl で Redis 拡張をビルドして組み込み、環境差が出ないようにした<span class="code-ref">Dockerfile</span></li>
               </ul>
             </div>
 
             <div class="detail-card">
               <h3>主要な構成ファイル</h3>
-              <p>Docker Compose による宣言的なコンテナ定義と、Ansible による構成管理のメイン設定です。</p>
+              <p>コードは折りたたんでいます。<span class="hl">ハイライト</span>の行が、上の「工夫と実装ポイント」に対応する部分です。</p>
               
-              <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">docker-compose.yml</h4>
-              <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>version: '3.8'
+              <details class="code-details">
+                <summary>docker-compose.yml のコードを表示</summary>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>version: '3.8'
 
 services:
   nginx:
@@ -1925,7 +2539,7 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # .env から読み込む
+<span class="hl">      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # .env から読み込む</span>
       MYSQL_DATABASE: appdb
     volumes:
       - mysql_data:/var/lib/mysql
@@ -1943,13 +2557,15 @@ volumes:
 networks:
   app-network:
     driver: bridge</code></pre>
-              </div>
+                </div>
+              </details>
               <p style="margin-top: 1rem;">※ DBのパスワードは設定ファイルに直接書かず、<span class="inline-code">.env</span> に分離して読み込む形にしています（<span class="inline-code">.env</span> は Git の管理対象外にします）。</p>
 
-              <h4 style="font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">site.yml (Ansible Playbook)</h4>
-              <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>---
+              <details class="code-details">
+                <summary>site.yml (Ansible Playbook) のコードを表示</summary>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>---
 - name: Deploy application stack
   hosts: webservers
   become: yes
@@ -1968,7 +2584,7 @@ networks:
         src: docker-compose.yml
         dest: /opt/app/docker-compose.yml
         owner: root
-        mode: '0644'
+<span class="hl">        mode: '0644'</span>
 
     - name: Start services
       shell: docker-compose -f /opt/app/docker-compose.yml up -d
@@ -1981,19 +2597,22 @@ networks:
     - name: Check application health
       uri:
         url: http://localhost:80/health
-        status_code: 200
+<span class="hl">        status_code: 200</span>
       retries: 3
       delay: 2</code></pre>
-              </div>
+                </div>
+              </details>
 
-              <h4 style="font-size: 0.95rem; margin-top: 2rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">Dockerfile (PHP拡張ビルド)</h4>
-              <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <pre><code>FROM php:8.2-fpm
+              <details class="code-details">
+                <summary>Dockerfile (PHP拡張ビルド) のコードを表示</summary>
+                <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>FROM php:8.2-fpm
 RUN apt-get update && apt-get install -y libssl-dev \
     && pecl install redis \
     && docker-php-ext-enable redis</code></pre>
-              </div>
+                </div>
+              </details>
             </div>
           </div>
 
@@ -2012,13 +2631,16 @@ RUN apt-get update && apt-get install -y libssl-dev \
                   <p>
                     開発マシンに Docker および Docker Compose をインストール。バージョン確認を行い、Dockerデーモンが正常に起動していることを検証します。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>curl -sSL https://get.docker.com | sh
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 docker version
 docker-compose version</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 2 -->
@@ -2029,9 +2651,11 @@ docker-compose version</code></pre>
                   <p>
                     PHP アプリケーション、Nginx 設定、初期化スクリプトなどを整理したファイルツリーを構築。Dockerコンテナ内でのマウント構造を考慮した構成を作成。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>project/
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>project/
 ├── docker-compose.yml
 ├── nginx.conf
 ├── app/
@@ -2042,7 +2666,8 @@ docker-compose version</code></pre>
 │   └── php.ini
 └── mysql/
     └── init.sql</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 3 -->
@@ -2053,13 +2678,16 @@ docker-compose version</code></pre>
                   <p>
                     <span class="inline-code">docker-compose up</span> でマルチコンテナスタックを一括起動。各サービスのヘルスチェック、ネットワーク疎通確認、データベース接続などを実施。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>docker-compose up -d
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>docker-compose up -d
 docker-compose ps
 docker-compose logs -f nginx
 curl http://localhost:80</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 4 -->
@@ -2070,16 +2698,19 @@ curl http://localhost:80</code></pre>
                   <p>
                     デプロイ対象のホスト情報をインベントリファイルに記載。docker-compose.ymlの配置、Docker サービスの起動、ヘルスチェック等を記述したプレイブックを作成。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code># inventory.ini
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code># inventory.ini
 [webservers]
 deploy-host-1 ansible_host=192.168.1.100
 deploy-host-2 ansible_host=192.168.1.101
 
 # Execute playbook
 ansible-playbook -i inventory.ini site.yml</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 5 -->
@@ -2090,12 +2721,15 @@ ansible-playbook -i inventory.ini site.yml</code></pre>
                   <p>
                     Ansible の <span class="inline-code">ansible-playbook</span> コマンドでプレイブックを実行。リモートホストに対して一括でファイルコピー、パッケージインストール、サービス起動を自動実施。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>ansible-playbook -i inventory.ini site.yml -v
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>ansible-playbook -i inventory.ini site.yml -v
 # -v フラグで詳細な実行ログを表示
 # 複数ホストに対して統一的な構成適用が可能</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
 
                 <!-- Step 6 -->
@@ -2106,13 +2740,16 @@ ansible-playbook -i inventory.ini site.yml</code></pre>
                   <p>
                     各ホストのサービス状態を確認。アプリケーションヘルスエンドポイント、データベース接続状態、ログ出力を検査し、本番環境での稼働を確認。
                   </p>
-                  <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>ansible webservers -i inventory.ini -m shell -a "docker-compose -f /opt/app/docker-compose.yml ps"
+                  <details class="code-details">
+                    <summary>コマンドを表示</summary>
+                    <div class="code-container">
+                      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                      <pre><code>ansible webservers -i inventory.ini -m shell -a "docker-compose -f /opt/app/docker-compose.yml ps"
 # リモートホスト全体でのコンテナ状態確認
 curl http://deploy-host-1/health
 curl http://deploy-host-2/health</code></pre>
-                  </div>
+                    </div>
+                  </details>
                 </div>
               </div>
             </div>
@@ -2122,7 +2759,27 @@ curl http://deploy-host-2/health</code></pre>
           <div id="trouble2" class="tab-content">
             <div class="detail-card">
               <h3>構築中に発生した問題と解決</h3>
-              <p>運用環境のデプロイメント検証における実際のトラブルと、その解決方法を記録しています。</p>
+              <p>構築中に起きた4件の問題を、「事象 → 原因 → 解決 → 学び」の順に整理しています。クリックすると詳細が開きます。</p>
+
+              <div class="trouble-summary">
+                <p class="trouble-summary-title">問題解決の進め方（共通）</p>
+                <ol>
+                  <li>エラーメッセージを読み、どの部分が何を拒否・失敗したのかを確認する</li>
+                  <li>ログや設定（ネットワーク・インベントリ・ボリューム）を調べて、原因を1つに絞る</li>
+                  <li>最小限の修正で解決し、再発を防ぐ設定をコードに残す</li>
+                </ol>
+                <div class="table-scroll">
+                  <table class="trouble-table">
+                    <thead><tr><th>#</th><th>問題</th><th>原因の種類</th><th>身についた力</th></tr></thead>
+                    <tbody>
+                      <tr><td>1</td><td>コンテナ間の DNS 解決失敗</td><td>起動順と準備完了の違い</td><td>依存関係を踏まえた起動設計</td></tr>
+                      <tr><td>2</td><td>Ansible から SSH 接続失敗</td><td>接続情報・認証の設定不備</td><td>接続エラーの切り分け手順</td></tr>
+                      <tr><td>3</td><td>MySQL のデータが消える</td><td>永続化の設定漏れ</td><td>データの永続化設計</td></tr>
+                      <tr><td>4</td><td>コピー後のパーミッション不一致</td><td>権限の未指定</td><td>再現性の高い Playbook の書き方</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
               <!-- Issue 1 -->
               <div class="accordion">
@@ -2145,6 +2802,9 @@ curl http://deploy-host-2/health</code></pre>
                       PHP コンテナのエントリーポイントスクリプトに、<span class="inline-code">wait-for-it.sh</span> を用いた MySQL への接続待機ロジックを追加。これにより、MySQL が完全に起動してから PHP アプリケーションが初期化されるようになりました。
                     </p>
                     <pre><code style="color: var(--primary);">./wait-for-it.sh mysql:3306 -t 30 -- php-fpm</code></pre>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      <span class="inline-code">depends_on</span> は「起動順」だけを制御し、「準備完了」までは保証しないと理解した。待機処理（wait-for-it）を入れ、起動順の問題を吸収する設計にした。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2175,6 +2835,9 @@ host_key_checking = False
 private_key_file = ~/.ssh/id_rsa
 
 ansible-playbook -i inventory.ini site.yml</code></pre>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      接続エラーは「IP アドレス → 鍵認証」の順に切り分ける。設定は <span class="inline-code">ansible.cfg</span> に明示して再現性を確保した。なお <span class="inline-code">host_key_checking = False</span> は検証環境向けの設定で、本番では known_hosts で検証する必要がある。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2206,6 +2869,9 @@ services:
   mysql:
     volumes:
       - mysql_data:/var/lib/mysql</code></pre>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      コンテナは破棄されるとデータも消える。残したいデータは Named Volume に置き、再起動してもデータが残るかを実際に確認して検証した。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2237,6 +2903,9 @@ services:
     owner: root
     group: root
     mode: '0644'</code></pre>
+                    <p class="learn"><strong>【学び】</strong><br>
+                      <span class="inline-code">mode</span> や <span class="inline-code">owner</span> を明示すると、どのホストでも同じ状態になる。Playbook は「書いていないことは環境任せになる」ことを意識して書くようになった。
+                    </p>
                   </div>
                 </div>
               </div>
@@ -2247,7 +2916,29 @@ services:
           <!-- Tab 4: Results & Learnings -->
           <div id="results2" class="tab-content">
             <div class="detail-card">
-              <h3>得られた実績と学び</h3>
+              <h3>成果サマリー</h3>
+              <div class="metrics-grid">
+                <div class="metric"><div class="metric-num">4<small>コンテナ</small></div><div class="metric-label">Nginx / PHP-FPM / MySQL / Redis を Compose で定義</div></div>
+                <div class="metric"><div class="metric-num">1<small>コマンド</small></div><div class="metric-label"><span class="inline-code">docker compose up -d</span> で全サービスを起動</div></div>
+                <div class="metric"><div class="metric-num">複数<small>ホスト</small></div><div class="metric-label">Ansible Playbook で一括デプロイ</div></div>
+                <div class="metric"><div class="metric-num">4<small>件</small></div><div class="metric-label">トラブルを、原因の特定から解決まで完了</div></div>
+              </div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Before / After（手作業 → コード化）</h4>
+              <div class="table-scroll">
+                <table class="trouble-table compare-table">
+                  <thead><tr><th>項目</th><th>Before（手作業）</th><th>After（Docker + Ansible）</th></tr></thead>
+                  <tbody>
+                    <tr><td>環境構築</td><td>サーバーごとにパッケージを手でインストール</td><td>docker compose up -d で4コンテナを起動</td></tr>
+                    <tr><td>複数ホストへの展開</td><td>ホストごとに同じ作業をくり返す</td><td>Ansible Playbook で一括適用</td></tr>
+                    <tr><td>設定の共有</td><td>手順書や口頭で伝える</td><td>docker-compose.yml と Playbook をコードで共有</td></tr>
+                    <tr><td>パスワードの扱い</td><td>設定ファイルに直接書きがち</td><td>.env に分離し、Git の管理対象外に</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3>学び</h3>
               
               <div style="margin-bottom: 2rem;">
                 <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. 手作業から自動化された構成管理へ</h4>
@@ -2273,7 +2964,7 @@ services:
               <div>
                 <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">4. Web インフラの全体像を把握できるようになった</h4>
                 <ul class="check-list">
-                  <li><strong>Reverse Proxy → Application → Database → Cache</strong>：一連のリクエストの流れを構築し、Webインフラ全体のデータフローを把握</li>
+                  <li><strong>Reverse Proxy → Application → Database / Cache</strong>：リクエストの流れ（Nginx → PHP-FPM → MySQL / Redis）を構築し、Webインフラ全体のデータフローを把握</li>
                   <li><strong>クラウドインフラの基礎</strong>：IaC・構成管理・マルチコンテナといったクラウドインフラの基礎をローカルで再現し、実践レベルの理解に到達</li>
                   <li><strong>Docker / Docker Compose</strong>：マルチコンテナアプリケーションの定義と管理スキル</li>
                   <li><strong>Ansible Playbook</strong>：宣言的な構成管理とリモートホスト一括制御能力</li>
@@ -2343,13 +3034,61 @@ services:
 
   <!-- Scripting for Tabs, Accordion, and SVG Connector drawing -->
   <script>
+    // ===== 作品リンク設定 =====
+    // GitHub のリポジトリ URL（あれば動画・デモの URL も）を下に入れてください。
+    // 空のままのボタンは「準備中」と表示されます（デモは空なら非表示）。
+    const PROJECT_LINKS = {
+      project1: { github: '', demo: '' },
+      project2: { github: '', demo: '' }
+    };
+
+    function renderProjectLinks() {
+      document.querySelectorAll('.link-buttons[data-project]').forEach(function (box) {
+        const links = PROJECT_LINKS[box.dataset.project] || {};
+        box.textContent = '';
+        [
+          { label: 'GitHub', url: links.github, always: true },
+          { label: 'デモ・動画', url: links.demo, always: false }
+        ].forEach(function (item) {
+          if (!item.url && !item.always) return;
+          let el;
+          if (item.url) {
+            el = document.createElement('a');
+            el.className = 'link-btn';
+            el.href = item.url;
+            el.target = '_blank';
+            el.rel = 'noopener noreferrer';
+            el.textContent = item.label + ' ↗';
+          } else {
+            el = document.createElement('span');
+            el.className = 'link-btn disabled';
+            el.setAttribute('aria-disabled', 'true');
+            el.textContent = item.label + '（準備中）';
+          }
+          // カード全体のクリック（詳細を開く）が動かないようにする
+          el.addEventListener('click', function (e) { e.stopPropagation(); });
+          box.appendChild(el);
+        });
+      });
+    }
+    renderProjectLinks();
+
+    // 動作結果ブロックへスクロール
+    function scrollToResult(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     // Modal Functions
-    function openModal(modalId) {
+    function openModal(modalId, anchorId) {
       const modal = document.getElementById(modalId);
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
       const mc = modal.querySelector('.modal-content');
       if (mc) mc.scrollTop = 0;
+      if (anchorId) {
+        setTimeout(() => scrollToResult(anchorId), 150);
+      }
       // Draw SVG connectors after modal is visible
       setTimeout(() => {
         if (modalId === 'modal-project1') {
@@ -2439,67 +3178,39 @@ services:
     function drawConnectors(projectNum = 1) {
       const suffix = projectNum === 2 ? '2' : '';
       const svg = document.getElementById("connector-svg" + suffix);
-      
       if (!svg) return;
-
-      let client, lb, nodes = [];
-      
-      if (projectNum === 1) {
-        // Project 1: LXD Architecture
-        client = document.getElementById("node-client");
-        lb = document.getElementById("node-lb");
-        nodes = [
-          { elem: document.getElementById("node-web1"), pathToLb: "path-lb-web1" },
-          { elem: document.getElementById("node-web2"), pathToLb: "path-lb-web2" },
-          { elem: document.getElementById("node-web3"), pathToLb: "path-lb-web3" }
-        ];
-        var pathClientLbId = "path-client-lb";
-      } else {
-        // Project 2: Docker Compose Architecture
-        client = document.getElementById("node-client2");
-        lb = document.getElementById("node-nginx2");
-        nodes = [
-          { elem: document.getElementById("node-php2"), pathToLb: "path-nginx-php2" },
-          { elem: document.getElementById("node-mysql2"), pathToLb: "path-nginx-mysql2" },
-          { elem: document.getElementById("node-redis2"), pathToLb: "path-nginx-redis2" }
-        ];
-        var pathClientLbId = "path-client-nginx2";
-      }
-
-      // Stop execution if elements are not rendered
-      if (!svg || !client || !lb) return;
       if (window.getComputedStyle(svg).display === 'none') return;
+
+      // [線の始点ノード, 終点ノード, 線(path)のID]
+      const edges = projectNum === 1 ? [
+        ["node-client", "node-lb", "path-client-lb"],
+        ["node-lb", "node-web1", "path-lb-web1"],
+        ["node-lb", "node-web2", "path-lb-web2"],
+        ["node-lb", "node-web3", "path-lb-web3"]
+      ] : [
+        ["node-client2", "node-nginx2", "path-client-nginx2"],
+        ["node-nginx2", "node-php2", "path-nginx-php2"],
+        ["node-php2", "node-mysql2", "path-php-mysql2"],
+        ["node-php2", "node-redis2", "path-php-redis2"]
+      ];
 
       const svgRect = svg.getBoundingClientRect();
 
-      function getCenterPos(el) {
-        const r = el.getBoundingClientRect();
-        return {
-          x: r.left - svgRect.left + r.width / 2,
-          y: r.top - svgRect.top + r.height / 2,
-          top: r.top - svgRect.top,
-          bottom: r.top - svgRect.top + r.height,
-          left: r.left - svgRect.left,
-          right: r.left - svgRect.left + r.width
-        };
-      }
+      edges.forEach(function (edge) {
+        const from = document.getElementById(edge[0]);
+        const to = document.getElementById(edge[1]);
+        const path = document.getElementById(edge[2]);
+        if (!from || !to || !path) return;
 
-      const cPos = getCenterPos(client);
-      const lbPos = getCenterPos(lb);
+        const fr = from.getBoundingClientRect();
+        const tr = to.getBoundingClientRect();
+        if (!fr.width || !tr.width) return; // 非表示のときは描かない
 
-      // Client to LB (vertical line)
-      const pathClientLb = `M ${cPos.x} ${cPos.bottom} L ${lbPos.x} ${lbPos.top}`;
-      const clientLbPath = document.getElementById(pathClientLbId);
-      if (clientLbPath) clientLbPath.setAttribute("d", pathClientLb);
-      
-      // LB to each node
-      nodes.forEach((node, idx) => {
-        if (!node.elem) return;
-        const nodePos = getCenterPos(node.elem);
-        const pathData = `M ${lbPos.x} ${lbPos.bottom} L ${nodePos.x} ${nodePos.top}`;
-        
-        const pathElement = document.getElementById(node.pathToLb);
-        if (pathElement) pathElement.setAttribute("d", pathData);
+        const x1 = fr.left - svgRect.left + fr.width / 2;
+        const y1 = fr.bottom - svgRect.top;
+        const x2 = tr.left - svgRect.left + tr.width / 2;
+        const y2 = tr.top - svgRect.top;
+        path.setAttribute("d", `M ${x1} ${y1} L ${x2} ${y2}`);
       });
     }
 
@@ -2555,110 +3266,108 @@ services:
     });
 
     // ===== Contact フォーム送信（ページ遷移なし / Formspree） =====
+    (function () {
+      const form = document.getElementById('contact-form');
+      if (!form) return;
 
-(function () {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
+      const status = document.getElementById('contact-status');
+      const button = form.querySelector('button[type="submit"]');
 
-  const status = document.getElementById('contact-status');
-  const button = form.querySelector('button[type="submit"]');
+      const nameInput = form.elements.namedItem('name');
+      const emailInput = form.elements.namedItem('email');
+      const messageInput = form.elements.namedItem('message');
 
-  const nameInput = form.elements.namedItem('name');
-  const emailInput = form.elements.namedItem('email');
-  const messageInput = form.elements.namedItem('message');
-
-  function setStatus(message, type = '') {
-    status.textContent = message;
-    status.className = 'form-status' + (type ? ' is-' + type : '');
-  }
-
-  // 入力値の基本検証
-  function validateForm() {
-    // 前後の空白を除去
-    nameInput.value = nameInput.value.trim();
-    emailInput.value = emailInput.value.trim();
-    messageInput.value = messageInput.value.trim();
-
-    // 前回の独自エラーをリセット
-    [nameInput, emailInput, messageInput].forEach(input => {
-      input.setCustomValidity('');
-    });
-
-    // 空白だけの入力を拒否
-    if (!nameInput.value) {
-      nameInput.setCustomValidity('お名前を入力してください。');
-    }
-
-    if (!emailInput.value) {
-      emailInput.setCustomValidity(
-        'メールアドレスを入力してください。'
-      );
-    }
-
-    if (!messageInput.value) {
-      messageInput.setCustomValidity(
-        'メッセージを入力してください。'
-      );
-    }
-
-    // メールアドレスの形式を検証
-    if (
-      emailInput.value &&
-      !emailInput.validity.valid
-    ) {
-      emailInput.setCustomValidity(
-        '正しいメールアドレスを入力してください。'
-      );
-    }
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return false;
-    }
-
-    return true;
-  }
-
-  form.addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    if (!validateForm()) {
-      setStatus('入力内容を確認してください。', 'error');
-      return;
-    }
-
-    button.disabled = true;
-    setStatus('送信中です...');
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: {
-          Accept: 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('送信に失敗しました。');
+      function setStatus(message, type = '') {
+        status.textContent = message;
+        status.className = 'form-status' + (type ? ' is-' + type : '');
       }
 
-      form.reset();
-      setStatus(
-        '送信しました。お問い合わせありがとうございます。',
-        'success'
-      );
-    } catch (error) {
-      setStatus(
-        '送信に失敗しました。時間をおいて、もう一度お試しください。',
-        'error'
-      );
-    } finally {
-      button.disabled = false;
-    }
-  });
-})();
+      // 入力値の基本検証
+      function validateForm() {
+        // 前後の空白を除去
+        nameInput.value = nameInput.value.trim();
+        emailInput.value = emailInput.value.trim();
+        messageInput.value = messageInput.value.trim();
 
+        // 前回の独自エラーをリセット
+        [nameInput, emailInput, messageInput].forEach(input => {
+          input.setCustomValidity('');
+        });
+
+        // 空白だけの入力を拒否
+        if (!nameInput.value) {
+          nameInput.setCustomValidity('お名前を入力してください。');
+        }
+
+        if (!emailInput.value) {
+          emailInput.setCustomValidity(
+            'メールアドレスを入力してください。'
+          );
+        }
+
+        if (!messageInput.value) {
+          messageInput.setCustomValidity(
+            'メッセージを入力してください。'
+          );
+        }
+
+        // メールアドレスの形式を検証
+        if (
+          emailInput.value &&
+          !emailInput.validity.valid
+        ) {
+          emailInput.setCustomValidity(
+            '正しいメールアドレスを入力してください。'
+          );
+        }
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return false;
+        }
+
+        return true;
+      }
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        if (!validateForm()) {
+          setStatus('入力内容を確認してください。', 'error');
+          return;
+        }
+
+        button.disabled = true;
+        setStatus('送信中です...');
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+              Accept: 'application/json'
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error('送信に失敗しました。');
+          }
+
+          form.reset();
+          setStatus(
+            '送信しました。お問い合わせありがとうございます。',
+            'success'
+          );
+        } catch (error) {
+          setStatus(
+            '送信に失敗しました。時間をおいて、もう一度お試しください。',
+            'error'
+          );
+        } finally {
+          button.disabled = false;
+        }
+      });
+    })();
 
     // ===== 最終更新日の自動表示（外部通信なし） =====
     // ブラウザがページを読み込む際に受け取る Last-Modified 情報を使用します。
