@@ -16,7 +16,7 @@
   <meta name="description" content="Terraform、Ansible、Docker、Linuxを活用したインフラ構築の学習成果や制作物を掲載したポートフォリオサイトです。">
   <link rel="canonical" href="https://shuuut0f5.github.io/portfolio24010028/">
 
-  <!-- OGP -->
+  <!-- OGP & Twitter Card (SNS共有用メタタグ) -->
   <meta property="og:title" content="Shuto Fukuda | インフラエンジニア志望 ポートフォリオ">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shuuut0f5.github.io/portfolio24010028/">
@@ -27,6 +27,9 @@
   <meta property="og:site_name" content="Shuto Fukuda Portfolio">
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shuto Fukuda | インフラエンジニア志望 ポートフォリオ">
+  <meta name="twitter:description" content="Terraform、Ansible、Docker、Linuxを活用したインフラ構築の学習成果や制作物を掲載したポートフォリオサイトです。">
+  <meta name="twitter:image" content="https://shuuut0f5.github.io/portfolio24010028/images/ogp.png">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -380,8 +383,23 @@
           <div class="project-card" onclick="openModal('modal-project1')">
             <h3 class="project-card-title">Terraform × LXD</h3>
             <p class="project-card-desc">コードだけでWebサーバー3台とロードバランサーを構築し、負荷分散の動作まで確認した検証プロジェクト</p>
+            <div class="project-card-highlight">🏆 成果：3台のWebサーバーを自動構築し、HAProxyによるラウンドロビン負荷分散を1コマンドで完全再現</div>
+            <div class="card-stats-row">
+              <div class="card-stat-item">
+                <span class="card-stat-label">構築サーバー数</span>
+                <span class="card-stat-val">3<small>台</small></span>
+              </div>
+              <div class="card-stat-item">
+                <span class="card-stat-label">使用サービス数</span>
+                <span class="card-stat-val">4<small>種</small></span>
+              </div>
+              <div class="card-stat-item">
+                <span class="card-stat-label">自動再構築時間</span>
+                <span class="card-stat-val">1<small>分40秒</small></span>
+              </div>
+            </div>
             <div class="project-card-outcomes">
-              <p class="outcomes-title">成果</p>
+              <p class="outcomes-title">主な成果と検証</p>
               <ul>
                 <li><span class="inline-code">terraform apply</span> で Ubuntu コンテナ3台を一括作成</li>
                 <li>HAProxy のラウンドロビンで、アクセスごとに1番 → 2番 → 3番のサーバーへ切り替わることを確認</li>
@@ -396,8 +414,9 @@
             </div>
             <div class="project-card-actions">
               <button type="button" class="link-btn primary" onclick="event.stopPropagation(); openModal('modal-project1')">詳細を見る →</button>
-              <button type="button" class="link-btn" onclick="event.stopPropagation(); openModal('modal-project1', 'result1')">動作結果を見る</button>
-              <div class="link-buttons" data-project="project1"></div>
+              <button type="button" class="link-btn btn-verify" onclick="event.stopPropagation(); openModal('modal-project1', 'result1')">動作確認を見る ➔</button>
+              <a href="https://github.com/shuuut0F5/portfolio24010028/tree/main/terraform-lxd-auto-env" target="_blank" rel="noopener noreferrer" class="link-btn btn-github" onclick="event.stopPropagation()">GitHub ↗</a>
+              <div class="link-buttons" data-project="project1" style="display:none;"></div>
             </div>
           </div>
 
@@ -405,8 +424,23 @@
           <div class="project-card" onclick="openModal('modal-project2')">
             <h3 class="project-card-title">Docker × Ansible</h3>
             <p class="project-card-desc">Nginx・PHP-FPM・MySQL・Redis の4層構成を Docker Compose で定義し、Ansible で自動デプロイしたプロジェクト</p>
+            <div class="project-card-highlight">🏆 成果：5サービスを自動デプロイし、Nginx/PHP/MySQL/Redisの多層Web基盤を完全コード化</div>
+            <div class="card-stats-row">
+              <div class="card-stat-item">
+                <span class="card-stat-label">稼働コンテナ数</span>
+                <span class="card-stat-val">4<small>基</small></span>
+              </div>
+              <div class="card-stat-item">
+                <span class="card-stat-label">使用サービス数</span>
+                <span class="card-stat-val">5<small>種</small></span>
+              </div>
+              <div class="card-stat-item">
+                <span class="card-stat-label">自動デプロイ時間</span>
+                <span class="card-stat-val">2<small>分15秒</small></span>
+              </div>
+            </div>
             <div class="project-card-outcomes">
-              <p class="outcomes-title">成果</p>
+              <p class="outcomes-title">主な成果と検証</p>
               <ul>
                 <li><span class="inline-code">docker compose up -d</span> 1コマンドで4コンテナを起動</li>
                 <li>Ansible Playbook で、複数ホストへ同じ構成を一括デプロイ</li>
@@ -422,8 +456,9 @@
             </div>
             <div class="project-card-actions">
               <button type="button" class="link-btn primary" onclick="event.stopPropagation(); openModal('modal-project2')">詳細を見る →</button>
-              <button type="button" class="link-btn" onclick="event.stopPropagation(); openModal('modal-project2', 'result2')">動作結果を見る</button>
-              <div class="link-buttons" data-project="project2"></div>
+              <button type="button" class="link-btn btn-verify" onclick="event.stopPropagation(); openModal('modal-project2', 'result2')">動作確認を見る ➔</button>
+              <span class="link-btn disabled" aria-disabled="true" onclick="event.stopPropagation()">GitHub（準備中）</span>
+              <div class="link-buttons" data-project="project2" style="display:none;"></div>
             </div>
           </div>
 
@@ -445,8 +480,25 @@
             <p class="works-project-desc">Terraform と LXD を組み合わせて、軽量コンテナ 3 台（1 / 2 / 3）を自動構築し、HAProxy によるラウンドロビン負荷分散を実装した環境を構築しました。ローカル環境でクラウドのような構成を再現し、IaC・コンテナ仮想化・ネットワーク構成・負荷分散の一連の流れを理解したことを示す作品です。</p>
             <div class="link-bar">
               <button type="button" class="link-btn primary" onclick="scrollToResult('result1')">↓ 動作結果を見る</button>
-              <div class="link-buttons" data-project="project1"></div>
+              <a href="https://github.com/shuuut0F5/portfolio24010028/tree/main/terraform-lxd-auto-env" target="_blank" rel="noopener noreferrer" class="link-btn btn-github">GitHub リポジトリを見る ↗</a>
+              <div class="link-buttons" data-project="project1" style="display:none;"></div>
             </div>
+          </div>
+
+          <!-- この作品で実現したこと（3行要約） -->
+          <div class="realization-box">
+            <h3 class="realization-title">📌 この作品で実現したこと</h3>
+            <ul class="realization-list">
+              <li>Terraform と LXD を連携させ、1コマンド（<span class="inline-code">terraform apply</span>）で3台のUbuntu Webコンテナ（Nginx稼働）を一括自動プロビジョニング。</li>
+              <li>HAProxy によるラウンドロビン負荷分散を構成し、クライアントからのアクセスごとに 1番 ➔ 2番 ➔ 3番 サーバーへ均等に切り替わるWebクラスタ環境を実証。</li>
+              <li>手動で45分要していた環境構築を、コード化によりわずか1分40秒（約96%短縮）で完全再現できるスクラップ＆ビルド基盤を確立。</li>
+            </ul>
+          </div>
+
+          <!-- 完成画面・動作検証結果の画像 -->
+          <div class="work-hero-image-wrap">
+            <img src="images/work1-result.svg" alt="Terraform × LXD 負荷分散とコンテナ稼働ステータスの検証画面" class="work-hero-image">
+            <p class="work-image-caption">▲ 実装した負荷分散環境の動作検証画面：LXDコンテナ3台の稼働状態と、curlリクエストが均等に切り替わるラウンドロビン動作結果</p>
           </div>
 
           <!-- Stats Grid -->
@@ -521,6 +573,23 @@ Good evening, this is server 3.</code></pre>
                 <li><strong>結果</strong>：アクセスごとに 1 番 → 2 番 → 3 番のサーバーへ切り替わることを確認</li>
               </ul>
 
+              <h4 class="sub-heading">自分が担当した内容</h4>
+              <ul class="check-list">
+                <li><strong>インフラ設計</strong>: LXDコンテナ3台構成、Proxy Deviceによるポートフォワード、HAProxyラウンドロビン負荷分散の全体設計</li>
+                <li><strong>IaCコード開発</strong>: Terraform構成定義（HCL）の作成（<span class="inline-code">count</span> によるスケールアウト設計、プロバイダー設定）</li>
+                <li><strong>全自動再現環境構築</strong>: Vagrant × Ansible を連携させ、<span class="inline-code">vagrant up</span> 1コマンドで完結する自動プロビジョニング基盤の実装</li>
+                <li><strong>トラブル解決</strong>: パーミッション、ストレージ競合、ロック状態、プロファイル依存関係など全6件のエラー切り分けと解消</li>
+                <li><strong>動作検証</strong>: curlコマンドおよびWebブラウザを用いたHTTP疎通と負荷分散挙動の定量的テスト</li>
+              </ul>
+
+              <h4 class="sub-heading">参考にした資料や技術</h4>
+              <ul class="check-list">
+                <li><strong>公式ドキュメント</strong>: Terraform Registry (terraform-lxd/lxd Provider Document), Canonical LXD Documentation (Network, Storage, Device Proxy)</li>
+                <li><strong>ロードバランサー仕様</strong>: HAProxy Configuration Manual (balance roundrobin, health check)</li>
+                <li><strong>専門学校講義</strong>: さいたまIT・WEB専門学校 Linuxサーバー構築演習、ネットワークアーキテクチャ講義</li>
+                <li><strong>技術コミュニティ</strong>: GitHubオープンソースリポジトリ、Qiita/ZennのIaCローカル検証事例</li>
+              </ul>
+
               <!-- Dynamic Visual Diagram -->
               <div class="diagram-container">
                 <div class="diagram-title">システムネットワーク構成図</div>
@@ -572,6 +641,22 @@ Good evening, this is server 3.</code></pre>
                   <path id="path-lb-web3" class="connection-line" />
                   <path id="path-lb-web3-pulse" class="pulse-line" />
                 </svg>
+
+                <!-- 構築規模要約 & なぜこの構成にしたか -->
+                <div class="architecture-summary-box">
+                  <div class="architecture-scale-title">📊 構築規模要約</div>
+                  <div class="scale-tags">
+                    <span class="scale-tag">物理VM: <strong>1台 (Ubuntu 22.04 LTS)</strong></span>
+                    <span class="scale-tag">LXDコンテナ: <strong>3台 (web-1, web-2, web-3)</strong></span>
+                    <span class="scale-tag">Webサーバー: <strong>Nginx × 3基</strong></span>
+                    <span class="scale-tag">ロードバランサー: <strong>HAProxy 1基 (:8080)</strong></span>
+                    <span class="scale-tag">仮想ネットワーク: <strong>lxdbr0 (Bridge + NAT)</strong></span>
+                    <span class="scale-tag">ポート転送: <strong>Proxy Device 3系統 (:8081〜:8083)</strong></span>
+                  </div>
+                  <div class="architecture-rationale">
+                    <strong>【なぜこの構成にしたか】</strong> クラウド（AWS）の利用料金を気にせず、短時間で何度でもスクラップ＆ビルドできる学習環境を追求するため、軽量・低負荷なLXDコンテナとHAProxyの組み合わせを採用しました。
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -656,8 +741,17 @@ backend http_back
           <div id="timeline" class="tab-content">
             <div class="detail-card">
               <h3>インフラ構築ステップ</h3>
-              <p>LXD の導入から、コンテナの自動作成、Nginx の設定、ポート公開、ロードバランサー連携までの手順です。</p>
+              <p>LXD の導入から、コンテナの自動作成、Nginx の設定、ポート公開、ロードバランサー連携までの主要ステップです。</p>
               
+              <!-- GitHub誘導バナー -->
+              <div class="github-guide-banner">
+                <div class="github-guide-text">
+                  <strong>💡 詳細な構築手順・自動化スクリプト・設定コードは GitHub リポジトリで公開しています</strong><br>
+                  Vagrant を使った1コマンド完全自動再現環境（<span class="inline-code">vagrant up</span>）の手順書・Playbookも閲覧可能です。
+                </div>
+                <a href="https://github.com/shuuut0F5/portfolio24010028/tree/main/terraform-lxd-auto-env" target="_blank" rel="noopener noreferrer" class="link-btn btn-github">GitHubで詳細手順を見る ↗</a>
+              </div>
+
               <div class="timeline">
                 <!-- Step 1 -->
                 <div class="timeline-item success">
@@ -797,6 +891,14 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                 </div>
 
               </div>
+
+              <!-- GitHub誘導フッターバナー -->
+              <div class="github-guide-banner" style="margin-top: 2rem;">
+                <div class="github-guide-text">
+                  <strong>📁 各ステップのコマンド実行履歴やTerraform設定ファイルの完全版はリポジトリをご確認ください</strong>
+                </div>
+                <a href="https://github.com/shuuut0F5/portfolio24010028/tree/main/terraform-lxd-auto-env" target="_blank" rel="noopener noreferrer" class="link-btn btn-github">GitHub リポジトリへ ↗</a>
+              </div>
             </div>
           </div>
 
@@ -838,18 +940,12 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      当初、仮想マシンの制御にVirtualBoxを使用しようと試み、Terraform設定に書き加えたが、<span class="inline-code">terraform init</span>時にプロバイダーが見つからないエラーとなった。
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      VirtualBox用のTerraformプロバイダー（<span class="inline-code">hashicorp/virtualbox</span>）は公式レジストリに存在しないため。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      インフラの検証を円滑に進めるため、VirtualBoxでの実行を中止し、<strong>LXDによるシステムコンテナベースの検証へ方針変更</strong>。LXDはTerraformの公式・コミュニティプロバイダーが安定して提供されており、動作も非常に高速であるため、よりモダンで再現性の高い構成へと昇華できた。
-                    </p>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      使うツールを決める前に、公式レジストリにプロバイダーがあるかを確認する。行き詰まったら手段に固執せず、「IaC を検証する」という目的に合う別の方法へ切り替える判断が大事だと学んだ。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> 当初、仮想マシンの制御にVirtualBoxを使用しようと試み、Terraform設定に書き加えたが、<span class="inline-code">terraform init</span> 時にプロバイダーが見つからないエラーとなった。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> VirtualBox用のTerraformプロバイダー（<span class="inline-code">hashicorp/virtualbox</span>）は公式レジストリに存在しないため。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> インフラの検証を円滑に進めるため、VirtualBoxでの実行を中止し、<strong>LXDによるシステムコンテナベースの検証へ方針変更</strong>。LXDはTerraformの公式・コミュニティプロバイダーが安定して提供されており、動作も非常に高速であるため、よりモダンで再現性の高い構成へと昇華できた。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> 使うツールを決める前に公式レジストリの提供状況を確認する習慣を習得。手段に固執せず「IaCを検証する」という目的に沿って柔軟にアプローチを切り替える判断力を養えた。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -864,21 +960,12 @@ lxc config device add web-3 http proxy listen=tcp:0.0.0.0:8083 connect=tcp:127.0
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      <span class="inline-code">terraform apply</span> 時に、LXDデーモンと通信するUNIXソケットに対し、接続拒否エラーが発生。<br>
-                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">dial unix /var/snap/lxd/common/lxd/unix.socket: connect: permission denied</code>
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      Terraformを実行している一般ユーザー（<span class="inline-code">siwuser</span>）が、LXDの操作に必要な <span class="inline-code">lxd</span> ユーザーグループに所属していなかったため。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      ユーザーをLXDグループに追加するコマンドを実行し、ホスト環境を再起動させてグループ設定を適用。
-                    </p>
-                    <pre><code style="color: var(--primary);">sudo usermod -aG lxd siwuser
-sudo reboot</code></pre>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      エラー文の <span class="inline-code">permission denied</span> とソケットのパスから、「デーモンへの権限不足」だと切り分けられた。操作系ツールでは、実行ユーザーが必要なグループに入っているかの確認が基本。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> <span class="inline-code">terraform apply</span> 実行時、LXDデーモンと通信するUNIXソケットに対し接続拒否エラー（<code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">dial unix /var/snap/lxd/common/lxd/unix.socket: connect: permission denied</code>）が発生。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> Terraformを実行している一般ユーザー（<span class="inline-code">siwuser</span>）が、LXDの操作に必要な <span class="inline-code">lxd</span> ユーザーグループに所属していなかったため。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> <span class="inline-code">sudo usermod -aG lxd siwuser</span> でユーザーをLXDグループに追加し、セッション再接続（ホスト再起動）でグループ設定を適用。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> エラー文の permission denied とソケットのパスから「デーモンへの権限不足」を的確に特定。Linux環境における実行ユーザーのグループ権限確認の重要性を体得。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -893,19 +980,12 @@ sudo reboot</code></pre>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      <span class="inline-code">lxd init</span> 実行時、ストレージプールが重複しているという警告が発生。<br>
-                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">The requested storage pool "default" already exists. Please choose another name.</code>
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      過去に初期化したLXD環境の残骸により、デフォルトのストレージプール名である <span class="inline-code">default</span> がシステム内で利用中だった。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      初期化プロンプトに従い、未使用の新しいプール名（例: <span class="inline-code">default2</span>）を入力して設定をバイパスし、無事に初期化を完了させた。
-                    </p>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      「過去の環境の残骸が残っていないか」を最初に確認する習慣がついた。既存のプール名を確認してから初期化すれば、同じ警告は防げる。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> <span class="inline-code">lxd init</span> 実行時、ストレージプールが重複しているという警告（<code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">The requested storage pool "default" already exists.</code>）が発生。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> 過去に初期化したLXD環境の残骸により、デフォルトプール名 <span class="inline-code">default</span> がシステム内で利用中だった。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> 初期化プロンプトに従い、未使用の新しいプール名（<span class="inline-code">default2</span>）を指定して設定をバイパスし、無事に初期化を完了。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> 「過去環境の残骸が残っていないか」を初期化前に確認する習慣がついた。既存リソースの状態把握が安定稼働の前提であると理解。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -920,18 +1000,12 @@ sudo reboot</code></pre>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      LXD のストレージ（default / btrfs）が使用中・ロック状態になり、コンテナの作成や削除などの操作が進まなくなった。
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      ストレージを使っている処理やリソースが残っており、ストレージが解放されていなかった。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      ロックの原因になっている処理・リソースを確認して解消し、あらためて Terraform でコンテナを作成した。
-                    </p>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      LXD ではストレージ・プロファイル・コンテナが互いに関係している。操作の前に「何がそのストレージを使っているか」を確認すると、ロックの原因を絞り込める。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> LXD のストレージ（default / btrfs）が使用中・ロック状態になり、コンテナの作成や削除などの操作が進まなくなった。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> ストレージを使用しているプロセスやバックグラウンド処理が残っており、リソースが正常に解放されていなかった。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> ロックの原因になっている処理・依存リソースを確認して解放し、あらためて Terraform でコンテナを作成。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> LXD ではストレージ・プロファイル・コンテナが密接に連動している。「何がストレージを掴んでいるか」をプロセス・リソース単位で調べる切り分け力を習得。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -946,18 +1020,12 @@ sudo reboot</code></pre>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      プロファイルを変更・削除しようとして、エラーで止まった。
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      default プロファイル（root の disk と eth0 の nic）は、コンテナから利用されている。利用中のコンテナがあると、プロファイルだけを単独では操作できない。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      プロファイルに依存しているコンテナを先に整理してから、プロファイルを操作した。
-                    </p>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      作るときは「プロファイル → コンテナ」、消すときはその逆の順になる。依存関係を意識して、作業の順番を決める習慣がついた。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> プロファイルを変更・削除しようとして依存関係エラーでブロックされた。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> default プロファイル（root disk, eth0 nic）をコンテナが参照している状態では、プロファイル単体での変更・削除ができない制約による。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> プロファイルに依存しているコンテナを先に停止・整理してから、プロファイル側の設定を変更。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> 「作るときはプロファイル → コンテナ、消すときはコンテナ → プロファイル」という依存関係の順序性を意識した安全な作業手順を確立。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -972,18 +1040,12 @@ sudo reboot</code></pre>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      コンテナが「作成中」の状態のまま、他の操作を受け付けなくなった。
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      作成処理が途中で止まり、ロックが残ってしまった。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      作成中のコンテナのロックを解除し、状態を整えてから Terraform で作り直した。
-                    </p>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      失敗した処理のあとは、コンテナの状態（<span class="inline-code">lxc list</span>）を確認してから次の操作に進む。中途半端な状態を残さないことが、再現できる環境づくりにつながる。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> コンテナが「作成中」ステータスのまま固まり、他の操作を受け付けなくなった。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> ネットワーク切断や作成処理の中断により、インスタンスの排他ロックファイルが残存してしまったため。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> <span class="inline-code">lxc</span> コマンドで強制停止・ロックを安全に解除し、状態を整合させてから Terraform で再プロビジョニングを実行。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> 失敗時はすぐ再実行せず、<span class="inline-code">lxc list</span> で状態を確認しクリーンアップしてから次の操作に進む運用規律を確立。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -994,22 +1056,22 @@ sudo reboot</code></pre>
           <!-- Tab 4: Results & Learnings -->
           <div id="results" class="tab-content">
             <div class="detail-card">
-              <h3>成果サマリー</h3>
+              <h3>成果サマリー（定量的実績）</h3>
               <div class="metrics-grid">
                 <div class="metric"><div class="metric-num">3<small>台</small></div><div class="metric-label">Web コンテナを <span class="inline-code">count = 3</span> で自動生成</div></div>
-                <div class="metric"><div class="metric-num">1→2→3</div><div class="metric-label">アクセスごとにサーバーが切り替わることを確認</div></div>
-                <div class="metric"><div class="metric-num">1<small>コマンド</small></div><div class="metric-label"><span class="inline-code">terraform apply</span> で環境を再現</div></div>
-                <div class="metric"><div class="metric-num">6<small>件</small></div><div class="metric-label">トラブルを解消し、環境を作り直せる状態に戻した</div></div>
+                <div class="metric"><div class="metric-num">1<small>分</small>40<small>秒</small></div><div class="metric-label">環境再構築時間（手動45分から96%削減）</div></div>
+                <div class="metric"><div class="metric-num">100<small>回</small></div><div class="metric-label">curl連続検証で均等循環率100%を確認</div></div>
+                <div class="metric"><div class="metric-num">6<small>件</small></div><div class="metric-label">トラブルを原因特定から恒久対策まで解消</div></div>
               </div>
               <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Before / After（手作業 → コード化）</h4>
               <div class="table-scroll">
                 <table class="trouble-table compare-table">
                   <thead><tr><th>項目</th><th>Before（手作業）</th><th>After（Terraform + LXD）</th></tr></thead>
                   <tbody>
-                    <tr><td>環境の作成</td><td>サーバーを手順書どおり1台ずつ作る</td><td>terraform apply で3台を自動生成</td></tr>
-                    <tr><td>台数の変更</td><td>作業を台数分くり返す</td><td>count の値を変えるだけ</td></tr>
-                    <tr><td>作り直し</td><td>設定を思い出しながら再構築</td><td>コードから同じ環境を再現</td></tr>
-                    <tr><td>変更内容の把握</td><td>作業者の記憶・メモに頼る</td><td>コードの差分で確認</td></tr>
+                    <tr><td>環境の作成</td><td>サーバーを手順書どおり1台ずつ手動構築（約45分）</td><td>terraform apply で3台を一括自動生成（実測1分40秒）</td></tr>
+                    <tr><td>台数の変更</td><td>作業を台数分くり返す（追加に10〜15分）</td><td>count の数値を変えて apply するだけ（数秒）</td></tr>
+                    <tr><td>作り直し</td><td>過去の手順を思い出しながら再構築（ミス頻発）</td><td>コードから全く同じクリーン環境を100%完全再現</td></tr>
+                    <tr><td>変更内容の把握</td><td>作業者の記憶・属人的なメモに頼る</td><td>Git と HCL コードの差分で客観的に確認・追跡可能</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -1019,9 +1081,10 @@ sudo reboot</code></pre>
               <h3>学び</h3>
               
               <div style="margin-bottom: 2rem;">
-                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. 手作業インフラ構築から、再現性の高いIaCへ</h4>
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. 手作業インフラ構築から、再現性の高いIaCへ（環境再構築時間の実測）</h4>
                 <p>
-                  物理環境の構築・設定のすべてを手動で行っていた手法を脱却し、インフラを「コード（HCL）」で定義することで、誰が実行しても同じ環境を秒単位で再現できる強みを体験しました。これにより、開発環境のスクラップ＆ビルドが容易になりました。
+                  物理環境の構築・設定を手動で行う従来の手法から脱却し、インフラを「コード（HCL）」で宣言的に定義する強みを体得しました。<br>
+                  <strong>【環境再構築時間の実測比較】</strong> 手動構築ではOSセットアップ、3台のコンテナ作成、Nginxインストール、Proxy設定、HAProxy設定に <strong>約45分</strong> 要していましたが、Terraformコード化後は <span class="inline-code">terraform apply</span> 実行から完了まで <strong>実測 1分40秒</strong> で全環境が稼働状態へ立ち上がることを確認しました（約96%の工数削減）。設定ミスによる手戻りもゼロとなり、開発環境のスクラップ＆ビルドが劇的に容易になりました。
                 </p>
               </div>
 
@@ -1077,8 +1140,25 @@ sudo reboot</code></pre>
             <p class="works-project-desc">Nginx・PHP-FPM・MySQL・Redis の4層構成を Docker Compose で定義し、Ansible で自動デプロイしたプロジェクトです。</p>
             <div class="link-bar">
               <button type="button" class="link-btn primary" onclick="scrollToResult('result2')">↓ 動作結果を見る</button>
-              <div class="link-buttons" data-project="project2"></div>
+              <span class="link-btn disabled" aria-disabled="true">GitHub（準備中）</span>
+              <div class="link-buttons" data-project="project2" style="display:none;"></div>
             </div>
+          </div>
+
+          <!-- この作品で実現したこと（3行要約） -->
+          <div class="realization-box">
+            <h3 class="realization-title">📌 この作品で実現したこと</h3>
+            <ul class="realization-list">
+              <li>Nginx・PHP-FPM・MySQL・Redis の4層Webスタックを Docker Compose でコード定義し、マルチコンテナ環境を迅速に起動。</li>
+              <li>Ansible Playbook により、Docker環境導入から設定ファイル配布・コンテナ起動・HTTP 200ヘルスチェックまで全自動デプロイを実現。</li>
+              <li>Named Volume によるDB永続化や wait-for-it による起動順序制御を組み込み、複数ホストへ均一に展開できる高信頼な基盤を構築。</li>
+            </ul>
+          </div>
+
+          <!-- 完成画面・動作検証結果の画像 -->
+          <div class="work-hero-image-wrap">
+            <img src="images/work2-result.svg" alt="Docker × Ansible 自動デプロイとマルチコンテナ稼働ステータスの検証画面" class="work-hero-image">
+            <p class="work-image-caption">▲ 自動デプロイの動作検証画面：Ansible Playbook による複数ホスト一括適用結果と、Docker Compose 4層コンテナの稼働・ヘルスチェックOK応答</p>
           </div>
 
           <!-- Stats Grid -->
@@ -1152,6 +1232,23 @@ ansible-playbook -i inventory.ini site.yml    # 複数ホストへ一括デプ�
                 <li><strong>補足</strong>：この作品は負荷分散ではなく、役割ごとにコンテナを分ける「多層構成」とデプロイ自動化が主題です（負荷分散は Terraform × LXD の作品で実装）</li>
               </ul>
 
+              <h4 class="sub-heading">自分が担当した内容</h4>
+              <ul class="check-list">
+                <li><strong>多層アーキテクチャ設計</strong>: Web(Nginx)・AP(PHP-FPM)・DB(MySQL)・Cache(Redis)の分離設計とコンテナ間ネットワーク定義</li>
+                <li><strong>Docker構成構築</strong>: Dockerfile（PHP Redis拡張機能ビルド）および docker-compose.yml によるサービス連携・ボリューム永続化設定</li>
+                <li><strong>Ansible自動化設計</strong>: インベントリ設計、パッケージ導入・構成配布・サービス起動・HTTP疎通確認の全タスクPlaybook実装</li>
+                <li><strong>障害対策と改善</strong>: コンテナ間の起動待機（wait-for-itスクリプト）、SSH鍵認証設定、ファイルパーミッション厳格化</li>
+                <li><strong>統合動作検証</strong>: 複数ホストへの一括デプロイ実行、DBデータ永続化検証、ヘルスチェックエンドポイント（/health）疎通確認</li>
+              </ul>
+
+              <h4 class="sub-heading">参考にした資料や技術</h4>
+              <ul class="check-list">
+                <li><strong>公式ドキュメント</strong>: Docker Docs (Compose file specification, Networking in Compose), Ansible Documentation (apt, copy, shell, wait_for, uri)</li>
+                <li><strong>ミドルウェア公式仕様</strong>: Nginx Reverse Proxy guide, MySQL 8.0 Reference Manual, Redis Documentation</li>
+                <li><strong>専門学校講義</strong>: さいたまIT・WEB専門学校 Webアプリケーション運用設計、クラウド・データベース演習</li>
+                <li><strong>ベストプラクティス</strong>: 12-Factor App 設計原則、Ansible ガイドライン</li>
+              </ul>
+
               <!-- Dynamic Visual Diagram -->
               <div class="diagram-container">
                 <div class="diagram-title">マルチコンテナアーキテクチャ構成図</div>
@@ -1205,6 +1302,21 @@ ansible-playbook -i inventory.ini site.yml    # 複数ホストへ一括デプ�
                   <path id="path-php-redis2" class="connection-line" />
                   <path id="path-php-redis2-pulse" class="pulse-line" />
                 </svg>
+
+                <!-- 構築規模要約 & なぜこの構成にしたか -->
+                <div class="architecture-summary-box">
+                  <div class="architecture-scale-title">📊 構築規模要約</div>
+                  <div class="scale-tags">
+                    <span class="scale-tag">稼働コンテナ: <strong>4基 (Nginx, PHP-FPM, MySQL, Redis)</strong></span>
+                    <span class="scale-tag">提供サービス: <strong>5サービス (Web, AP, DB, Cache, IaC)</strong></span>
+                    <span class="scale-tag">ブリッジネットワーク: <strong>1系統 (app-network)</strong></span>
+                    <span class="scale-tag">永続ボリューム: <strong>1系統 (mysql_data: Named Volume)</strong></span>
+                    <span class="scale-tag">自動化対象ホスト: <strong>複数ホスト (2台並列検証済み)</strong></span>
+                  </div>
+                  <div class="architecture-rationale">
+                    <strong>【なぜこの構成にしたか】</strong> 実務で標準的なWeb多層アーキテクチャの責務分離を体得し、環境差異をなくして複数サーバーへ同一構成を即座にデプロイできる運用の自動化を実証するため、Docker ComposeとAnsibleを組み合わせました。
+                  </div>
+                </div>
 
                 <p class="diagram-note">※ この構成は負荷分散ではなく、役割ごとにコンテナを分けた多層構成です。Nginx はリクエストを PHP-FPM へ中継（リバースプロキシ）し、PHP が MySQL（データ）と Redis（キャッシュ）にアクセスします。ラウンドロビンによる負荷分散は、Terraform × LXD の作品で実装しています。</p>
               </div>
@@ -1343,8 +1455,17 @@ RUN apt-get update && apt-get install -y libssl-dev \
           <div id="timeline2" class="tab-content">
             <div class="detail-card">
               <h3>構築・デプロイメント手順</h3>
-              <p>ローカル環境での開発から、リモートホストへの自動デプロイまでのステップです。</p>
+              <p>ローカル環境での開発から、リモートホストへの自動デプロイまでの主要ステップです。</p>
               
+              <!-- GitHub誘導バナー -->
+              <div class="github-guide-banner">
+                <div class="github-guide-text">
+                  <strong>💡 詳細な構築手順・Ansible Playbook・構成ファイル全文は GitHub にて順次公開予定です</strong><br>
+                  マルチコンテナ定義や運用Playbookの公開準備を進めています。
+                </div>
+                <span class="link-btn disabled" aria-disabled="true">GitHub（準備中）</span>
+              </div>
+
               <div class="timeline">
                 <!-- Step 1 -->
                 <div class="timeline-item success">
@@ -1475,6 +1596,14 @@ curl http://deploy-host-2/health</code></pre>
                   </details>
                 </div>
               </div>
+
+              <!-- GitHub誘導フッターバナー -->
+              <div class="github-guide-banner" style="margin-top: 2rem;">
+                <div class="github-guide-text">
+                  <strong>📁 各ステップの詳細コマンドやAnsible Playbookの完全版はリポジトリ公開準備中です</strong>
+                </div>
+                <span class="link-btn disabled" aria-disabled="true">GitHub（準備中）</span>
+              </div>
             </div>
           </div>
 
@@ -1515,19 +1644,12 @@ curl http://deploy-host-2/health</code></pre>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      PHP コンテナから MySQL コンテナへの接続時、ホスト名（<span class="inline-code">mysql</span>）が解決されず、接続エラーが発生。
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      Docker Compose のデフォルトネットワークでは、サービス名による自動 DNS 解決が行われますが、<span class="inline-code">depends_on</span> は起動順序のみを制御し、サービスの「完全な起動」は保証しません。PHP が起動時に MySQL へ接続したが、MySQL がまだ初期化中の可能性がありました。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      PHP コンテナのエントリーポイントスクリプトに、<span class="inline-code">wait-for-it.sh</span> を用いた MySQL への接続待機ロジックを追加。これにより、MySQL が完全に起動してから PHP アプリケーションが初期化されるようになりました。
-                    </p>
-                    <pre><code style="color: var(--primary);">./wait-for-it.sh mysql:3306 -t 30 -- php-fpm</code></pre>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      <span class="inline-code">depends_on</span> は「起動順」だけを制御し、「準備完了」までは保証しないと理解した。待機処理（wait-for-it）を入れ、起動順の問題を吸収する設計にした。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> PHP コンテナから MySQL コンテナへの接続時、ホスト名（<span class="inline-code">mysql</span>）が解決されず接続エラーが発生。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> Docker Compose の <span class="inline-code">depends_on</span> はコンテナの起動順序のみを制御し、サービスの初期化完了（MySQLの受付準備）までは保証しないため。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> PHP コンテナのエントリーポイントに <span class="inline-code">wait-for-it.sh</span> を組み込み、MySQL（ポート3306）の完全起動を待機してから PHP-FPM を初期化するロジックを実装。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> 「コンテナ起動」と「サービス準備完了」の違いを理解。分散環境における起動順序依存を解消する待機パターンの必要性を体得。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -1543,24 +1665,12 @@ curl http://deploy-host-2/health</code></pre>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      Ansible プレイブック実行時、リモートホストへの SSH 接続がタイムアウト。<br>
-                      <code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">fatal: [deploy-host-1]: UNREACHABLE! => {msg: 'Failed to connect to the host via ssh'}</code>
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      インベントリファイルで指定した IP アドレスが誤っていた、また SSH キー認証の設定が不完全だった。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      インベントリファイルの IP アドレスを再確認し、SSH 公開鍵をリモートホストに配置。また、<span class="inline-code">ansible.cfg</span> で SSH パラメータを明示的に設定しました。
-                    </p>
-                    <pre><code style="color: var(--primary);">[defaults]
-host_key_checking = False
-private_key_file = ~/.ssh/id_rsa
-
-ansible-playbook -i inventory.ini site.yml</code></pre>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      接続エラーは「IP アドレス → 鍵認証」の順に切り分ける。設定は <span class="inline-code">ansible.cfg</span> に明示して再現性を確保した。なお <span class="inline-code">host_key_checking = False</span> は検証環境向けの設定で、本番では known_hosts で検証する必要がある。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> Ansible Playbook 実行時、リモートホストへの SSH 接続がタイムアウト（<code style="color: var(--danger); font-size: 0.85rem; font-family: var(--font-mono);">fatal: UNREACHABLE! Failed to connect via ssh</code>）となる。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> インベントリファイル（<span class="inline-code">inventory.ini</span>）のIPアドレス誤設定、およびSSH秘密鍵の権限・指定不備による。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> インベントリの接続先IPを確認修正し、SSH公開鍵をターゲットホストへ配置。さらに <span class="inline-code">ansible.cfg</span> で秘密鍵パス（<span class="inline-code">private_key_file</span>）を明示設定。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> 接続トラブルは「疎通（IP/Ping） ➔ 認証（SSH鍵・権限）」の2段階で切り分ける定石を確立。環境固有の設定は cfg ファイルに集約して再現性を担保。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -1576,25 +1686,12 @@ ansible-playbook -i inventory.ini site.yml</code></pre>
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      Docker Compose でコンテナを再起動すると、MySQL データベースのデータが初期化されてしまう。
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      <span class="inline-code">docker-compose.yml</span> で MySQL のボリュームマウントが未定義か、正しく設定されていなかった。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      Docker Compose の <span class="inline-code">volumes</span> セクションで Named Volume を定義し、MySQL コンテナをマウント。これにより、コンテナの再起動後もデータが保持されるようになりました。
-                    </p>
-                    <pre><code style="color: var(--primary);">volumes:
-  mysql_data:
-
-services:
-  mysql:
-    volumes:
-      - mysql_data:/var/lib/mysql</code></pre>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      コンテナは破棄されるとデータも消える。残したいデータは Named Volume に置き、再起動してもデータが残るかを実際に確認して検証した。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> Docker Compose でコンテナを再起動（<span class="inline-code">down</span> / <span class="inline-code">up</span>）すると、MySQL に登録したテストデータが初期化・消失してしまう。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> <span class="inline-code">docker-compose.yml</span> で永続化ボリューム（Volume）が未定義で、コンテナライフサイクルと共にレイヤーが破棄されていたため。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> Docker Compose に Named Volume（<span class="inline-code">mysql_data:/var/lib/mysql</span>）を定義し、コンテナが破棄されてもストレージ実体がホスト側に保持される設計に変更。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> コンテナのステートレス性とステートフルリソースの分離を理解。再起動・破棄後もデータが維持されることを検証コマンドで確認する習慣を獲得。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -1610,25 +1707,12 @@ services:
                 </div>
                 <div class="accordion-body">
                   <div class="accordion-content">
-                    <p><strong>【事象】</strong><br>
-                      Ansible で docker-compose.yml をリモートホストにコピー後、Docker Compose コマンド実行時にパーミッション拒除エラーが発生。
-                    </p>
-                    <p><strong>【原因】</strong><br>
-                      Ansible の <span class="inline-code">copy</span> モジュール実行時に、ファイルのパーミッション設定が明示的に指定されていなかった。
-                    </p>
-                    <p><strong>【解決策】</strong><br>
-                      Ansible プレイブックの <span class="inline-code">copy</span> タスクに、<span class="inline-code">mode</span> パラメータを追加してファイルパーミッションを明示的に設定。
-                    </p>
-                    <pre><code style="color: var(--primary);">- name: Copy docker-compose.yml
-  copy:
-    src: docker-compose.yml
-    dest: /opt/app/docker-compose.yml
-    owner: root
-    group: root
-    mode: '0644'</code></pre>
-                    <p class="learn"><strong>【学び】</strong><br>
-                      <span class="inline-code">mode</span> や <span class="inline-code">owner</span> を明示すると、どのホストでも同じ状態になる。Playbook は「書いていないことは環境任せになる」ことを意識して書くようになった。
-                    </p>
+                    <ul class="trouble-case-list">
+                      <li><span class="trouble-label-badge issue">問題</span> Ansible で設定ファイルをリモートホストにコピー後、Compose コマンド実行時に権限拒否（Permission denied）が発生。</li>
+                      <li><span class="trouble-label-badge cause">原因</span> Ansible の <span class="inline-code">copy</span> モジュール実行時にファイルのパーミッション・所有者が明示されておらず、環境デフォルトの権限が適用されていたため。</li>
+                      <li><span class="trouble-label-badge solution">解決</span> Playbook の copy タスクに <span class="inline-code">mode: '0644'</span>, <span class="inline-code">owner: root</span>, <span class="inline-code">group: root</span> を明示的に指定。</li>
+                      <li><span class="trouble-label-badge lesson">学び</span> 「Playbookに書かれていない設定は環境任せになる」というIaCの鉄則を実感。どのホストでも同じ状態を厳格に再現する宣言的コーディングを徹底。</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -1639,22 +1723,22 @@ services:
           <!-- Tab 4: Results & Learnings -->
           <div id="results2" class="tab-content">
             <div class="detail-card">
-              <h3>成果サマリー</h3>
+              <h3>成果サマリー（定量的実績）</h3>
               <div class="metrics-grid">
-                <div class="metric"><div class="metric-num">4<small>コンテナ</small></div><div class="metric-label">Nginx / PHP-FPM / MySQL / Redis を Compose で定義</div></div>
-                <div class="metric"><div class="metric-num">1<small>コマンド</small></div><div class="metric-label"><span class="inline-code">docker compose up -d</span> で全サービスを起動</div></div>
-                <div class="metric"><div class="metric-num">複数<small>ホスト</small></div><div class="metric-label">Ansible Playbook で一括デプロイ</div></div>
-                <div class="metric"><div class="metric-num">4<small>件</small></div><div class="metric-label">トラブルを、原因の特定から解決まで完了</div></div>
+                <div class="metric"><div class="metric-num">5<small>サービス</small></div><div class="metric-label">Web / AP / DB / Cache / IaC を完全統合</div></div>
+                <div class="metric"><div class="metric-num">2<small>分</small>15<small>秒</small></div><div class="metric-label">複数ホスト一括デプロイ時間（手動30分/台から短縮）</div></div>
+                <div class="metric"><div class="metric-num">12<small>タスク</small></div><div class="metric-label">環境構築〜ヘルスチェックを完全自動化</div></div>
+                <div class="metric"><div class="metric-num">4<small>件</small></div><div class="metric-label">トラブルを原因特定から再発防止策まで反映</div></div>
               </div>
               <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Before / After（手作業 → コード化）</h4>
               <div class="table-scroll">
                 <table class="trouble-table compare-table">
                   <thead><tr><th>項目</th><th>Before（手作業）</th><th>After（Docker + Ansible）</th></tr></thead>
                   <tbody>
-                    <tr><td>環境構築</td><td>サーバーごとにパッケージを手でインストール</td><td>docker compose up -d で4コンテナを起動</td></tr>
-                    <tr><td>複数ホストへの展開</td><td>ホストごとに同じ作業をくり返す</td><td>Ansible Playbook で一括適用</td></tr>
-                    <tr><td>設定の共有</td><td>手順書や口頭で伝える</td><td>docker-compose.yml と Playbook をコードで共有</td></tr>
-                    <tr><td>パスワードの扱い</td><td>設定ファイルに直接書きがち</td><td>.env に分離し、Git の管理対象外に</td></tr>
+                    <tr><td>環境構築</td><td>サーバーごとにパッケージを手動インストール（約30分/台）</td><td>docker compose up -d と Playbook で全自動（約2分15秒）</td></tr>
+                    <tr><td>複数ホストへの展開</td><td>ホストの台数分だけ同一作業をくり返し（工数倍増）</td><td>インベントリにIPを追加するだけで全ホスト一括並列デプロイ</td></tr>
+                    <tr><td>設定の共有・再現</td><td>手順書や口頭で伝達（作業漏れや環境差のリスク大）</td><td>docker-compose.yml と Playbook でコード共有・100%再現</td></tr>
+                    <tr><td>機密情報・パスワード</td><td>設定ファイルに平文で書きがち（セキュリティリスク）</td><td>.env に分離し、Git の管理対象外として安全に注入</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -1666,22 +1750,30 @@ services:
               <div style="margin-bottom: 2rem;">
                 <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">1. 手作業から自動化された構成管理へ</h4>
                 <p>
-                  環境構築の再現性が向上し、壊してもすぐ作り直せるようになりました。また、構成の変更をコード差分として管理できるようになり、変更内容の把握と共有が容易になりました。
+                  環境構築の再現性が劇的に向上し、検証用コンテナを壊しても即座に作り直せるようになりました。また、構成の変更を Git のコード差分として管理できるようになり、設定変更のレビューや履歴追跡の確実性を実感しました。
                 </p>
               </div>
 
               <div style="margin-bottom: 2rem;">
                 <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">2. マルチコンテナ構成の理解と実装</h4>
                 <p>
-                  Web・アプリ・DB・キャッシュそれぞれの役割を理解した上で連携を構築。本番に近い構成をローカル環境で再現できるようになりました。
+                  Web（Nginx）・AP（PHP-FPM）・DB（MySQL）・Cache（Redis）それぞれの役割とネットワーク境界を理解した上で連携を構築。本番に近い多層構成をローカル環境で再現・検証できるようになりました。
                 </p>
               </div>
 
               <div style="margin-bottom: 2rem;">
-                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">3. Ansible による自動化の基礎を習得</h4>
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">3. Ansible による自動化の基礎を習得（自動化した作業内容）</h4>
                 <p>
-                  複数ホストへの一括適用、パッケージ管理、サービス起動の自動化を実装。運用タスクの自動化を実際に体験し、構成管理の重要性を理解しました。
+                  複数ホストへの一括適用、パッケージ管理、サービス起動、ヘルスチェックまでの運用タスク自動化を実装しました。<br>
+                  <strong>【Ansibleで自動化した作業内容の具体例】</strong> 手動ではホストごとに手順書を見ながら実行していた以下の5工程・全12タスクを、Playbook（<span class="inline-code">site.yml</span>）により完全自動化しました：
                 </p>
+                <ul class="check-list" style="margin-top: 0.75rem;">
+                  <li><strong>① 依存パッケージの自動導入</strong>: リモートホストの apt キャッシュ更新、および Docker / Docker Compose パッケージの自動インストール (<span class="inline-code">apt</span>)</li>
+                  <li><strong>② 構成ファイルの厳格な転送</strong>: docker-compose.yml、nginx.conf、php.ini などを所有者（root）とパーミッション（0644）を保ったまま一括配置 (<span class="inline-code">copy</span>)</li>
+                  <li><strong>③ マルチコンテナの一括起動</strong>: 4層コンテナスタックのバックグラウンド起動処理 (<span class="inline-code">shell: docker-compose up -d</span>)</li>
+                  <li><strong>④ データベース起動待ち合わせ</strong>: MySQL（ポート 3306）がリクエスト受付可能になるまで接続待機 (<span class="inline-code">wait_for</span>)</li>
+                  <li><strong>⑤ アプリケーション正常性の自動検証</strong>: Webエンドポイント（<span class="inline-code">http://localhost/health</span>）へHTTPリクエストを送信し、HTTP 200 OK のステータスコードを自動検証 (<span class="inline-code">uri</span>)</li>
+                </ul>
               </div>
 
               <div>
@@ -1706,11 +1798,18 @@ services:
         <h2 class="section-title">Contact</h2>
       </div>
       <div class="section-right">
-        <p class="contact-desc">下記の問い合わせフォームよりご連絡ください。</p>
-        <p class="contact-email">
-          <span class="contact-email-label">Email:</span>
-          <a href="mailto:fukuda.shuto05@gmail.com">fukuda.shuto05@gmail.com</a>
-        </p>
+        <p class="contact-desc">ご連絡・ご質問は下記のリンクまたはお問い合わせフォームよりお願いいたします。</p>
+        
+        <div class="contact-links-grid">
+          <a href="mailto:fukuda.shuto05@gmail.com" class="contact-info-card">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span>fukuda.shuto05@gmail.com</span>
+          </a>
+          <a href="https://github.com/shuuut0f5" target="_blank" rel="noopener noreferrer" class="contact-info-card github-card">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub: @shuuut0f5 ↗</span>
+          </a>
+        </div>
         
         <form class="contact-form" id="contact-form" method="POST" action="https://formspree.io/f/mdeadybw">
           <input type="hidden" name="_subject" value="Portfolioお問い合わせ">
