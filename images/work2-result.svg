@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="bar-grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <filter id="drop-shadow2" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="480" rx="12" fill="url(#bg-grad2)" filter="url(#drop-shadow2)"/>
+
+  <!-- Window Header -->
+  <rect width="960" height="40" rx="12" fill="url(#bar-grad2)"/>
+  <rect y="32" width="960" height="8" fill="#1e293b"/>
+  <circle cx="24" cy="20" r="6" fill="#ef4444"/>
+  <circle cx="44" cy="20" r="6" fill="#f59e0b"/>
+  <circle cx="64" cy="20" r="6" fill="#10b981"/>
+  <text x="480" y="24" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="13" font-weight="500" text-anchor="middle">verification-terminal ~ Docker Compose x Ansible Multi-tier Deployment</text>
+
+  <!-- Left Side: Ansible Playbook Execution Recap -->
+  <g transform="translate(30, 60)">
+    <rect width="420" height="390" rx="8" fill="#090d16" stroke="#334155" stroke-width="1"/>
+    <text x="16" y="28" fill="#38bdf8" font-family="'Fira Code', monospace" font-size="13" font-weight="bold">$ ansible-playbook -i inventory.ini site.yml</text>
+    
+    <line x1="16" y1="38" x2="404" y2="38" stroke="#1e293b" stroke-width="1"/>
+    <text x="16" y="58" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">TASK [Install Docker &amp; Docker Compose] ********</text>
+    <text x="16" y="74" fill="#4ade80" font-family="'Fira Code', monospace" font-size="11">ok: [deploy-host-1]  ok: [deploy-host-2]</text>
+
+    <text x="16" y="96" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">TASK [Copy docker-compose.yml &amp; configs] ******</text>
+    <text x="16" y="112" fill="#fbbf24" font-family="'Fira Code', monospace" font-size="11">changed: [deploy-host-1]  changed: [deploy-host-2]</text>
+
+    <text x="16" y="134" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">TASK [Start services with Docker Compose] *****</text>
+    <text x="16" y="150" fill="#fbbf24" font-family="'Fira Code', monospace" font-size="11">changed: [deploy-host-1]  changed: [deploy-host-2]</text>
+
+    <text x="16" y="172" fill="#a78bfa" font-family="'Fira Code', monospace" font-size="11">TASK [Check application health (/health)] *****</text>
+    <text x="16" y="188" fill="#4ade80" font-family="'Fira Code', monospace" font-size="11">ok: [deploy-host-1]  status: 200 OK</text>
+    <text x="16" y="204" fill="#4ade80" font-family="'Fira Code', monospace" font-size="11">ok: [deploy-host-2]  status: 200 OK</text>
+
+    <!-- Play Recap Block -->
+    <rect x="16" y="222" width="388" height="60" rx="4" fill="#132338" stroke="#0284c7" stroke-width="1"/>
+    <text x="24" y="242" fill="#38bdf8" font-family="'Fira Code', monospace" font-size="11" font-weight="bold">PLAY RECAP ************************************</text>
+    <text x="24" y="258" fill="#4ade80" font-family="'Fira Code', monospace" font-size="10">deploy-host-1 : ok=6  changed=3  unreachable=0  failed=0</text>
+    <text x="24" y="272" fill="#4ade80" font-family="'Fira Code', monospace" font-size="10">deploy-host-2 : ok=6  changed=3  unreachable=0  failed=0</text>
+
+    <!-- Metrics box -->
+    <rect x="16" y="295" width="388" height="80" rx="6" fill="#1e293b"/>
+    <text x="28" y="318" fill="#cbd5e1" font-family="'Zen Kaku Gothic New', sans-serif" font-size="12">✔ 構成サービス数: <tspan fill="#38bdf8" font-weight="bold">5サービス</tspan> (Web/AP/DB/Cache/IaC)</text>
+    <text x="28" y="340" fill="#cbd5e1" font-family="'Zen Kaku Gothic New', sans-serif" font-size="12">✔ デプロイ時間: 手動30分 ➔ <tspan fill="#4ade80" font-weight="bold">2分15秒</tspan> (一括並列)</text>
+    <text x="28" y="362" fill="#cbd5e1" font-family="'Zen Kaku Gothic New', sans-serif" font-size="12">✔ 自動化工程: パッケージ導入からヘルスチェックまで全自動</text>
+  </g>
+
+  <!-- Right Side: Docker Compose PS & Healthcheck Output -->
+  <g transform="translate(480, 60)">
+    <rect width="450" height="390" rx="8" fill="#090d16" stroke="#334155" stroke-width="1"/>
+    
+    <text x="20" y="28" fill="#38bdf8" font-family="'Fira Code', monospace" font-size="13" font-weight="bold">$ docker-compose ps</text>
+    <line x1="20" y1="38" x2="430" y2="38" stroke="#1e293b" stroke-width="1"/>
+    <text x="20" y="56" fill="#64748b" font-family="'Fira Code', monospace" font-size="11">NAME        IMAGE           COMMAND      SERVICE   STATUS   PORTS</text>
+    <line x1="20" y1="64" x2="430" y2="64" stroke="#334155" stroke-width="1"/>
+
+    <text x="20" y="86" fill="#f8fafc" font-family="'Fira Code', monospace" font-size="11">app-nginx</text>
+    <text x="110" y="86" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="11">nginx:alpine</text>
+    <text x="250" y="86" fill="#4ade80" font-family="'Fira Code', monospace" font-size="11">Up (healthy)</text>
+    <text x="350" y="86" fill="#93c5fd" font-family="'Fira Code', monospace" font-size="11">0.0.0.0:80->80</text>
+
+    <text x="20" y="112" fill="#f8fafc" font-family="'Fira Code', monospace" font-size="11">app-php</text>
+    <text x="110" y="112" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="11">custom-php:8.2</text>
+    <text x="250" y="112" fill="#4ade80" font-family="'Fira Code', monospace" font-size="11">Up (running)</text>
+    <text x="350" y="112" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="11">9000/tcp</text>
+
+    <text x="20" y="138" fill="#f8fafc" font-family="'Fira Code', monospace" font-size="11">app-mysql</text>
+    <text x="110" y="138" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="11">mysql:8.0</text>
+    <text x="250" y="138" fill="#4ade80" font-family="'Fira Code', monospace" font-size="11">Up (healthy)</text>
+    <text x="350" y="138" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="11">3306/tcp</text>
+
+    <text x="20" y="164" fill="#f8fafc" font-family="'Fira Code', monospace" font-size="11">app-redis</text>
+    <text x="110" y="164" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="11">redis:7-alpine</text>
+    <text x="250" y="164" fill="#4ade80" font-family="'Fira Code', monospace" font-size="11">Up (running)</text>
+    <text x="350" y="164" fill="#94a3b8" font-family="'Fira Code', monospace" font-size="11">6379/tcp</text>
+
+    <!-- Healthcheck verification output -->
+    <text x="20" y="200" fill="#38bdf8" font-family="'Fira Code', monospace" font-size="13" font-weight="bold">$ curl -i http://localhost/health</text>
+    <rect x="20" y="210" width="410" height="98" rx="4" fill="#14281d" stroke="#15803d" stroke-width="1"/>
+    <text x="32" y="230" fill="#86efac" font-family="'Fira Code', monospace" font-size="11">HTTP/1.1 200 OK</text>
+    <text x="32" y="246" fill="#86efac" font-family="'Fira Code', monospace" font-size="11">Content-Type: application/json; charset=UTF-8</text>
+    <text x="32" y="266" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="11">{</text>
+    <text x="48" y="282" fill="#93c5fd" font-family="'Fira Code', monospace" font-size="11">"status": "OK", "mysql": "connected", "redis": "ready"</text>
+    <text x="32" y="298" fill="#cbd5e1" font-family="'Fira Code', monospace" font-size="11">}</text>
+
+    <!-- Verification summary -->
+    <rect x="20" y="325" width="410" height="50" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+    <text x="32" y="347" fill="#c7d2fe" font-family="'Zen Kaku Gothic New', sans-serif" font-size="12" font-weight="bold">【検証結果】4層スタックが連動し正常応答</text>
+    <text x="32" y="365" fill="#a5b4fc" font-family="'Zen Kaku Gothic New', sans-serif" font-size="11">FastCGI中継 / DB永続化 / Redisキャッシュ全系統疎通確認</text>
+  </g>
+</svg>
